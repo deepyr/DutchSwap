@@ -52,8 +52,9 @@ contract DeepyrsDutchAuction  {
         return numerator.div(denominator);
     }
 
-    /// @notice Returns price during the auction 
-    function auctionPrice() public view returns (uint256) {
+      /// @notice Returns price during the auction 
+    function priceFunction() public view returns (uint256) {
+        /// @dev Return Auction Price
         if (now <= startDate) {
             return startPrice;
         }
@@ -61,14 +62,20 @@ contract DeepyrsDutchAuction  {
             return reservePrice;
         }
         uint256 priceDiff = now.sub(startDate).mul(invGradient());
-        uint priceFunction = startPrice.sub(priceDiff);
-        if (tokenPrice() > priceFunction) {
-            return tokenPrice();
-        }
+        uint256 priceFunction = startPrice.sub(priceDiff);
         return priceFunction;
     }
 
-    /// @notice Current amount of tokens committed for a given auction price
+    /// @notice The current Dutch auction price
+    function auctionPrice() public view returns (uint256) {
+        /// @dev If auction successful, return tokenPrice
+        if (tokenPrice() > priceFunction()) {
+            return tokenPrice();
+        }
+        return priceFunction();
+    }
+
+    /// @notice Amount of tokens committed at the current auction price
     function tokensClaimed() public view returns(uint256) {
         return totalCommitments.mul(TENPOW18).div(auctionPrice());
     }
