@@ -4,7 +4,7 @@ import "./SafeMath.sol";
 import "../../interfaces/IMintableToken.sol";
 
 
-// ----------------------------------------------------------------------------
+// ------------------------------------------------------------------
 // Deepyr's Dutch Auction
 //
 //
@@ -12,7 +12,7 @@ import "../../interfaces/IMintableToken.sol";
 //                        
 // (c) Adrian Guerrera.  MIT Licence.                            
 // May 26 2020                                  
-// ----------------------------------------------------------------------------
+// ------------------------------------------------------------------
 
 
 contract DeepyrsDutchAuction  {
@@ -20,12 +20,12 @@ contract DeepyrsDutchAuction  {
     using SafeMath for uint256;
     uint256 private constant TENPOW18 = 10 ** 18;
 
-    uint256 public totalCommitments;
+    uint256 public amountRaised;
     uint256 public startDate;
     uint256 public endDate;
     uint256 public startPrice;
-    uint256 public reservePrice;
-    uint256 public tokensAvailable;
+    uint256 public minimumPrice;
+    uint256 public tokenSupply;
     IMintableToken public token; 
     address payable public wallet;
     mapping(address => uint256) public commitments;
@@ -33,21 +33,36 @@ contract DeepyrsDutchAuction  {
     event AddedCommitment(address addr, uint256 commitment);
 
     /// @dev Init function 
-    function initDutchAuction(address _token, uint256 _tokensAvailable, uint256 _startDate, uint256 _endDate, uint256 _startPrice, uint256 _reservePrice, address payable _wallet) external {
+    function initDutchAuction(
+        address _token, 
+        uint256 _tokenSupply, 
+        uint256 _startDate, 
+        uint256 _endDate, 
+        uint256 _startPrice, 
+        uint256 _minimumPrice, 
+        address payable _wallet
+    ) 
+        external 
+    {
         require(_endDate > _startDate);
-        require(_startPrice > _reservePrice);
+        require(_startPrice > _minimumPrice);
         token = IMintableToken(_token);
-        tokensAvailable =_tokensAvailable;
+        tokenSupply =_tokenSupply;
         startDate = _startDate;
         endDate = _endDate;
         startPrice = _startPrice;
-        reservePrice = _reservePrice; 
+        minimumPrice = _minimumPrice; 
         wallet = _wallet;
     }
 
+    /// @notice The average price of each token from all commitments. 
+    function tokenPrice() public view returns (uint256) {
+        return amountRaised.mul(TENPOW18).div(tokenSupply);
+    }
+
     /// @notice Token price decreases at this rate during auction.
-    function invGradient() public view returns (uint256) {
-        uint256 numerator = startPrice.sub(reservePrice);
+    function priceGradient() public view returns (uint256) {
+        uint256 numerator = startPrice.sub(minimumPrice);
         uint256 denominator = endDate.sub(startDate);
         return numerator.div(denominator);
     }
@@ -59,9 +74,9 @@ contract DeepyrsDutchAuction  {
             return startPrice;
         }
         if (now >= endDate) {
-            return reservePrice;
+            return minimumPrice;
         }
-        uint256 priceDiff = now.sub(startDate).mul(invGradient());
+        uint256 priceDiff = now.sub(startDate).mul(priceGradient());
         uint256 priceFunction = startPrice.sub(priceDiff);
         return priceFunction;
     }
@@ -75,32 +90,25 @@ contract DeepyrsDutchAuction  {
         return priceFunction();
     }
 
-    /// @notice Amount of tokens committed at the current auction price
-    function tokensClaimed() public view returns(uint256) {
-        return totalCommitments.mul(TENPOW18).div(auctionPrice());
-    }
-
-    /// @notice The average price of each token from all commitments. 
-    function tokenPrice() public view returns (uint256) {
-        return totalCommitments.mul(TENPOW18).div(tokensAvailable);
-    }
-
-    /// @notice How many tokes the user is 
+    /// @notice How many tokens the user is able to claim
     function tokensClaimable(address _user) public view returns (uint256) {
-        if(commitments[_user] == 0) {
-            return 0;
-        }
-        return commitments[_user].mul(TENPOW18).div(tokenPrice());
+        return commitments[_user].mul(TENPOW18).div(auctionPrice());
     }
+
+    /// @notice Total amount of tokens committed at current auction price
+    function totalTokensCommitted() public view returns(uint256) {
+        return amountRaised.mul(TENPOW18).div(auctionPrice());
+    }
+
 
     /// @notice Returns bool if amount committed exceeds tokens available
     function auctionEnded() public view returns (bool){
-        return now >= endDate;
+        return now > endDate;
     }
 
     /// @notice Returns bool if amount committed exceeds tokens available
     function auctionSuccessful() public view returns (bool){
-        return tokensClaimed() >= tokensAvailable;
+        return totalTokensCommitted() >= tokenSupply;
     }
 
  
@@ -122,10 +130,12 @@ contract DeepyrsDutchAuction  {
     }
 
     /// @notice Returns the amout able to be committed during an auction
-    function calculateCommitment( uint256 _commitment) public view returns (uint256 committed) {
-        uint256 maxCommitment = tokensAvailable.mul(auctionPrice()).div(TENPOW18);
-        if (totalCommitments.add(_commitment) >= maxCommitment) {
-            return maxCommitment.sub(totalCommitments);
+    function calculateCommitment( uint256 _commitment) 
+        public view returns (uint256 committed) 
+    {
+        uint256 maxCommitment = tokenSupply.mul(auctionPrice()).div(TENPOW18);
+        if (amountRaised.add(_commitment) > maxCommitment) {
+            return maxCommitment.sub(amountRaised);
         }
         return _commitment;
     }
@@ -133,27 +143,28 @@ contract DeepyrsDutchAuction  {
     /// @notice Commits to an amount during an auction
     function addCommitment(address _addr,  uint256 _commitment) internal {
         commitments[_addr] = commitments[_addr].add(_commitment);
-        totalCommitments = totalCommitments.add(_commitment);
+        amountRaised = amountRaised.add(_commitment);
         emit AddedCommitment(_addr, _commitment);
     }
 
 
-    /// @notice Auction finishes successfully, above the reserve, then transfer funds to wallet. 
-    /// @dev This doesnt nessasarily have to have an auctionEnded requirement. 
+    /// @notice Auction finishes successfully above the reserve
+    /// @dev Transfer contract funds to initialised wallet. 
     function finaliseAuction () public {
         require(auctionSuccessful());
-        wallet.transfer(totalCommitments);        
+        wallet.transfer(amountRaised);        
    
     }
 
-    /// @notice 
-    function claim() public  {
+    /// @notice Withdraw your tokens once the Auction has ended.
+    function withdrawTokens() public  {
         uint256 fundsCommitted = commitments[ msg.sender];
         uint256 tokensToClaim = tokensClaimable(msg.sender);
         commitments[ msg.sender] = 0;
 
-        /// @notice Auction ended below reserve price, return funds.
-        if( auctionEnded() && tokenPrice() < reservePrice ) {
+        /// @notice Auction did not meet reserve price.
+        /// @dev Return committed funds back to user.
+        if( auctionEnded() && tokenPrice() < minimumPrice ) {
             msg.sender.transfer(fundsCommitted);
             return ;        
         }

@@ -14,8 +14,8 @@ def isolation(fn_isolation):
     pass
 
 
-def test_dutch_auction_tokensClaimed(dutch_auction):
-    assert dutch_auction.tokensClaimed() == 0
+def test_dutch_auction_totalTokensCommitted(dutch_auction):
+    assert dutch_auction.totalTokensCommitted() == 0
 
 
 def test_dutch_auction_commitEth(dutch_auction):
@@ -66,11 +66,11 @@ def test_dutch_auction_ended(dutch_auction):
     assert dutch_auction.auctionEnded({'from': accounts[0]}) == True
 
 
-def test_dutch_auction_claim(dutch_auction):
+def test_dutch_auction_withdrawTokens(dutch_auction):
     token_buyer = accounts[2]
     eth_to_transfer = 100 * TENPOW18
 
-    dutch_auction.claim()
+    dutch_auction.withdrawTokens()
     
     tx = token_buyer.transfer(dutch_auction,eth_to_transfer)
     with reverts():
@@ -78,21 +78,21 @@ def test_dutch_auction_claim(dutch_auction):
     
     rpc.sleep(AUCTION_TIME+100)
     rpc.mine()
-    dutch_auction.claim({'from': token_buyer})
-    dutch_auction.claim({'from': accounts[0]})
+    dutch_auction.withdrawTokens({'from': token_buyer})
+    dutch_auction.withdrawTokens({'from': accounts[0]})
     assert dutch_auction.auctionSuccessful({'from': accounts[0]}) == True
 
     dutch_auction.finaliseAuction()
 
 
-def test_dutch_auction_claim_not_enough(dutch_auction):
+def test_dutch_auction_withdrawTokens_not_enough(dutch_auction):
     token_buyer = accounts[2]
     eth_to_transfer = 0.01 * TENPOW18
 
     tx = token_buyer.transfer(dutch_auction,eth_to_transfer)
     rpc.sleep(AUCTION_TIME+100)
     rpc.mine()
-    dutch_auction.claim({'from': token_buyer})
+    dutch_auction.withdrawTokens({'from': token_buyer})
 
 
 
