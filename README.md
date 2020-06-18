@@ -43,9 +43,9 @@ Run script: `brownie run <script_path>`
 
 Run console (very useful for debugging): `brownie console`
 
-## Deploying DreamFrames Contracts 
+## Deploying DutchSwap Contracts 
 
-Run script: `brownie run scripts/deploy_dream_frames_factory.py`
+Run script: `brownie run scripts/deploy_DutchSwapAuction.py`
 
 
 ## Testing with Docker
