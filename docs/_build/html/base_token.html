@@ -1,45 +1,46 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Base Tokens &mdash; DutchSwap 0.0.1 documentation</title>
+  <title>Base Tokens &mdash; DutchSwap 0.0.7 documentation</title>
   
-
-  
-  
-  
-  
-
-  
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
-        <script type="text/javascript" src="_static/js/toggle.js"></script>
-    
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-
-    
 
   
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="_static/css/toggle.css" type="text/css" />
   <link rel="stylesheet" href="_static/css/dark.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script src="_static/js/toggle.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Dividned Tokens" href="dividend_token.html" />
-    <link rel="prev" title="Token Types" href="token_types.html" /> 
+    <link rel="next" title="Custom Tokens" href="custom_token.html" />
+    <link rel="prev" title="Tokens" href="tokens.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -53,7 +54,7 @@
           
 
           
-            <a href="toctree.html" class="icon icon-home"> DutchSwap
+            <a href="toctree.html" class="icon icon-home" alt="Documentation Home"> DutchSwap
           
 
           
@@ -63,7 +64,7 @@
             
             
               <div class="version">
-                0.0.1
+                0.0.7
               </div>
             
           
@@ -80,6 +81,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -89,41 +91,39 @@
             
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="index.html">Overview</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
-<li class="toctree-l1"><a class="reference internal" href="demo.html">Demo</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Getting Started</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="dutchswap_protocol.html">DutchSwap Protocol</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dutch_swap.html">Dutch Auctions</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Core Functionality</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="tokens.html">Tokens</a></li>
-<li class="toctree-l1"><a class="reference internal" href="partitions.html">Partitions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="converters.html">Converters</a></li>
-<li class="toctree-l1"><a class="reference internal" href="token_rules.html">Token Rules</a></li>
-<li class="toctree-l1"><a class="reference internal" href="whitelists.html">Whitelists</a></li>
-<li class="toctree-l1"><a class="reference internal" href="documents.html">Documents</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Tokens</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="token_types.html">Token Types</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Base Tokens</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#minting-a-base-token">Minting a Base Token</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#functions">Functions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#send-vs-transfer">Send vs Transfer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#transfer-with-data">Transfer with data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#operators">Operators</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#erc1820-registry">ERC1820 Registry</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="dividend_token.html">Dividned Tokens</a></li>
-<li class="toctree-l1"><a class="reference internal" href="security_token.html">Security Tokens</a></li>
-<li class="toctree-l1"><a class="reference internal" href="options.html">Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="custom_token.html">Custom Tokens</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Auctions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="dutch_auction.html">Dutch Auctions</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="links.html">Links</a></li>
 </ul>
 
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -162,7 +162,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="toctree.html">Docs</a> &raquo;</li>
+      <li><a href="toctree.html" class="icon icon-home"></a> &raquo;</li>
         
       <li>Base Tokens</li>
     
@@ -184,28 +184,24 @@
            <div itemprop="articleBody">
             
   <div class="section" id="base-tokens">
-<h1>Base Tokens<a class="headerlink" href="#base-tokens" title="Permalink to this headline">¶</a></h1>
-<p>Base token type is the foundation of the DutchSwap protocol. It is essentially an ERC20 with some advanced features from the ERC777 standard and some bonus code to make them work with the DutchSwap contract.</p>
+<span id="base-token"></span><h1>Base Tokens<a class="headerlink" href="#base-tokens" title="Permalink to this headline">¶</a></h1>
+<p>Most ERC20 tokens can be sold in a dutch Auction. For those without exisitng tokens, our token factory can mint Base Tokens.
+Base token type is an ERC20 token from the DutchSwap protocol. It is essentially an ERC20 with some advanced features from the ERC777 standard and some bonus code to make them work with the DutchSwap contract.</p>
+<div class="section" id="minting-a-base-token">
+<h2>Minting a Base Token<a class="headerlink" href="#minting-a-base-token" title="Permalink to this headline">¶</a></h2>
+<p>To mint your own can be done using the Token Factory.</p>
+</div>
 <div class="section" id="functions">
 <h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
 <p>Full list of functions can be found in the Referrence docs.</p>
 </div>
 <div class="section" id="send-vs-transfer">
 <h2>Send vs Transfer<a class="headerlink" href="#send-vs-transfer" title="Permalink to this headline">¶</a></h2>
-<p>This is a naming convertion from both ERC20 and ERC777 which is used to distinguish them. We have included both the Transfered and Sent events to comply with both standards.</p>
-</div>
-<div class="section" id="transfer-with-data">
-<h2>Transfer with data<a class="headerlink" href="#transfer-with-data" title="Permalink to this headline">¶</a></h2>
-<p>Certain use cases need addional data to be transfered along with token operations. We have included the transferWithData() function to support additional functionality bothin the sending and receiving of tokens.</p>
-</div>
-<div class="section" id="operators">
-<h2>Operators<a class="headerlink" href="#operators" title="Permalink to this headline">¶</a></h2>
-<p>Token holders can assign an operator for repeated functionality.
-Any base token added to the DutchSwap contract will act as an operator for that token</p>
+<p>This is a naming convention from both ERC20 and ERC777 which is used to distinguish them. We have included both the Transfered and Sent events to comply with both standards.</p>
 </div>
 <div class="section" id="erc1820-registry">
 <h2>ERC1820 Registry<a class="headerlink" href="#erc1820-registry" title="Permalink to this headline">¶</a></h2>
-<p>This is a key part of the ERC777 standard and used as a hook for aditional functionality within the DutchSwap protocol</p>
+<p>This is a key part of the ERC777 standard and used as a hook for additional functionality within the DutchSwap protocol.</p>
 </div>
 </div>
 
@@ -217,10 +213,10 @@ Any base token added to the DutchSwap contract will act as an operator for that 
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="dividend_token.html" class="btn btn-neutral float-right" title="Dividned Tokens" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="custom_token.html" class="btn btn-neutral float-right" title="Custom Tokens" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="token_types.html" class="btn btn-neutral float-left" title="Token Types" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="tokens.html" class="btn btn-neutral float-left" title="Tokens" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -229,11 +225,19 @@ Any base token added to the DutchSwap contract will act as an operator for that 
 
   <div role="contentinfo">
     <p>
+        
         &copy; Copyright 2020
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 

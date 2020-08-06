@@ -1,41 +1,42 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>DutchSwap &mdash; DutchSwap 0.0.1 documentation</title>
+  <title>DutchSwap &mdash; DutchSwap 0.0.7 documentation</title>
   
-
-  
-  
-  
-  
-
-  
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
-        <script type="text/javascript" src="_static/js/toggle.js"></script>
-    
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-
-    
 
   
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="_static/css/toggle.css" type="text/css" />
   <link rel="stylesheet" href="_static/css/dark.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script src="_static/js/toggle.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="DutchSwap" href="index.html" /> 
@@ -52,7 +53,7 @@
           
 
           
-            <a href="#" class="icon icon-home"> DutchSwap
+            <a href="#" class="icon icon-home" alt="Documentation Home"> DutchSwap
           
 
           
@@ -62,7 +63,7 @@
             
             
               <div class="version">
-                0.0.1
+                0.0.7
               </div>
             
           
@@ -79,6 +80,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -88,34 +90,33 @@
             
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="index.html">Overview</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
-<li class="toctree-l1"><a class="reference internal" href="demo.html">Demo</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Getting Started</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="dutchswap_protocol.html">DutchSwap Protocol</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dutch_swap.html">Dutch Auctions</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Core Functionality</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="tokens.html">Tokens</a></li>
-<li class="toctree-l1"><a class="reference internal" href="partitions.html">Partitions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="converters.html">Converters</a></li>
-<li class="toctree-l1"><a class="reference internal" href="token_rules.html">Token Rules</a></li>
-<li class="toctree-l1"><a class="reference internal" href="whitelists.html">Whitelists</a></li>
-<li class="toctree-l1"><a class="reference internal" href="documents.html">Documents</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Tokens</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="token_types.html">Token Types</a></li>
 <li class="toctree-l1"><a class="reference internal" href="base_token.html">Base Tokens</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dividend_token.html">Dividned Tokens</a></li>
-<li class="toctree-l1"><a class="reference internal" href="security_token.html">Security Tokens</a></li>
-<li class="toctree-l1"><a class="reference internal" href="options.html">Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="custom_token.html">Custom Tokens</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Auctions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="dutch_auction.html">Dutch Auctions</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="links.html">Links</a></li>
 </ul>
 
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -154,7 +155,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="#">Docs</a> &raquo;</li>
+      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
         
       <li>DutchSwap</li>
     
@@ -183,17 +184,16 @@
 <li class="toctree-l2"><a class="reference internal" href="index.html#features">Features</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="quickstart.html#creating-a-new-token">Creating a New Token</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="demo.html">Demo</a></li>
 </ul>
 </div>
 <div class="toctree-wrapper compound">
 <p class="caption"><span class="caption-text">Getting Started</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="dutchswap_protocol.html">DutchSwap Protocol</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dutch_swap.html">Dutch Auctions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dutch_swap.html#how-a-dutch-auction-works">How a Dutch Auction Works</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dutch_swap.html#more-information">More information</a></li>
+</ul>
+</li>
 </ul>
 </div>
 <div class="toctree-wrapper compound">
@@ -203,57 +203,40 @@
 <li class="toctree-l2"><a class="reference internal" href="tokens.html#creating-a-new-token">Creating a New Token</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="partitions.html">Partitions</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="partitions.html#hybrid-tokens">Hybrid tokens</a></li>
-<li class="toctree-l2"><a class="reference internal" href="partitions.html#token-types">Token types</a></li>
-<li class="toctree-l2"><a class="reference internal" href="partitions.html#partitions-id">Partitions ID</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="converters.html">Converters</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="converters.html#use-cases">Use Cases</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="token_rules.html">Token Rules</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="token_rules.html#examples">Examples</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="whitelists.html">Whitelists</a></li>
-<li class="toctree-l1"><a class="reference internal" href="documents.html">Documents</a></li>
 </ul>
 </div>
 <div class="toctree-wrapper compound">
 <p class="caption"><span class="caption-text">Tokens</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="token_types.html">Token Types</a></li>
 <li class="toctree-l1"><a class="reference internal" href="base_token.html">Base Tokens</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="base_token.html#minting-a-base-token">Minting a Base Token</a></li>
 <li class="toctree-l2"><a class="reference internal" href="base_token.html#functions">Functions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="base_token.html#send-vs-transfer">Send vs Transfer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="base_token.html#transfer-with-data">Transfer with data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="base_token.html#operators">Operators</a></li>
 <li class="toctree-l2"><a class="reference internal" href="base_token.html#erc1820-registry">ERC1820 Registry</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="dividend_token.html">Dividned Tokens</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="dividend_token.html#functions">Functions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dividend_token.html#deposit-dividends">Deposit Dividends</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dividend_token.html#withdraw-funds">Withdraw Funds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="custom_token.html">Custom Tokens</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="custom_token.html#functions">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom_token.html#exceptions">Exceptions</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="security_token.html">Security Tokens</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="security_token.html#partitions">Partitions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="security_token.html#documents">Documents</a></li>
-<li class="toctree-l2"><a class="reference internal" href="security_token.html#distribution-of-proceeds">Distribution of Proceeds</a></li>
-<li class="toctree-l2"><a class="reference internal" href="security_token.html#transfer-restrictions">Transfer Restrictions</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Auctions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="dutch_auction.html">Dutch Auctions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dutch_auction.html#how-a-dutch-auction-works">How a Dutch Auction Works</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dutch_auction.html#set-up">Set Up</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="options.html">Options</a></li>
 </ul>
 </div>
 <div class="toctree-wrapper compound">
-</div>
-<div class="toctree-wrapper compound">
-</div>
-<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="links.html">Links</a></li>
+</ul>
 </div>
 </div>
 
@@ -275,11 +258,19 @@
 
   <div role="contentinfo">
     <p>
+        
         &copy; Copyright 2020
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 

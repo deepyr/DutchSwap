@@ -1,7 +1,9 @@
 /* links */
 
 a,
-a:visited {
+a:visited,
+a:hover
+ {
     color: #33dd88;
 }
 
@@ -153,7 +155,7 @@ pre {
 }
 
 .admonition-title {
-    background: #226633 !important;
+    background: #33a855 !important;
 }
 
 .admonition,
@@ -209,5 +211,17 @@ pre {
 /* DutchSwap theme */ 
 
 .wy-side-nav-search {
+    background: #33cc66;
+}
+
+.wy-menu-vertical header, .wy-menu-vertical p.caption {
+    color: #33dd88 !important;
+}
+
+.wy-menu-vertical a:hover, .wy-nav-top img {
+    background-color:#33cc66;
+}
+
+.wy-nav-top {
     background: #33cc66;
 }

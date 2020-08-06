@@ -4,7 +4,7 @@ a,
 a:visited,
 a:hover
  {
-    color: #33dd88;
+    color: #480fce;
 }
 
 
@@ -140,14 +140,14 @@ pre {
 .highlight .s1,
 .highlight .nt {
     /* strings */
-    color: #5d6;
+    color: #480fce;
 }
 
 
 /* notes, warnings, hints */
 
 .hint .admonition-title {
-    background: #33dd88 !important;
+    background: #480fce !important;
 }
 
 .warning .admonition-title {
@@ -155,7 +155,7 @@ pre {
 }
 
 .admonition-title {
-    background: #33a855 !important;
+    background: #480fce !important;
 }
 
 .admonition,
@@ -211,17 +211,17 @@ pre {
 /* DutchSwap theme */ 
 
 .wy-side-nav-search {
-    background: #33cc66;
+    background: #3d09b5;
 }
 
 .wy-menu-vertical header, .wy-menu-vertical p.caption {
-    color: #33dd88 !important;
+    color: #480fce !important;
 }
 
 .wy-menu-vertical a:hover, .wy-nav-top img {
-    background-color:#33cc66;
+    background-color:#3d09b5;
 }
 
 .wy-nav-top {
-    background: #33cc66;
+    background: #3d09b5;
 }
