@@ -1,5 +1,5 @@
 /**
- * Various tweaks to the Read the Docs theme to better conform with Godot's
+ * Various tweaks to the Read the Docs theme to better conform with DutchSwap's
  * visual identity. Many colors are also overridden to use CSS variables.
  * This makes it possible to provide an automatically-used dark theme
  * based on browser preferences.
@@ -92,11 +92,11 @@
 @media (prefers-color-scheme: dark) {
     :root {
         --body-color: rgba(255, 255, 255, 0.85);
-        --content-wrap-background-color: #202326;
-        --content-background-color: #2e3236;
+        --content-wrap-background-color: #332D59;
+        --content-background-color: #0A260E;
         /* Decrease the logo opacity when using the dark theme to be less distracting */
         --logo-opacity: 0.85;
-        --navbar-background-color: #25282b;
+        --navbar-background-color: #261C1C;
         --navbar-background-color-hover: #333639;
         --navbar-background-color-active: #111417;
         --navbar-current-background-color: #333639;
@@ -111,9 +111,9 @@
         --navbar-scrollbar-active-color: #5f3034;
         --navbar-scrollbar-background: #1c1e21;
 
-        --link-color: #8cf;
-        --link-color-hover: #9df;
-        --link-color-active: #6ad;
+        --link-color: #e694fc;
+        --link-color-hover: #e2b1f0;
+        --link-color-active: #e2b1f0;
         --link-color-visited: #cb99f6;
 
         --hr-color: #555;
@@ -132,7 +132,7 @@
         --search-credits-color: #6b6b6b; /* derived from --footer-color */
         --search-credits-link-color: #628fb1; /* derived from --link-color */
 
-        /* Colors taken from the Godot script editor with the Adaptive theme */
+        /* Colors taken from the DutchSwap script editor with the Adaptive theme */
         --highlight-background-color: #202531;
         --highlight-background-emph-color: #2d3444;
         --highlight-default-color: rgba(255, 255, 255, 0.85);
@@ -149,9 +149,9 @@
 
         --admonition-note-background-color: #303d4f;
         --admonition-note-color: #bfeeff;
-        --admonition-note-title-background-color: #305070;
-        --admonition-note-title-color: #bfefff;
-        --admonition-attention-background-color: #444033;
+        --admonition-note-title-background-color: #9D80A6;
+        --admonition-note-title-color: #6a409b;
+        --admonition-attention-background-color: #654788;
         --admonition-attention-color: #ffeeaf;
         --admonition-attention-title-background-color: #665022;
         --admonition-attention-title-color: #ffeeaf;

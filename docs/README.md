@@ -1,20 +1,20 @@
-# Godot Engine documentation
+# Dutch Swap documentation
 
-This repository contains the source files of [Godot Engine](https://godotengine.org)'s documentation, in reStructuredText markup language (reST).
+This repository contains the source files of [Dutch Swap](https://dutchswap.com)'s documentation, in reStructuredText markup language (reST).
 
-They are meant to be parsed with the [Sphinx](https://www.sphinx-doc.org/) documentation builder to build the HTML documentation on [Godot's website](https://docs.godotengine.org).
+They are meant to be parsed with the [Sphinx](https://www.sphinx-doc.org/) documentation builder to build the HTML documentation on [DutchSwap's website](https://docs.dutchswap.com).
 
 ## Contributing changes
 
-**Pull Requests should use the `master` branch by default. Only make Pull Requests against other branches (e.g. `2.1` or `3.0`) if your changes only apply to that specific version of Godot.**
+**Pull Requests should use the `master` branch by default. Only make Pull Requests against other branches (e.g. `2.1` or `3.0`) if your changes only apply to that specific version of DutchSwap.**
 
 Though arguably less convenient to edit than a wiki, this Git repository is meant to receive pull requests to always improve the documentation, add new pages, etc. Having direct access to the source files in a revision control system is a big plus to ensure the quality of our documentation.
 
 ### Editing existing pages
 
 To edit an existing page, locate its .rst source file and open it in your favorite text editor. You can then commit the changes, push them to your fork and make a pull request.
-**Note that the pages in `classes/` should not be edited here, they are automatically generated from Godot's [XML class references](https://github.com/godotengine/godot/tree/master/doc/classes).**
-See [Contribute to the Class Reference](https://docs.godotengine.org/en/latest/community/contributing/updating_the_class_reference.html) for details.
+**Note that the pages in `classes/` should not be edited here, they are automatically generated from DutchSwap's [XML class references](https://github.com/deepyr/dutchswap/tree/master/doc/classes).**
+See [Contribute to the Class Reference](https://docs.dutchswap.com/en/latest/community/contributing/updating_the_class_reference.html) for details.
 
 ### Adding new pages
 
@@ -75,7 +75,7 @@ set SPHINXOPTS=-j2 && make html
 
 The compilation might take some time as the `classes/` folder contains many files to parse.
 
-In case of a `MemoryError` or `EOFError`, you can remove the `classes/` folder and run `make` again. This will drop the class references from the final HTML documentation but will keep the rest intact. Make sure to avoid using `git add .` in this case when working on a pull request, or the whole `classes/` folder will be removed when you make a commit. See [#3157](https://github.com/godotengine/godot-docs/issues/3157) for more details.
+In case of a `MemoryError` or `EOFError`, you can remove the `classes/` folder and run `make` again. This will drop the class references from the final HTML documentation but will keep the rest intact. Make sure to avoid using `git add .` in this case when working on a pull request, or the whole `classes/` folder will be removed when you make a commit. See [#3157](https://github.com/deepyr/dutchswap-docs/issues/3157) for more details.
 
 You can then test the changes live by opening `_build/html/index.html` in your favorite browser.
 
@@ -116,7 +116,7 @@ Then do `make html` like above.
 
 ## License
 
-At the exception of the `classes/` folder, all the content of this repository is licensed under the Creative Commons Attribution 3.0 Unported license ([CC BY 3.0](https://creativecommons.org/licenses/by/3.0/)) and is to be attributed to "Juan Linietsky, Ariel Manzur and the Godot community".
+At the exception of the `classes/` folder, all the content of this repository is licensed under the Creative Commons Attribution 3.0 Unported license ([CC BY 3.0](https://creativecommons.org/licenses/by/3.0/)) and is to be attributed to "Juan Linietsky, Ariel Manzur and the DutchSwap community".
 See [LICENSE.txt](/LICENSE.txt) for details.
 
-The files in the `classes/` folder are derived from [Godot's main source repository](https://github.com/godotengine/godot) and are distributed under the MIT license, with the same authors as above.
+The files in the `classes/` folder are derived from [DutchSwap's main source repository](https://github.com/deepyr/dutchswap) and are distributed under the MIT license, with the same authors as above.

@@ -5,7 +5,7 @@
 
     Lexer for GDScript.
 
-    :copyright: Copyright 2xxx by The Godot Engine Community
+    :copyright: Copyright 2xxx by The Dutch Swap Community
     :license: MIT.
 
     modified by Daniel J. Ramirez <djrmuv@gmail.com> based on the original python.py pygment
@@ -39,7 +39,7 @@ line_re = re.compile(".*?\n")
 
 class GDScriptLexer(RegexLexer):
     """
-    For `GDScript source code <https://www.godotengine.org>`_.
+    For `GDScript source code <https://www.dutchswap.com>`_.
     """
 
     name = "GDScript"

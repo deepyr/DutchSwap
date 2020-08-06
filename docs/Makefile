@@ -89,9 +89,9 @@ qthelp:
 	@echo
 	@echo "Build finished; now you can run "qcollectiongenerator" with the" \
 	      ".qhcp project file in $(BUILDDIR)/qthelp, like this:"
-	@echo "# qcollectiongenerator $(BUILDDIR)/qthelp/GodotEngine.qhcp"
+	@echo "# qcollectiongenerator $(BUILDDIR)/qthelp/DutchSwap.qhcp"
 	@echo "To view the help file:"
-	@echo "# assistant -collectionFile $(BUILDDIR)/qthelp/GodotEngine.qhc"
+	@echo "# assistant -collectionFile $(BUILDDIR)/qthelp/DutchSwap.qhc"
 
 applehelp:
 	$(SPHINXBUILD) -b applehelp $(ALLSPHINXOPTS) $(BUILDDIR)/applehelp
@@ -106,8 +106,8 @@ devhelp:
 	@echo
 	@echo "Build finished."
 	@echo "To view the help file:"
-	@echo "# mkdir -p $$HOME/.local/share/devhelp/GodotEngine"
-	@echo "# ln -s $(BUILDDIR)/devhelp $$HOME/.local/share/devhelp/GodotEngine"
+	@echo "# mkdir -p $$HOME/.local/share/devhelp/DutchSwap"
+	@echo "# ln -s $(BUILDDIR)/devhelp $$HOME/.local/share/devhelp/DutchSwap"
 	@echo "# devhelp"
 
 epub:

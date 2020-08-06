@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Godot Engine documentation build configuration file
+# DutchSwap documentation build configuration file
 
 import sphinx_rtd_theme
 import sys
@@ -28,7 +28,7 @@ if not os.getenv("SPHINX_NO_SEARCH"):
     extensions.append("sphinx_search.extension")
 
 if not os.getenv("SPHINX_NO_DESCRIPTIONS"):
-    extensions.append("godot_descriptions")
+    extensions.append("dutchswap_descriptions")
 
 templates_path = ["_templates"]
 
@@ -40,11 +40,11 @@ source_encoding = "utf-8-sig"
 master_doc = "index"
 
 # General information about the project
-project = "Godot Engine"
+project = "DutchSwap"
 copyright = (
-    "2014-2020, Juan Linietsky, Ariel Manzur and the Godot community (CC-BY 3.0)"
+    "2020, DutchSwap"
 )
-author = "Juan Linietsky, Ariel Manzur and the Godot community"
+author = "Juan Linietsky, Ariel Manzur and the DutchSwap community"
 
 # Version info for the project, acts as replacement for |version| and |release|
 # The short X.Y version
@@ -62,20 +62,20 @@ if env_tags is not None:
 # Language / i18n
 
 supported_languages = {
-    "en": "Godot Engine (%s) documentation in English",
-    "de": "Godot Engine (%s) Dokumentation auf Deutsch",
-    "es": "Documentación de Godot Engine (%s) en español",
-    "fr": "Documentation de Godot Engine (%s) en français",
-    "fi": "Godot Engine (%s) dokumentaatio suomeksi",
-    "it": "Godot Engine (%s) documentazione in italiano",
-    "ja": "Godot Engine (%s)の日本語のドキュメント",
-    "ko": "Godot Engine (%s) 문서 (한국어)",
-    "pl": "Dokumentacja Godot Engine (%s) w języku polskim",
-    "pt_BR": "Documentação da Godot Engine (%s) em Português Brasileiro",
-    "ru": "Документация Godot Engine (%s) на русском языке",
-    "uk": "Документація до Godot Engine (%s) українською мовою",
-    "zh_CN": "Godot Engine (%s) 简体中文文档",
-    "zh_TW": "Godot Engine (%s) 正體中文 (台灣) 文件",
+    "en": "DutchSwap (%s) documentation in English",
+    "de": "DutchSwap (%s) Dokumentation auf Deutsch",
+    "es": "Documentación de DutchSwap (%s) en español",
+    "fr": "Documentation de DutchSwap (%s) en français",
+    "fi": "DutchSwap (%s) dokumentaatio suomeksi",
+    "it": "DutchSwap (%s) documentazione in italiano",
+    "ja": "DutchSwap (%s)の日本語のドキュメント",
+    "ko": "DutchSwap (%s) 문서 (한국어)",
+    "pl": "Dokumentacja DutchSwap (%s) w języku polskim",
+    "pt_BR": "Documentação da DutchSwap (%s) em Português Brasileiro",
+    "ru": "Документация DutchSwap (%s) на русском языке",
+    "uk": "Документація до DutchSwap (%s) українською мовою",
+    "zh_CN": "DutchSwap (%s) 简体中文文档",
+    "zh_TW": "DutchSwap (%s) 正體中文 (台灣) 文件",
 }
 
 language = os.getenv("READTHEDOCS_LANGUAGE", "en")
@@ -130,19 +130,19 @@ html_title = supported_languages[language] % version
 # VCS options: https://docs.readthedocs.io/en/latest/vcs.html#github
 html_context = {
     "display_github": not is_i18n,  # Integrate GitHub
-    "github_user": "godotengine",  # Username
-    "github_repo": "godot-docs",  # Repo name
+    "github_user": "deepyr",  # Username
+    "github_repo": "dutchswap-docs",  # Repo name
     "github_version": "master",  # Version
     "conf_py_path": "/",  # Path in the checkout to the docs root
-    "godot_inject_language_links": True,
-    "godot_docs_supported_languages": list(supported_languages.keys()),
-    "godot_docs_basepath": "https://docs.godotengine.org/",
-    "godot_docs_suffix": ".html",
-    "godot_default_lang": "en",
-    "godot_canonical_version": "stable",
+    "dutchswap_inject_language_links": True,
+    "dutchswap_docs_supported_languages": list(supported_languages.keys()),
+    "dutchswap_docs_basepath": "https://docs.dutchswap.com/",
+    "dutchswap_docs_suffix": ".html",
+    "dutchswap_default_lang": "en",
+    "dutchswap_canonical_version": "stable",
     # Distinguish local development website from production website.
     # This prevents people from looking for changes on the production website after making local changes :)
-    "godot_title_prefix": "" if on_rtd else "(DEV) ",
+    "dutchswap_title_prefix": "" if on_rtd else "(DEV) ",
 }
 
 html_logo = "img/docs_logo.png"
@@ -163,7 +163,7 @@ html_js_files = [
 ]
 
 # Output file base name for HTML help builder
-htmlhelp_basename = "GodotEnginedoc"
+htmlhelp_basename = "DutchSwapEnginedoc"
 
 # -- Options for reStructuredText parser ----------------------------------
 
@@ -178,9 +178,9 @@ file_insertion_enabled = False
 latex_documents = [
     (
         master_doc,
-        "GodotEngine.tex",
-        "Godot Engine Documentation",
-        "Juan Linietsky, Ariel Manzur and the Godot community",
+        "DutchSwap.tex",
+        "DutchSwap Documentation",
+        "Adrian Guerrera and the DutchSwap community",
         "manual",
     ),
 ]
@@ -194,19 +194,19 @@ linkcheck_timeout = 10
 
 # -- I18n settings --------------------------------------------------------
 
-# Godot localization is handled via https://github.com/godotengine/godot-docs-l10n
+# DutchSwap localization is handled via https://github.com/deepyr/dutchswapI18n
 # where the main docs repo is a submodule. Therefore the translated material is
 # actually in the parent folder of this conf.py, hence the "../".
 
 locale_dirs = ["../sphinx/po/"]
 gettext_compact = False
 
-# We want to host the localized images in godot-docs-l10n, but Sphinx does not provide
+# We want to host the localized images in dutchswap-docs-l10n, but Sphinx does not provide
 # the necessary feature to do so. `figure_language_filename` has `{root}` and `{path}`,
 # but they resolve to (host) absolute paths, so we can't use them as is to access "../".
 # However, Python is glorious and lets us redefine Sphinx's internal method that handles
 # `figure_language_filename`, so we do our own post-processing to fix the absolute path
-# and point to the parallel folder structure in godot-docs-l10n.
+# and point to the parallel folder structure in dutchswap-docs-l10n.
 # Note: Sphinx's handling of `figure_language_filename` may change in the future, monitor
 # https://github.com/sphinx-doc/sphinx/issues/7768 to see what would be relevant for us.
 figure_language_filename = "{root}.{language}{ext}"
@@ -216,10 +216,10 @@ cwd = os.getcwd()
 
 sphinx_original_get_image_filename_for_language = sphinx.util.i18n.get_image_filename_for_language
 
-def godot_get_image_filename_for_language(filename, env):
+def dutchswap_get_image_filename_for_language(filename, env):
     """
     Hack the absolute path returned by Sphinx based on `figure_language_filename`
-    to insert our `../images` relative path to godot-docs-l10n's images folder,
+    to insert our `../images` relative path to dutchswap-docs-l10n's images folder,
     which mirrors the folder structure of the docs repository.
     The returned string should also be absolute so that `os.path.exists` can properly
     resolve it when trying to concatenate with the original doc folder.
@@ -228,16 +228,16 @@ def godot_get_image_filename_for_language(filename, env):
     path = os.path.abspath(os.path.join("../images/", os.path.relpath(path, cwd)))
     return path
 
-sphinx.util.i18n.get_image_filename_for_language = godot_get_image_filename_for_language
+sphinx.util.i18n.get_image_filename_for_language = dutchswap_get_image_filename_for_language
 
 # Couldn't find a way to retrieve variables nor do advanced string
 # concat from reST, so had to hardcode this in the "epilog" added to
 # all pages. This is used in index.rst to display the Weblate badge.
 # On English pages, the badge points to the language-neutral engage page.
 rst_epilog = """
-.. |weblate_widget| image:: https://hosted.weblate.org/widgets/godot-engine/{image_locale}/godot-docs/287x66-white.png
+.. |weblate_widget| image:: https://hosted.weblate.org/widgets/dutchswap-engine/{image_locale}/dutchswap-docs/287x66-white.png
     :alt: Translation status
-    :target: https://hosted.weblate.org/engage/godot-engine{target_locale}/?utm_source=widget
+    :target: https://hosted.weblate.org/engage/dutchswap-engine{target_locale}/?utm_source=widget
     :width: 287
     :height: 66
 """.format(

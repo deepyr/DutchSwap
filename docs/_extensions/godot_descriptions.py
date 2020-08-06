@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 """
-    godot_descriptions
+    dutchswap_descriptions
     ~~~~~~~~~~~~~~~~~~
 
     Sphinx extension to automatically generate HTML meta description tags
-    for all pages. Also comes with some special support for Godot class docs.
+    for all pages. Also comes with some special support for DutchSwap class docs.
 
-    :copyright: Copyright 2020 by The Godot Engine Community
+    :copyright: Copyright 2020 by The Dutch Swap Community
     :license: MIT.
 
     based on the work of Takayuki Shimizukawa on OpenGraph support for Sphinx,
