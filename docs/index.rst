@@ -23,7 +23,7 @@ Features
 
 
 .. toctree::
-    :maxdepth: 2
+    :maxdepth: 1
 
     Overview <index.rst>
     .. quickstart.rst
@@ -31,43 +31,44 @@ Features
 
 .. toctree::
     :caption: Getting Started
-    :maxdepth: 2
+    :maxdepth: 1
+   
+    getting_started/step_by_step/index
+    getting_started/dutch_swap/index
+    getting_started/tokens/index
 
-    dutch_swap.rst
-
-.. toctree::
-    :caption: Core Functionality
-    :maxdepth: 2
-
-    tokens.rst
+   ..  dutch_swap.rst
+   ..  tokens.rst
 
 
 .. toctree::
     :caption: Tokens
-    :maxdepth: 2
+    :maxdepth: 1
 
-    base_token.rst
-    custom_token.rst
+    tokens/base_token/index
+    tokens/custom_token/index
 
 
 .. toctree::
     :caption: Auctions
-    :maxdepth: 2
+    :maxdepth: 1
 
-    dutch_auction.rst
+    auctions/dutch_auction/index
 
-
-.. .. toctree::
-..     :caption: Testing
-..     :maxdepth: 2
-
-..     run_tests.rst
-..     new_test.rst
 
 .. toctree::
-    :caption: Reference
-    :maxdepth: 2
+   :maxdepth: 1
+   :caption: Development
+   :name: sec-devel
 
-    links.rst
+   development/smart_contracts/index
+
+
+.. toctree::
+    :caption: Community
+    :maxdepth: 1
+
+   community/contributing/index
+   community/channels
 
 
