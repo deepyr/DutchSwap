@@ -6,9 +6,6 @@
     Sphinx extension to automatically generate HTML meta description tags
     for all pages. Also comes with some special support for DutchSwap class docs.
 
-    :copyright: Copyright 2020 by The Dutch Swap Community
-    :license: MIT.
-
     based on the work of Takayuki Shimizukawa on OpenGraph support for Sphinx,
     see: https://github.com/sphinx-contrib/ogp
 """
