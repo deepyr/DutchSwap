@@ -4,7 +4,7 @@ a,
 a:visited,
 a:hover
  {
-    color: #480fce;
+    color: #b393ff;
 }
 
 
@@ -140,14 +140,14 @@ pre {
 .highlight .s1,
 .highlight .nt {
     /* strings */
-    color: #480fce;
+    color: #b393ff;
 }
 
 
 /* notes, warnings, hints */
 
 .hint .admonition-title {
-    background: #480fce !important;
+    background: #b393ff !important;
 }
 
 .warning .admonition-title {
@@ -155,7 +155,7 @@ pre {
 }
 
 .admonition-title {
-    background: #480fce !important;
+    background: #b393ff !important;
 }
 
 .admonition,
@@ -215,7 +215,7 @@ pre {
 }
 
 .wy-menu-vertical header, .wy-menu-vertical p.caption {
-    color: #480fce !important;
+    color: #b393ff !important;
 }
 
 .wy-menu-vertical a:hover, .wy-nav-top img {
