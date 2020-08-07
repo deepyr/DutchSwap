@@ -29,7 +29,7 @@ The main documentation for the site is organized into the following sections:
     :caption: Getting Started
     :maxdepth: 1
    
-    getting_started/quickstart.rst
+    getting_started/quickstart
     getting_started/overview/index
     getting_started/step_by_step/index
 
@@ -39,7 +39,7 @@ The main documentation for the site is organized into the following sections:
     :maxdepth: 1
     :name: sec-tokens
 
-    tokens/base_token.rst
+    tokens/base_token
     tokens/custom_token
 
 
@@ -48,7 +48,7 @@ The main documentation for the site is organized into the following sections:
     :maxdepth: 1
     :name: sec-auctions
     
-    auctions/dutch_auction.rst
+    auctions/dutch_auction
 
 
 .. toctree::
