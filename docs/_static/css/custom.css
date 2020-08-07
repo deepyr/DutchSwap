@@ -96,12 +96,12 @@
         --content-background-color: #190F2D;
         /* Decrease the logo opacity when using the dark theme to be less distracting */
         --logo-opacity: 0.85;
-        --navbar-background-color: #ff98ff;
-        --navbar-background-color-hover: #ffafd9;
+        --navbar-background-color: #fcadb3;
+        --navbar-background-color-hover: #fa956f;
         --navbar-background-color-active: #F28157;
-        --navbar-current-background-color: #ffafd9;
-        --navbar-current-background-color-hover: #44474a;
-        --navbar-current-background-color-active: #222528;
+        --navbar-current-background-color: #ffbead;
+        --navbar-current-background-color-hover: #fa956f;
+        --navbar-current-background-color-active: #F28157;
         --navbar-level-1-color: #222;
         --navbar-level-2-color: #333;
         --navbar-level-3-color: #444;
