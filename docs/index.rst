@@ -37,6 +37,7 @@ The main documentation for the site is organized into the following sections:
 .. toctree::
     :caption: Tokens
     :maxdepth: 1
+    :name: sec-tokens
 
     tokens/base_token.rst
     tokens/custom_token
@@ -45,8 +46,18 @@ The main documentation for the site is organized into the following sections:
 .. toctree::
     :caption: Auctions
     :maxdepth: 1
-
+    :name: sec-auctions
+    
     auctions/dutch_auction.rst
+
+
+.. toctree::
+    :caption: Community
+    :maxdepth: 1
+    :name: sec-community
+
+   community/contributing/index
+   community/channels
 
 
 .. toctree::
@@ -55,13 +66,4 @@ The main documentation for the site is organized into the following sections:
    :name: sec-devel
 
    development/smart_contracts/index
-
-
-.. toctree::
-    :caption: Community
-    :maxdepth: 1
-
-   community/contributing/index
-   community/channels
-
 

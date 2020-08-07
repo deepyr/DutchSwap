@@ -96,19 +96,19 @@
         --content-background-color: #190F2D;
         /* Decrease the logo opacity when using the dark theme to be less distracting */
         --logo-opacity: 0.85;
-        --navbar-background-color: #F2A2A2;
-        --navbar-background-color-hover: #333639;
-        --navbar-background-color-active: #111417;
-        --navbar-current-background-color: #333639;
+        --navbar-background-color: #ff98ff;
+        --navbar-background-color-hover: #ffafd9;
+        --navbar-background-color-active: #F28157;
+        --navbar-current-background-color: #ffafd9;
         --navbar-current-background-color-hover: #44474a;
         --navbar-current-background-color-active: #222528;
-        --navbar-level-1-color: #ddd;
-        --navbar-level-2-color: #ccc;
-        --navbar-level-3-color: #bbb;
-        --navbar-heading-color: #ee7381;
-        --navbar-scrollbar-color: #be5460;
-        --navbar-scrollbar-hover-color: #963e48;
-        --navbar-scrollbar-active-color: #5f3034;
+        --navbar-level-1-color: #222;
+        --navbar-level-2-color: #333;
+        --navbar-level-3-color: #444;
+        --navbar-heading-color: #481989;
+        --navbar-scrollbar-color: #30115a;
+        --navbar-scrollbar-hover-color: #5319a2;
+        --navbar-scrollbar-active-color: #7417f2;
         --navbar-scrollbar-background: #1c1e21;
 
         --link-color: #e694fc;
@@ -121,10 +121,10 @@
         --code-background-color: #434649;
         --code-border-color: #505356;
         --code-literal-color: #faa;
-        --input-background-color: #333537;
+        --input-background-color: #190F2D;
         --input-focus-border-color: #5f8cff;
 
-        --search-input-background-color: #43464a; /* derived from --input-background-color */
+        --search-input-background-color: #19143E; /* derived from --input-background-color */
         --search-match-color: #52b4ff; /* derived from --link-color */
         --search-match-background-color: #414c56; /* derived from --link-color */
         --search-active-color: #202326;
