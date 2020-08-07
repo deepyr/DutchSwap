@@ -724,7 +724,7 @@ kbd, .kbd {
     /* Fixed size to prevent reflows and support hiDPI displays */
     /* A 5 pixel margin is added on each side. The logo itself displays at 200×200 at 100% scaling. */
     width: 210px;
-    height: 210px;
+    height: 120px;
 }
 
 .wy-side-nav-search {

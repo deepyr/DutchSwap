@@ -22,38 +22,31 @@ Features
 
 
 
-.. toctree::
-    :maxdepth: 1
+The main documentation for the site is organized into the following sections:
 
-    Overview <index.rst>
-    .. quickstart.rst
-    .. demo.rst
 
 .. toctree::
     :caption: Getting Started
     :maxdepth: 1
    
+    getting_started/quickstart.rst
+    getting_started/overview/index
     getting_started/step_by_step/index
-    getting_started/dutch_swap/index
-    getting_started/tokens/index
-
-   ..  dutch_swap.rst
-   ..  tokens.rst
 
 
 .. toctree::
     :caption: Tokens
     :maxdepth: 1
 
-    tokens/base_token/index
-    tokens/custom_token/index
+    tokens/base_token.rst
+    tokens/custom_token
 
 
 .. toctree::
     :caption: Auctions
     :maxdepth: 1
 
-    auctions/dutch_auction/index
+    auctions/dutch_auction.rst
 
 
 .. toctree::
