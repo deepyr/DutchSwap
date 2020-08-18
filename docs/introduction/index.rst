@@ -5,8 +5,8 @@ Introduction
 
 `There are two ways to start with DutchSwap:`
 
-    - Tutorial(link): Step-by-step instructions on how to start working with Dutch auction, how to create and use your tokens and start moving forward.
     - Quick Start(link): How to set up your auction and how the auction mechanism works.
+    - Step by Step(link): Step-by-step instructions on how to start working with Dutch auction, how to create and use your tokens and start moving forward.
 
 **GO FURTHER**
 

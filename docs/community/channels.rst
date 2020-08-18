@@ -1,5 +1,6 @@
-.. _doc_community_channels:
+.. _channels:
 
+==================
 Community channels
 ==================
 

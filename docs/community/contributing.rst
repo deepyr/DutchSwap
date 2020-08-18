@@ -1,55 +1,50 @@
-.. _doc_ways_to_contribute:
+.. _contributing:
 
+==================
 Ways to contribute
 ==================
 
 Dutch Swap community-driven free and open source project.
-There are many ways to contribute to such a big project, making it possible 
-for everybody to bring something positive to the engine, regardless of their 
+There are many ways to contribute to such an open project, making it possible 
+for everybody to bring something positive to the community, regardless of their 
 skill set:
 
 -  **Be part of the community.** The best way to contribute to Dutch Swap and help
-   it become ever better is simply to use the engine and promote it by
-   word-of-mouth, in the credits or splash screen of your games, blog posts, tutorials,
-   videos, demos, gamedev or free software events, support on the Q&A, IRC,
-   forums, Discord, etc. Participate!
-   Being a user and advocate helps spread the word about our great engine,
+   it become ever better is simply to use the auctions and promote it by
+   word-of-mouth, blog posts, tutorials,
+   videos, test contracts or free crypto events, support on the forums, Discord, etc. Participate!
+   Being a user and advocate helps spread the word about DutchSwap,
    which has no marketing budget and can therefore only rely on its community
    to become more mainstream.
 
--  **Make games.** It's no secret that, to convince new users and especially the
-   industry at large that Dutch Swap is a relevant market player, we need great games
-   made with Dutch Swap. We know that the engine has a lot of potential, both for 2D
-   and 3D games, but given its young age we still lack big releases that will
+-  **Make auctions.** It's no secret that, to convince new projects and especially the
+   industry at large that Dutch Swap is a relevant market player, we need auctions to be
+   made with Dutch Swap. We know that framework has a lot of potential, both for ERC20s, but given its young age we still lack big sale that will
    draw attention to Dutch Swap. So keep working on your awesome projects, each new
-   game increases our credibility on the gamedev market!
+   project that gets auctioned increases our credibility!
 
--  **Get involved in the engine's development.** This can be by contributing
-   code via pull requests, testing the development snapshots or directly the
+-  **Get involved in the development.** This can be by contributing
+   code via pull requests, testing the contracts directly on chain or on the
    git *master* branch, report bugs or suggest enhancements on the issue
    tracker, improve the official documentation (both the class reference and
    tutorials) and its translations.
    The following sections will cover each of those "direct" ways
-   of contributing to the engine.
+   of contributing.
 
--  **Donate.** Dutch Swap is a non-profit project, but it can still benefit from
-   user donations for many things. Apart from usual expenses such as hosting
-   costs or promotional material on events, we also use donation money to
-   acquire hardware when necessary (e.g. we used donation money to buy a
-   MacBook Pro to implement Retina/HiDPI support and various other
-   macOS-related features).
+-  **Donate.** Dutch Swap is a open sourced project, but it can still benefit from
+   user donations for many things. 
    Most importantly, we also used donation money to hire core developers so they
-   can work full-time on the engine. Even with a low
+   can work full-time on the protocol. Even with a low
    monthly wage, we need a steady donation income to continue doing this, which
    has been very beneficial to the project so far. So if you want to donate
-   some money to the project, check `our website <https://dutchswap.com/>`_
+   some tokens to the project, check `our website <https://dutchswap.com/>`_
    for details.
 
 Contributing code
 -----------------
 
 The possibility to study, use, modify and redistribute modifications of the
-engine's source code are the fundamental rights that
+dutch swaps's source code are the fundamental rights that
 Dutch Swap's `MIT <https://tldrlegal.com/license/mit-license>`_ license grants you,
 making it `free and open source software <https://en.wikipedia.org/wiki/Free_and_open-source_software>`_.
 
