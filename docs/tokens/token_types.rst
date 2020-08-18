@@ -12,8 +12,8 @@ Dutch auction sales differ from traditional token sales in that the Dutch auctio
 The bidding process generates a clearing price for the tokens offered in the auction. Once the token price is determined, all investors who submitted successful bids receive an allocation of tokens at that price.
 
 
-What is Token
-=============
+What is an ERC20 Token
+======================
 
 Tokens themselves is a special unit that describes what exactly you sell.  It can hold value and be sent and received.
 
