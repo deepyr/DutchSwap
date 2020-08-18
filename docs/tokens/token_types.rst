@@ -1,7 +1,7 @@
-.. _tokens:
+.. _token_types:
 
 ===========
-Tokens
+Token Types
 ===========
 
 Most ERC20 tokens can be sold in a dutch Auction. For those without exisitng tokens, our token factory can mint Base Tokens. 
@@ -31,19 +31,9 @@ Most ERC20 tokens can be sold in a Dutch Auction.
 
 **The Basic ERC20** Token implements the missing name, short name, decimals and the initial total supply of a standard ERC20 token. No extra features, no extra bells, and whistles. Just standard ERC20 functionality.
 
-**Mintable tokens** are ERC20-compatible tokens with one added feature: new tokens can be created at any time and added to total supply. Standard ERC20 tokens don't have this feature, which makes them a fixed supply tokens.
 
 .. note::
 
     For those without existing tokens, our token factory can mint Base Tokens. The base token type is an ERC20 token from the DutchSwap protocol. It is essentially an ERC20 with some advanced features from the ERC777 standard and some modified code to make them work with the Dutch Swap contract.
 
 
-Send vs Transfer 
-================
-This is a naming convention from both ERC20 and ERC777 which is used to distinguish them. We have included both the Transfered and Sent events to comply with both standards. 
-
-
-
-ERC1820 Registry
-================
-This is a key part of the ERC777 standard and used as a hook for additional functionality within the DutchSwap protocol.

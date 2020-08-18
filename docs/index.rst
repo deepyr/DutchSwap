@@ -29,7 +29,7 @@ The main documentation for the site is organized into the following sections:
     :caption: Getting Started
     :maxdepth: 1
    
-    getting_started/quickstart
+    quickstart/index
     getting_started/overview/index
     getting_started/step_by_step/index
 
@@ -39,8 +39,8 @@ The main documentation for the site is organized into the following sections:
     :maxdepth: 1
     :name: sec-tokens
 
-    tokens/base_token
-    tokens/custom_token
+    tokens/token_types
+    tokens/creating_tokens
 
 
 .. toctree::
@@ -56,13 +56,13 @@ The main documentation for the site is organized into the following sections:
     :maxdepth: 1
     :name: sec-community
 
-   community/contributing/index
+   community/contributing
    community/channels
 
 
 .. toctree::
-   :maxdepth: 1
    :caption: Development
+   :maxdepth: 1
    :name: sec-devel
 
    development/smart_contracts/index
