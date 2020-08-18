@@ -1,7 +1,7 @@
 .. _dutch_auction:
 
 ===============
-Auction Process
+What is a Dutch Auction
 ===============
 
 We believe that the market should determine the price of a token rather than you or I. The Dutch Auction mechanism achieves this fairness for two main reasons. First, at every auction everyone who buys a token, buys it at the same price. Second, the market determines that price itself. 
