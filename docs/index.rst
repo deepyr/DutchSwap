@@ -28,7 +28,6 @@ The main documentation for the site is organized into the following sections:
     :maxdepth: 1
    
     quickstart/index
-    getting_started/overview/index
     getting_started/step_by_step/index
 
 

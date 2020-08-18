@@ -16,6 +16,10 @@ DutchSwap is a smart contract framework for creating Dutch Auctions on Ethereum.
 The main idea of a Dutch auction is to determine a fair price for a batch of the items. The same item to be specific. 400 years ago it would have been batches of tulips. Today, tokens with no previous price are a perfect, as they will allow for price discovery by the end of the auction. 
 
 
+.. note::
+    You can visit the "`DutchSwap Venture Studio <https://dutchswap.com>`_", 
+
+
 
 1 - Creating a New Token
 ========================

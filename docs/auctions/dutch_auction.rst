@@ -10,19 +10,24 @@ We believe that the market should determine the price of a token rather than you
 These are exactly the characteristics that people believe for and choose exactly Dutch auctions. Although they are not yet so popular in the world, they have already proven themselves well in the field of business and trade in particular.
 
 
-Why is that? Because this type of auction solves the following problems:
+Why would I need a Dutch Auction?
+----------------------------------
+Because this type of auction solves the following problems:
 
-    - The seller recognizes their fullest economic benefits from the sale
-    - Descending prices ensure bidders will bill promptly when their internal price is reached
-    - Quick and simple to implement, easy to understand for bidders
-    - Everything is done out in the open, transparency to everyone involved
+    - The fairest method for selling more than one of the same object, period.
+    - Descending prices ensure bidders will bid early, and honestly. 
+    - Lowest bid price for all winners means people commit what they think it is worth, yet likely to get it cheaper.
+    - Everything is done out in the open, transparency to everyone involved.
 
 
-How it Works
-============
+
+How a Dutch Auction Works
+-------------------------
 
 Every Dutch auction has a set amount of tokens available to be bought. 
-Prices start high and are dropped successively until a bidder accepts the going price. Once a price is accepted, the auction ends.
+The price is initially set at a high price and during the auction continues to drop. 
+The price drops until either all the tokens are sold, or hits a minimum price. 
+
 
 .. note::
 
@@ -31,10 +36,12 @@ Prices start high and are dropped successively until a bidder accepts the going 
 
 The biggest benefit of such auctions is that they are meant to democratize public offerings. As it happens currently, the process for conducting a typical IPO is mostly controlled by investment banks.
 
-Set Up
-======
 
-Each dutch auction is defined by a start and end time, starting and minimum token price and the number of tokens to be sold.
-From this, the linear pricing is determined auction begins automatically.
-Users are invited to contribute funds as soon as the start time begins. 
+
+More information
+----------------
+
+This work was inspired by the Google IPO and both the Algorand and Gnosis dutch auctions.
+More details can be found here: `Algo Auction <https://algorand.foundation/algo-auctions>`_ 
+We do not support Algorands refund vault but will do so in v2. 
 
