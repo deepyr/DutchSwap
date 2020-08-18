@@ -47,40 +47,39 @@ After creating your ERC20 tokens, you will be able to sell some of them in a Dut
 
 The first step for you, as for seller is to have a token you wish to sell. To do that you only need to follow the next steps.
 
-    - To create an auction, first of all you need to create your account. Click a Signup button and follow the instructions. It’s as simple as that.
-    - Each auction is based on a close relationship with the cryptocurrency. Therefore, you need to connect your account with Ethereum wallet. If you don't have your personal Ethereum wallet yet, you need to create it. To do this, we recommend following the documentation of `Metamask <https://metamask.io/>`_. It is the fastest, most reliable and easiest way to start your business.
-    - Whether you did this simple setup, you are able to create your first auction. Click the appropriate tab on the left side of the screen. You will see a window indicating the following steps required to create an auction.
-    - The first thing you need to enter is a Token. Token - particular fungible and tradable asset or a utility created over an initial coin offering. If you don’t have one yet, you should create it first.
-    - Here where your own data should come to place. Decide what should be the best approach for your business and fill the fields:
+    - Connect your Ethereum wallet if you havent already. If you don't have your Ethereum wallet yet, you need to create one. To do this, we recommend `Metamask <https://metamask.io/>`_. It is the fastest, most reliable and easiest way to get started with anything build on the Ethereum.
+    - Click "New Auction" tab on the left side of the DutchSwap studio. You will see a window indicating the following steps required to create an auction.
+    - The first thing you need to enter is an ERC20 Token. If you don’t have one yet, you should create it first by going back to step 1. 
+    - Fill the following fields:
         - Amount - quantity of token supply that you want to sell.
-        - Prices - set the starting price and the end one for your offer.
-        
-        .. note::
-
-            Remember that the starting price must be higher than the ending price.
-        
+        - Prices - set the starting price and the end one for your offer.        
         - Dates - pick appropriative dates for your auction
     - Congratulation on this! Now you have created your auction and have full access to its data. Change it whatever it needed and manage your business with comfort.
 
+
+.. note::
+    You must be able to transfer the number of tokens for sale to the auction contract, otherwise it will fail.
+
+.. note:: 
+    The auction starting price must be greater than the ending price. Dutch auctions start high, and drop in price until sold out. 
 
 
 3 - Claiming your tokens
 ========================
 
+The dutch auction ends when the sale ends and the final price is greater or equal to the minimum price of the seller. 
 
-Improving our project
-=====================
+To claim your tokens, go to the token auction page and click "Claim"
 
-Our project is constantly evolving. Every month more and more features are added to it and it becomes larger and larger. It is no surprise that competent specialists in this field are needed to develop such a large project.
+- If the auction was successful, you will claim the tokens you have won at auction, based on how much you contributed. 
 
-If you found any bug or you know how to make this project better, we are ready to listen your suggestions.
+- If the auction has ended below the minimum, your claim will be for your original tokens.
 
-If you are an excellent blockchain specialist and have a desire to participate in the development of the project, feel free to contact us to discuss the details of cooperation.
 
-Support
-=======
+DutchSwap Studio
+================
 
-If you have ever got stuck at working with auction or you found flaws in the mechanism of the algorithm feel free to contact us by the links below.
+If you have ever got stuck at working with auction please have a look throughout the Studio UI
 
 
 You can visit the "`DutchSwap Studio <https://dutchswap.com>`_", 
