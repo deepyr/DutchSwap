@@ -59,9 +59,9 @@ The main documentation for the site is organized into the following sections:
 
 
 .. toctree::
-    :caption: Developers
+    :caption: Protocol
     :maxdepth: 1
     :name: sec-devel
 
-    development/smart_contracts/index
+    protocol/smart_contracts/index
 
