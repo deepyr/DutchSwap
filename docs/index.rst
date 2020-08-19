@@ -50,18 +50,16 @@ The main documentation for the site is organized into the following sections:
 
 
 .. toctree::
-    :caption: Community
-    :maxdepth: 1
-    :name: sec-community
-
-    community/contributing
-    community/channels
-
-
-.. toctree::
     :caption: Protocol
     :maxdepth: 1
     :name: sec-devel
 
     protocol/smart_contracts/index
 
+.. toctree::
+    :caption: Community
+    :maxdepth: 1
+    :name: sec-community
+
+    community/contributing
+    community/channels

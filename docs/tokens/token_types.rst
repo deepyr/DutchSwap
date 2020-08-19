@@ -37,3 +37,9 @@ Most ERC20 tokens can be sold in a Dutch Auction.
     For those without existing tokens, our token factory can mint Base Tokens. The base token type is an ERC20 token from the DutchSwap protocol. It is essentially an ERC20 with some advanced features from the ERC777 standard and some modified code to make them work with the Dutch Swap contract.
 
 
+
+
+Exceptions for DutchSwap
+------------------------
+
+Some exceptions include deflationary tokens where there is a difference in total value when transfered, usually from a transfer at the protocol level.

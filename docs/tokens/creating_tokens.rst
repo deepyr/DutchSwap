@@ -6,44 +6,41 @@ Creating Tokens
 
 Most ERC20 tokens can be used as the sale token in a Dutch Auction. 
 
-It’s a pretty simple action that could be done just in a few clicks.
+.. note::
+
+    This framework is based on swapping ETH or ERC20 tokens in batches using a Dutch auction mechanism. To fully understand the documentation of the solution outlined, you must have a basic knowledge of what a ERC20 token is and how to use Ethereum
+
 
 The most important step towards recognition was the possibility to create one’s own custom Dutch Swap token. That gave an opportunity to dozens of projects to see life thanks to additional flexibility of auctions. Now everyone can create their own token with a unique name and fully manage it.
 
-::
+Initial Deployment
+------------------
 
-    To create your one follow the next steps:
+To create your one follow the next steps:
 
-        - Visit the appropriative page on Dutch Swap
-        - Enter the reliable values of your token, such as name, symbol, and decimals
-        - Click the Mint button to create your custom token
+    - Visit the appropriative page on Dutch Swap
+    - Enter the reliable values of your token, such as name, symbol, and decimals
+    - Click the Mint button to create your custom token
 
-    .. note::
+.. note::
 
-        Note that your Ropsten network address will be automatically fetched from your account.
-
-Setting Up
-==========
+    Note that your Ropsten network address will be automatically fetched from your account.
 
 
-The token is one of the most important components of smart contracts.
-
-::
-
-    To setup a token, you need to enter the required data in the appropriate fields. 
-
-        - It starts with entering Token’s name - should be the unique value(such as Tether, Chainlink).
-        - After that put in a symbol associated with your token. It should be in uppercase and consist not more than from 3 symbols
-        - In the next step, you have the option to set decimals. It defines digits in the fraction part. Recommended value is not less than 9
-
-    .. note::
-
-        After creating your special token, you will be able to use it directly in newly created auctions
+    - It starts with entering Token’s name - should be the unique value(such as Tether, Chainlink).
+    - Add a symbol for your token. It should be consist of about 3-5 uppercaseletters
 
 
-Exceptions
-==========
-Some exceptions include deflationary tokens where there is a difference in total value when transfered, usually from a transfer at the protocol level.
+.. note::
+
+    After creating your special token, you will be able to use it directly in newly created auctions
+
+Adding token to Metamask
+------------------------
+
+You can take the new contract address and add it as a custom token in Metamask
+
+Metamask cant keep track of all the new tokens on Ethereum and will need to be added mamually.
 
 
 

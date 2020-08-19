@@ -4,20 +4,19 @@
 Quickstart
 ==========
 
+.. note::
+    You can visit the "`DutchSwap Venture Studio <https://dutchswap.com>`_ to try ", 
+
+
 This page provides a quick overview of DutchSwap. It relies mostly on examples and assumes a level of familiarity with smart contract dvelopment. 
 For more in-depth content, you should read the documentation sections under "Getting Started" in the table of contents.
 
 DutchSwap is a smart contract framework for creating Dutch Auctions on Ethereum.
 
-.. note::
-
-    This framework is based on swapping ETH or ERC20 tokens in batches using a Dutch auction mechanism. To fully understand the documentation of the solution outlined, you must have a basic knowledge of what a ERC20 token is and how to use Ethereum
 
 The main idea of a Dutch auction is to determine a fair price for a batch of the items. The same item to be specific. 400 years ago it would have been batches of tulips. Today, tokens with no previous price are a perfect, as they will allow for price discovery by the end of the auction. 
 
 
-.. note::
-    You can visit the "`DutchSwap Venture Studio <https://dutchswap.com>`_", 
 
 
 
@@ -79,11 +78,3 @@ To claim your tokens, go to the token auction page and click "Claim"
 
 - If the auction has ended below the minimum, your claim will be for your original tokens.
 
-
-DutchSwap Studio
-================
-
-If you have ever got stuck at working with auction please have a look throughout the Studio UI
-
-
-You can visit the "`DutchSwap Studio <https://dutchswap.com>`_", 
