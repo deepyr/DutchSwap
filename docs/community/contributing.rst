@@ -83,6 +83,7 @@ A good place to start is by searching for issues tagged as `junior jobs <https:/
              tool used to enforce them are outlined in
              :ref:`doc_code_style_guidelines`.
 
+
 Testing and reporting issues
 ----------------------------
 
@@ -90,6 +91,7 @@ Another great way of contributing to the engine is to test development releases
 or the development branch and to report issues. It is also helpful to report
 issues discovered in stable releases, so that they can be fixed in
 the development branch and in future maintenance releases.
+
 
 Testing development versions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -111,6 +113,7 @@ As mentioned previously, it is also helpful to keep your eyes peeled for
 potential bugs that might still be present in the stable releases, especially
 when using some niche features of the engine which might get less testing by
 the developers.
+
 
 Filing an issue on GitHub
 ~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -161,6 +164,7 @@ When you click the "New issue" button, you should be presented with a text area
 prefilled with our issue template. Please try to follow it so that all issues
 are consistent and provide the required information.
 
+
 Contributing to the documentation
 ---------------------------------
 
@@ -180,6 +184,7 @@ There are two separate resources referred to as "documentation" in Dutch Swap:
    to which you can contribute via pull requests on the
    `godot-docs <https://github.com/deepyr/dutchswap-docs>`_ GitHub repository.
    See :ref:`doc_documentation_guidelines` for more details.
+
 
 Contributing translations
 -------------------------

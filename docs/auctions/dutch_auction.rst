@@ -38,10 +38,10 @@ The biggest benefit of such auctions is that they are meant to democratize publi
 
 
 
-More information
-----------------
+Other Dutch Auctions 
+--------------------
 
-This work was inspired by the Google IPO and both the Algorand and Gnosis dutch auctions.
-More details can be found here: `Algo Auction <https://algorand.foundation/algo-auctions>`_ 
-We do not support Algorands refund vault but will do so in v2. 
+This work was inspired by the Google IPO which was a dutch auction by OpenIPO and both the Algorand and Gnosis dutch auctions.
+More details on the Algorand auction mechanism can be found here: `Algo Auction <https://algorand.foundation/algo-auctions>`_ 
+We do not support the Algorand refund vault but will do so in v2. 
 
