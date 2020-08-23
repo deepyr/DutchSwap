@@ -1,17 +1,20 @@
 pragma solidity ^0.6.9;
+
+import "./Utils/SafeMath.sol";
+import "../interfaces/IERC20.sol";
+
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-import "./SafeMath.sol";
-import "../../interfaces/IERC20.sol";
-
-
 // ----------------------------------------------------------------------------
-// DutchSwap Auction Contract
+// Petyl Dutch Auction
 //
 //
 // MVP prototype. DO NOT USE!
 //                        
-// (c) Adrian Guerrera. Deepyr Pty Ltd.                          
+// (c) Adrian Guerrera. Deepyr Pty Ltd.  
+// From Petyl Protocol
+// https://github.com/deepyr/petyl
+//                          
 // May 26 2020                                  
 // ----------------------------------------------------------------------------
 
@@ -33,12 +36,14 @@ contract DutchSwapAuction  {
     IERC20 public auctionToken; 
     IERC20 public paymentCurrency; 
     address payable public wallet;
-    mapping(address => uint256) public commitments;
+    mapping(address => uint256) private commitments;
+    mapping(address => uint256) private claimed;
 
     event AddedCommitment(address addr, uint256 commitment, uint256 price);
 
     /// @dev Init function 
     function initDutchAuction(
+        address _funder,
         address _token, 
         uint256 _tokenSupply, 
         uint256 _startDate, 
@@ -57,7 +62,7 @@ contract DutchSwapAuction  {
         auctionToken = IERC20(_token);
         paymentCurrency = IERC20(_paymentCurrency);
 
-        require(IERC20(auctionToken).transferFrom(msg.sender, address(this), _tokenSupply));
+        require(IERC20(auctionToken).transferFrom(_funder, address(this), _tokenSupply));
 
         tokenSupply =_tokenSupply;
         startDate = _startDate;
@@ -119,9 +124,20 @@ contract DutchSwapAuction  {
         return priceFunction();
     }
 
+    /// @notice How many tokens the user has already claimed
+    function tokensClaimed(address _user) public view returns (uint256) {
+        return claimed[msg.sender];
+    }
+
+    /// @notice How many tokens the user has already claimed
+    function tokensCommitted(address _user) public view returns (uint256) {
+        return commitments[msg.sender];
+    }
+
     /// @notice How many tokens the user is able to claim
     function tokensClaimable(address _user) public view returns (uint256) {
-        return commitments[_user].mul(TENPOW18).div(clearingPrice());
+        uint256 tokensAvailable = commitments[_user].mul(TENPOW18).div(clearingPrice());
+        return tokensAvailable.sub(claimed[msg.sender]);
     }
 
     /// @notice Total amount of tokens committed at current auction price
@@ -208,16 +224,18 @@ contract DutchSwapAuction  {
     /// @dev Transfer contract funds to initialised wallet. 
     function finaliseAuction () public {
         require(!finalised); 
-        finalised = true;
+        
 
         /// @notice Auction did not meet reserve price.
         if( auctionEnded() && tokenPrice() < minimumPrice ) {
-            _tokenPayment(auctionToken, wallet, tokenSupply);       
+            _tokenPayment(auctionToken, wallet, tokenSupply);
+            finalised = true;       
             return;      
         }
         /// @notice Successful auction! Transfer tokens bought.
         if (auctionSuccessful()) {
             _tokenPayment(paymentCurrency, wallet, amountRaised);
+            finalised = true;
         }
 
     }
@@ -226,7 +244,6 @@ contract DutchSwapAuction  {
     function withdrawTokens() public {
         uint256 fundsCommitted = commitments[ msg.sender];
         uint256 tokensToClaim = tokensClaimable(msg.sender);
-        commitments[ msg.sender] = 0;
 
         /// @notice Auction did not meet reserve price.
         /// @dev Return committed funds back to user.
@@ -238,6 +255,7 @@ contract DutchSwapAuction  {
         /// @dev AG: Should hold and distribute tokens vs mint
         /// @dev AG: Could be only > min to allow early withdraw  
         if (auctionSuccessful() && tokensToClaim > 0 ) {
+            claimed[ msg.sender] = tokensToClaim;
             _tokenPayment(auctionToken, msg.sender, tokensToClaim);
         }
     }
