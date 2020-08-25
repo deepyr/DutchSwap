@@ -14,9 +14,16 @@ A dutch auction starts with a batch of tokens (say 100 FLOWERS) and I have to se
 It is a fair way to make sure everyone who really wanted them, got them, and everyone else is happy with the price. 
 
 
+## Quickstart
+
+Go to the [DutchSwap Studio](https://studio.dutchswap.com)
+
+Create a new auction and get started with a few clicks. 
 
 
-## Setup
+# Developers
+
+##  Setup 
 
 Install needed Python modules: `python -m pip install -r requirements.txt`
 
