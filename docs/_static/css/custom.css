@@ -12,6 +12,9 @@
     --content-background-color: #190F2D;
     /* Decrease the logo opacity when using the dark theme to be less distracting */
     --logo-opacity: 0.85;
+    --navbar-background-gradient: linear-gradient(180deg,#4a20bc,#6032dd 15%,#825ee4 35%,#c55ee4 90%,#e4d05e 99%,#f8d05e);
+
+    
     --navbar-background-color: #ffa37f;
     --navbar-background-color-hover: #fa956f;
     --navbar-background-color-active: #F28157;
@@ -104,9 +107,9 @@
         --navbar-current-background-color: #ffbead;
         --navbar-current-background-color-hover: #fa956f;
         --navbar-current-background-color-active: #F28157;
-        --navbar-level-1-color: #222;
-        --navbar-level-2-color: #333;
-        --navbar-level-3-color: #444;
+        --navbar-level-1-color: #fff;
+        --navbar-level-2-color: #eee;
+        --navbar-level-3-color: #ddd;
         --navbar-heading-color: #481989;
         --navbar-scrollbar-color: #30115a;
         --navbar-scrollbar-hover-color: #5319a2;
@@ -730,7 +733,7 @@ kbd, .kbd {
 }
 
 .wy-side-nav-search {
-    background-color: var(--navbar-background-color);
+    /* background-color: var(--navbar-background-color); */
 }
 
 .wy-side-nav-search.fixed {
@@ -754,7 +757,7 @@ kbd, .kbd {
 
 .wy-side-nav-search > a:hover,
 .wy-side-nav-search .wy-dropdown > a:hover {
-    background-color: var(--navbar-background-color-hover);
+    /* background-color: var(--navbar-background-color-hover); */
 }
 
 .wy-side-nav-search > a:active,
@@ -785,7 +788,8 @@ kbd, .kbd {
 /* Navigation bar */
 
 .wy-nav-side {
-    background-color: var(--navbar-background-color);
+    /* background-color: var(--navbar-background-color); */
+    background: var(--navbar-background-gradient);
 }
 
 @media only screen and (min-width: 769px) {
@@ -807,7 +811,7 @@ kbd, .kbd {
 
 .wy-nav-top,
 .wy-nav-top a {
-    background-color: var(--navbar-background-color);
+    /* background-color: var(--navbar-background-color); */
     color: var(--navbar-level-1-color);
 }
 
