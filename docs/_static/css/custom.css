@@ -97,7 +97,7 @@
 @media (prefers-color-scheme: dark) {
     :root {
         --body-color: rgba(255, 255, 255, 0.85);
-        --content-wrap-background-color: #21005c;
+        --content-wrap-background-color: #180140;
         --content-background-color: #190F2D;
         /* Decrease the logo opacity when using the dark theme to be less distracting */
         --logo-opacity: 0.85;
