@@ -103,14 +103,14 @@
         --logo-opacity: 0.85;
         --navbar-background-color: #0000;
         --navbar-background-color-hover: #8c30ff;
-        --navbar-background-color-active: #8c30ff;
+        --navbar-background-color-active: #9848fa;
         --navbar-current-background-color: #6a10db;
         --navbar-current-background-color-hover: #8c30ff;
         --navbar-current-background-color-active: #bc3aff;
         --navbar-level-1-color: #fff;
         --navbar-level-2-color: #eee;
         --navbar-level-3-color: #ddd;
-        --navbar-heading-color: #481989;
+        --navbar-heading-color: #99fffe;
         --navbar-scrollbar-color: #30115a;
         --navbar-scrollbar-hover-color: #5319a2;
         --navbar-scrollbar-active-color: #7417f2;
