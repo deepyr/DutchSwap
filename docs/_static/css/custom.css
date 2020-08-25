@@ -101,7 +101,7 @@
         --content-background-color: #190F2D;
         /* Decrease the logo opacity when using the dark theme to be less distracting */
         --logo-opacity: 0.85;
-        --navbar-background-color: none;
+        --navbar-background-color: #0000;
         --navbar-background-color-hover: #8c30ff;
         --navbar-background-color-active: #8c30ff;
         --navbar-current-background-color: #6a10db;
@@ -734,7 +734,7 @@ kbd, .kbd {
 
 .wy-side-nav-search {
     /* background-color: var(--navbar-background-color); */
-    background-color: none;
+    background-color: #0000;
 
 }
 
