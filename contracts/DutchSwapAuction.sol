@@ -42,27 +42,21 @@ contract DutchSwapAuction  {
     /// @dev The placeholder ETH address.
     address private constant ETH_ADDRESS = 0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE;
 
-    address payable public wallet;  // Where the auction funds will get paid
-
-    address public auctionToken;
-    address public paymentCurrency;
-    uint256 public totalTokens;  // Amount to be sold
-
     uint256 public startDate;
     uint256 public endDate;
-    uint256 public startPrice;  // Price at startDate
+    uint256 public startPrice;
     uint256 public minimumPrice;
-
-    // uint256 public priceDrop; // Price reduction from startPrice at endDate
-
-    bool public finalised;
-
+    uint256 public totalTokens;  // Amount to be sold
+    uint256 public priceDrop; // Price reduction from startPrice at endDate
     uint256 public commitmentsTotal;
-
-    mapping(address => uint256) public commitments;  // Users committing funds
+    bool public finalised;
+    address public auctionToken;
+    address public paymentCurrency;
+    address payable public wallet;  // Where the auction funds will get paid
+    mapping(address => uint256) public commitments;
     mapping(address => uint256) public claimed;
-    event AddedCommitment(address addr, uint256 commitment);
 
+    event AddedCommitment(address addr, uint256 commitment);
 
     /// @dev Init function
     function initDutchAuction(
@@ -78,27 +72,29 @@ contract DutchSwapAuction  {
     )
         external
     {
-        // require(_endDate > _startDate);
-        // require(_startPrice > _minimumPrice);
-        // require(_minimumPrice > 0);
+        require(_endDate > _startDate);
+        require(_startPrice > _minimumPrice);
+        require(_minimumPrice > 0);
 
         auctionToken = _token;
         paymentCurrency = _paymentCurrency;
-
         totalTokens = _totalTokens;
         startDate = _startDate;
         endDate = _endDate;
         startPrice = _startPrice;
-
+        minimumPrice = _minimumPrice;
         wallet = _wallet;
+
+        uint256 numerator = startPrice.sub(minimumPrice);
+        uint256 denominator = endDate.sub(startDate);
+        priceDrop = numerator.div(denominator);
 
         // There are many non-compliant ERC20 tokens... this can handle most, adapted from UniSwap V2
         // I'm trying to make it a habit to put external calls last (reentrancy)
         // You can put this in an internal function if you like.
-        _safeTransferFrom(auctionToken, _funder,  _totalTokens);
+        _safeTransferFrom(auctionToken, _funder, _totalTokens);
     }
 
-    // ============================
     // Dutch Auction Price Function
     // ============================
     //
@@ -114,7 +110,6 @@ contract DutchSwapAuction  {
     // Amount raised /          End Time
     //
 
-
     /// @notice The average price of each token from all commitments. 
     function tokenPrice() public view returns (uint256) {
         return commitmentsTotal.mul(1e18).div(totalTokens);
@@ -122,9 +117,7 @@ contract DutchSwapAuction  {
 
     /// @notice Token price decreases at this rate during auction.
     function priceGradient() public view returns (uint256) {
-        uint256 numerator = startPrice.sub(minimumPrice);
-        uint256 denominator = endDate.sub(startDate);
-        return numerator.div(denominator);
+        return priceDrop;
     }
 
       /// @notice Returns price during the auction 
@@ -149,16 +142,6 @@ contract DutchSwapAuction  {
         return priceFunction();
     }
 
-    /// @notice Returns the amout able to be committed during an auction
-    function calculateCommitment( uint256 _commitment) public view returns (uint256 committed)
-    {
-        uint256 maxCommitment = totalTokens.mul(_currentPrice()).div(1e18);
-        if (commitmentsTotal.add(_commitment) > maxCommitment) {
-            return maxCommitment.sub(commitmentsTotal);
-        }
-        return _commitment;
-    }
-
     /// @notice How many tokens the user is able to claim
     function tokensClaimable(address _user) public view returns (uint256) {
         uint256 tokensAvailable = commitments[_user].mul(1e18).div(clearingPrice());
@@ -168,6 +151,16 @@ contract DutchSwapAuction  {
     /// @notice Total amount of tokens committed at current auction price
     function totalTokensCommitted() public view returns(uint256) {
         return commitmentsTotal.mul(1e18).div(clearingPrice());
+    }
+
+    /// @notice Successful if tokens sold equals totalTokens
+    function auctionSuccessful() public view returns (bool){
+        return totalTokensCommitted() >= totalTokens && tokenPrice() >= minimumPrice;
+    }
+
+    /// @notice Returns bool if successful or time has ended
+    function auctionEnded() public view returns (bool){
+        return auctionSuccessful() || now > endDate;
     }
 
     //--------------------------------------------------------
@@ -197,13 +190,11 @@ contract DutchSwapAuction  {
     }
 
     /// @notice Commits to an amount during an auction
-    // Using an underscore fo internal methods makes it easier to read for other coders
     function _addCommitment(address _addr,  uint256 _commitment) internal {
         require(block.timestamp >= startDate && block.timestamp <= endDate);
         commitments[_addr] = commitments[_addr].add(_commitment);
         commitmentsTotal = commitmentsTotal.add(_commitment);
         emit AddedCommitment(_addr, _commitment);
-
     }
 
     /// @notice Commit approved ERC20 tokens to buy tokens on sale
@@ -214,7 +205,6 @@ contract DutchSwapAuction  {
     /// @dev Users must approve contract prior to committing tokens to auction
     function commitTokensFrom(address _from, uint256 _amount) public {
         require(address(paymentCurrency) != ETH_ADDRESS);
-
         uint256 tokensToTransfer = calculateCommitment( _amount);
         if (tokensToTransfer > 0) {
             _safeTransferFrom(paymentCurrency, _from, _amount);
@@ -222,57 +212,67 @@ contract DutchSwapAuction  {
         }
     }
 
+    /// @notice Returns the amout able to be committed during an auction
+    function calculateCommitment( uint256 _commitment) 
+        public view returns (uint256 committed) 
+    {
+        uint256 maxCommitment = totalTokens.mul(clearingPrice()).div(1e18);
+        if (commitmentsTotal.add(_commitment) > maxCommitment) {
+            return maxCommitment.sub(commitmentsTotal);
+        }
+        return _commitment;
+    }
+
+
+    //--------------------------------------------------------
+    // Finalise Auction
+    //--------------------------------------------------------
+
     /// @notice Auction finishes successfully above the reserve
-    /// @dev Transfer contract funds to initialised wallet.
+    /// @dev Transfer contract funds to initialised wallet. 
     function finaliseAuction () public {
         require(!finalised); 
-        finalised = true;
-       
-        if (commitmentsTotal.mul(1e18).div(totalTokens) >= _currentPrice())
+        
+        if (commitmentsTotal.mul(1e18).div(totalTokens) >= clearingPrice())
         {
             // Successful auction
             _tokenPayment(paymentCurrency, wallet, commitmentsTotal);
         }
         else
         {
-            require(block.timestamp > endDate);
             // Failed auction
+            require(block.timestamp > endDate);
             _tokenPayment(auctionToken, wallet, totalTokens);
         }
+        finalised = true;
     }
 
     /// @notice Withdraw your tokens once the Auction has ended.
     function withdrawTokens() public {
-        if ( tokenPrice() >= _currentPrice())
+        uint256 fundsCommitted = commitments[ msg.sender];
+        uint256 tokensToClaim = tokensClaimable(msg.sender);
+
+        if( auctionEnded() && tokenPrice() < minimumPrice ) 
         {
-            // Successful auction
-            uint256 tokensToClaim = commitments[msg.sender].mul(totalTokens).div(commitmentsTotal);
-            _tokenPayment(auctionToken, msg.sender, tokensToClaim);
-        }
-        else
-        {
-            require(block.timestamp > endDate);
             /// @notice Auction did not meet reserve price.
             /// @dev Return committed funds back to user.
-            uint256 fundsCommitted = commitments[ msg.sender];
             commitments[msg.sender] = 0; // Stop multiple withdrawals and free some gas
-            _tokenPayment(paymentCurrency, msg.sender, fundsCommitted);
+            _tokenPayment(paymentCurrency, msg.sender, fundsCommitted);       
+        }
+        else if (auctionSuccessful() && tokensToClaim > 0) 
+        {
+            /// @notice Successful auction! Transfer claimed tokens.
+            /// @dev AG: Should hold and distribute tokens vs mint
+            /// @dev AG: Could be only > min to allow early withdraw  
+            claimed[ msg.sender] = tokensToClaim;
+            _tokenPayment(auctionToken, msg.sender, tokensToClaim);
         }
     }
 
 
-    // ============================
-    /// @dev Helper function to handle both ETH and ERC20 payments
-    // ============================
-    
-    /// @notice Returns price during the auction
-    function _currentPrice() private view returns (uint256) {
-        // uint256 totalTime = endDate - startDate;
-        // uint256 elapsed = block.timestamp.sub(startDate);
-        // return startPrice.sub(priceDrop.mul(elapsed).div(totalTime));
-
-        return priceFunction();
-    }
+    //--------------------------------------------------------
+    // Helper Functions
+    //--------------------------------------------------------
 
     // There are many non-compliant ERC20 tokens... this can handle most, adapted from UniSwap V2
     // I'm trying to make it a habit to put external calls last (reentrancy)
@@ -294,7 +294,8 @@ contract DutchSwapAuction  {
         );
         require(success && (data.length == 0 || abi.decode(data, (bool))), "XS2: TransferFrom failed at ERC20");
     }
-    
+
+    /// @dev Helper function to handle both ETH and ERC20 payments
     function _tokenPayment(address _token, address payable _to, uint256 _amount) internal {
         if (address(_token) == ETH_ADDRESS) {
             _to.transfer(_amount);
