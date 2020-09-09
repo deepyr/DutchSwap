@@ -150,7 +150,7 @@ contract DutchSwapAuction  {
 
 
     //--------------------------------------------------------
-    // Commit to buying tokens 
+    // Commit to buying tokens! 
     //--------------------------------------------------------
 
     /// @notice Buy Tokens by committing ETH to this contract address 
