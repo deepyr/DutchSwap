@@ -5,7 +5,7 @@ Quickstart
 ==========
 
 .. note::
-    You can visit the "`DutchSwap Venture Studio <https://dutchswap.com>`_ to try ", 
+    You can visit the "`DutchSwap Venture Studio <https://dutchswap.com>`_ to try it out for yourself! 
 
 
 This page provides a quick overview of DutchSwap. It relies mostly on examples and assumes a level of familiarity with smart contract dvelopment. 
