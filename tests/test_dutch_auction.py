@@ -71,7 +71,8 @@ def test_dutch_auction_claim(dutch_auction):
     token_buyer = accounts[2]
     eth_to_transfer = 100 * TENPOW18
 
-    dutch_auction.withdrawTokens({'from': accounts[0]})
+    with reverts():
+        dutch_auction.withdrawTokens({'from': accounts[0]})
     
     token_buyer.transfer(dutch_auction,eth_to_transfer)
     assert dutch_auction.finalised({'from': accounts[0]}) == False
@@ -81,6 +82,10 @@ def test_dutch_auction_claim(dutch_auction):
     dutch_auction.withdrawTokens({'from': token_buyer})
     dutch_auction.withdrawTokens({'from': accounts[0]})
     assert dutch_auction.auctionSuccessful({'from': accounts[0]}) == True
+ 
+    # AG: check for multiple withdraws
+    dutch_auction.withdrawTokens({'from': token_buyer})
+    dutch_auction.withdrawTokens({'from': accounts[0]})
 
     dutch_auction.finaliseAuction({'from': accounts[0]})
     with reverts():
