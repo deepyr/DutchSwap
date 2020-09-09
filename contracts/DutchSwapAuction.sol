@@ -115,11 +115,6 @@ contract DutchSwapAuction  {
         return commitmentsTotal.mul(1e18).div(totalTokens);
     }
 
-    /// @notice Token price decreases at this rate during auction.
-    function priceGradient() public view returns (uint256) {
-        return priceDrop;
-    }
-
       /// @notice Returns price during the auction 
     function priceFunction() public view returns (uint256) {
         /// @dev Return Auction Price
@@ -129,7 +124,7 @@ contract DutchSwapAuction  {
         if (block.timestamp >= endDate) {
             return minimumPrice;
         }
-        uint256 priceDiff = block.timestamp.sub(startDate).mul(priceGradient());
+        uint256 priceDiff = block.timestamp.sub(startDate).mul(priceDrop);
         return startPrice.sub(priceDiff);
     }
 
@@ -153,15 +148,6 @@ contract DutchSwapAuction  {
         return commitmentsTotal.mul(1e18).div(clearingPrice());
     }
 
-    /// @notice Successful if tokens sold equals totalTokens
-    function auctionSuccessful() public view returns (bool){
-        return totalTokensCommitted() >= totalTokens && tokenPrice() >= minimumPrice;
-    }
-
-    /// @notice Returns bool if successful or time has ended
-    function auctionEnded() public view returns (bool){
-        return auctionSuccessful() || now > endDate;
-    }
 
     //--------------------------------------------------------
     // Commit to buying tokens 
@@ -228,19 +214,30 @@ contract DutchSwapAuction  {
     // Finalise Auction
     //--------------------------------------------------------
 
+    /// @notice Successful if tokens sold equals totalTokens
+    function auctionSuccessful() public view returns (bool){
+        return commitmentsTotal.mul(1e18).div(totalTokens) >= clearingPrice();
+    }
+
+    /// @notice Returns bool if successful or time has ended
+    function auctionEnded() public view returns (bool){
+        return auctionSuccessful() || block.timestamp > endDate;
+    }
+
     /// @notice Auction finishes successfully above the reserve
     /// @dev Transfer contract funds to initialised wallet. 
     function finaliseAuction () public {
         require(!finalised); 
-        
-        if (commitmentsTotal.mul(1e18).div(totalTokens) >= clearingPrice())
+        if( auctionSuccessful() ) 
         {
-            // Successful auction
+            /// @dev Successful auction
+            /// @dev Transfer contributed tokens to wallet.
             _tokenPayment(paymentCurrency, wallet, commitmentsTotal);
         }
         else
         {
-            // Failed auction
+            /// @dev Failed auction
+            /// @dev Return auction tokens back to wallet.
             require(block.timestamp > endDate);
             _tokenPayment(auctionToken, wallet, totalTokens);
         }
@@ -249,23 +246,22 @@ contract DutchSwapAuction  {
 
     /// @notice Withdraw your tokens once the Auction has ended.
     function withdrawTokens() public {
-        uint256 fundsCommitted = commitments[ msg.sender];
-        uint256 tokensToClaim = tokensClaimable(msg.sender);
-
-        if( auctionEnded() && tokenPrice() < minimumPrice ) 
+        if( auctionSuccessful() ) 
+        {
+            /// @notice Successful auction! Transfer claimed tokens.
+            /// @dev AG: Could be only > min to allow early withdraw
+            uint256 tokensToClaim = tokensClaimable(msg.sender);
+            claimed[ msg.sender] = tokensToClaim;
+            _tokenPayment(auctionToken, msg.sender, tokensToClaim);
+        }
+        else 
         {
             /// @notice Auction did not meet reserve price.
             /// @dev Return committed funds back to user.
+            require(block.timestamp > endDate);
+            uint256 fundsCommitted = commitments[ msg.sender];
             commitments[msg.sender] = 0; // Stop multiple withdrawals and free some gas
             _tokenPayment(paymentCurrency, msg.sender, fundsCommitted);       
-        }
-        else if (auctionSuccessful() && tokensToClaim > 0) 
-        {
-            /// @notice Successful auction! Transfer claimed tokens.
-            /// @dev AG: Should hold and distribute tokens vs mint
-            /// @dev AG: Could be only > min to allow early withdraw  
-            claimed[ msg.sender] = tokensToClaim;
-            _tokenPayment(auctionToken, msg.sender, tokensToClaim);
         }
     }
 
