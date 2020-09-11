@@ -5,18 +5,18 @@ Quickstart
 ==========
 
 .. note::
-    You can visit the "`DutchSwap Venture Studio <https://dutchswap.com>`_ to try ", 
+    Visit the `DutchSwap Venture Studio <https://dutchswap.com>`_ as you read and try it out for yourself! ", 
 
 
-This page provides a quick overview of DutchSwap. It relies mostly on examples and assumes a level of familiarity with smart contract dvelopment. 
-For more in-depth content, you should read the documentation sections under "Getting Started" in the table of contents.
+This page provides a quick overview of DutchSwap. It assumes a level of familiarity with smart contract development, the Ethereum network and ERC20 tokens and will rely on some simple examples. 
+For more in-depth content, continue to the further information under "Getting Started" in the table of contents. **UNDER CONSTRUCTION**
 
-DutchSwap is a smart contract framework for creating Dutch Auctions on Ethereum.
+DutchSwap is a smart contract framework for creating Dutch auctions on Ethereum.
 
+The idea of a Dutch auction is to determine a fair price for a batch of items. In particular, new projects and tokens with no previous price are perfect as they allow the market an even playing field for price discovery. Though there are many positives to using a Dutch auction for a fixed supply of any item, this document will cover the creation and auction of a brand new ERC20 token.  
 
-The main idea of a Dutch auction is to determine a fair price for a batch of the items. The same item to be specific. 400 years ago it would have been batches of tulips. Today, tokens with no previous price are a perfect, as they will allow for price discovery by the end of the auction. 
-
-
+.. note::
+    To interact with DutchSwap, you'll first need to connect your Ethereum wallet. DutchSwap support many options for this, but we recommend `Metamask <https://metamask.io/>`_.
 
 
 
@@ -25,22 +25,16 @@ The main idea of a Dutch auction is to determine a fair price for a batch of the
 
 
 The first step to using DutchSwap is having a token to sell.
-
 .. note::
     If you already have some ERC20 tokens you wish to sell, continue to step 2.
+ 
+ To mint your own new ERC20 token, you need to do the following:
 
-To mint your own new ERC20 token, you need to do the following.
+- Enter your Token’s name
+- Add a symbol associated with your token
+- Set a total supply
 
-
-- Connect your wallet using metamask
-
-- Enter your Token’s name - should be unique string.
-- Add a symbol associated with your token. It should be in all uppercase and 3-5 symbols long (ie TKN)
-- Set a total supply. This will be the number of tokens you mint initially. 
-
-
-
-After creating your ERC20 tokens, you will be able to sell some of them in a Dutch auction. 
+DutchSwap will mint the tokens for you and deposit them into your wallet. After creating your ERC20 tokens, you're ready to set up your auction. 
 
 
 
@@ -48,16 +42,16 @@ After creating your ERC20 tokens, you will be able to sell some of them in a Dut
 2 - Starting a Dutch Auction
 ============================
 
-The first step for you, as for seller is to have a token you wish to sell. To do that you only need to follow the next steps.
+The process for creating an auction for your token is simple, you only need to follow the next steps:
 
-    - Connect your Ethereum wallet if you havent already. If you don't have your Ethereum wallet yet, you need to create one. To do this, we recommend `Metamask <https://metamask.io/>`_. It is the fastest, most reliable and easiest way to get started with anything build on the Ethereum.
-    - Click "New Auction" tab on the left side of the DutchSwap studio. You will see a window indicating the following steps required to create an auction.
-    - The first thing you need to enter is an ERC20 Token. If you don’t have one yet, you should create it first by going back to step 1. 
-    - Fill the following fields:
+    - Click "New Auction" tab on the left side of the DutchSwap studio. You will see a window indicating the steps required to create an auction.
+    - Enter the details of the ERC20 Token you're wishing to sell. 
+    - Set your auction details, including:
         - Amount - quantity of token supply that you want to sell.
-        - Prices - set the starting price and the end one for your offer.        
-        - Dates - pick appropriative dates for your auction
-    - Congratulation on this! Now you have created your auction and have full access to its data. Change it whatever it needed and manage your business with comfort.
+        - Prices - set the starting price high and the end price as low as you're willing to go.        
+        - Dates - pick appropriative start and end dates for your auction.
+
+    Congratulation! You have created your auction and have full access to its data. Change it whatever is needed and manage your token sale with comfort.
 
 
 .. note::
@@ -70,11 +64,10 @@ The first step for you, as for seller is to have a token you wish to sell. To do
 3 - Claiming your tokens
 ========================
 
-The dutch auction ends when the sale ends and the final price is greater or equal to the minimum price of the seller. 
+The dutch auction ends when the sale ends and the final price is greater or equal to the minimum price of the seller, or if the auction period finishes without all the tokens being sold. 
 
-To claim your tokens, go to the token auction page and click "Claim"
+At the end of the auction, simply click "Claim"
 
-- If the auction was successful, you will claim the tokens you have won at auction, based on how much you contributed. 
-
+- If the auction was successful, you will claim the tokens you have won at auction. 
 - If the auction has ended below the minimum, your claim will be for your original tokens.
 

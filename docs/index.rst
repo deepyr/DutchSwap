@@ -1,7 +1,11 @@
 DutchSwap
 =======
 
-DutchSwap is a smart contract factory for Dutch auctions on Ethereum
+DutchSwap is a smart contract factory and Dutch auction house for ERC20 tokens.
+
+ Historically, Dutch auctions have been used to provide a fair price discovery event for both new and developed products and markets. For those with something to sell, they provide a system where you leave with all your stock sold - at a price you decide you're happy with. For those looking to buy, a way to make sure you're getting the same deal as everybody else in the market. With these goals in mind, DutchSwap aims to update the traditional Dutch auction experience and bring them to the Ethereum community. 
+
+A fair token pricing solution for new and existing ERC20 tokens, DutchSwap has you covered from bulb to bloom.
 
 !! Documentation is currently under construction !!
 
@@ -13,8 +17,9 @@ DutchSwap is a smart contract factory for Dutch auctions on Ethereum
 Features
 ========
 
-* Dutch Auction for ERC20 tokens
-* Payments in Ethers or an ERC20 of your choosing
+* Dutch Auctions for ERC20 tokens
+* Payments in ETH or any ERC20 of your choosing
+* Token minting and dispersal services
 * Contract testing via `pytest <https://github.com/pytest-dev/pytest>`_, including trace-based coverage evaluation
 * Property-based and stateful testing via `hypothesis <https://github.com/HypothesisWorks/hypothesis/tree/master/hypothesis-python>`_
 
