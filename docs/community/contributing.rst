@@ -4,41 +4,40 @@
 Ways to contribute
 ==================
 
-Dutch Swap community-driven free and open source project.
-There are many ways to contribute to such an open project, making it possible 
-for everybody to bring something positive to the community, regardless of their 
+Dutch Swap is a community-driven and open source project.
+There are many ways to contribute to the DutchSwap project, it's as much about the code as it is the community. Here are some way to get involved regardless of your 
 skill set:
 
--  **Be part of the community.** The best way to contribute to Dutch Swap and help
-   it become ever better is simply to use the auctions and promote it by
+-  **Be part of the community.** The best way to contribute to DutchSwap and help
+   us grow is simply to use the auctions and promote the experience by
    word-of-mouth, blog posts, tutorials,
-   videos, test contracts or free crypto events, support on the forums, Discord, etc. Participate!
+   videos, test contracts, support on the forums, Discord. You get the point.
    Being a user and advocate helps spread the word about DutchSwap,
-   which has no marketing budget and can therefore only rely on its community
-   to become more mainstream.
+   which has no marketing budget and relies on its community
+   for adoption.
 
--  **Make auctions.** It's no secret that, to convince new projects and especially the
-   industry at large that Dutch Swap is a relevant market player, we need auctions to be
-   made with Dutch Swap. We know that framework has a lot of potential, both for ERC20s, but given its young age we still lack big sale that will
-   draw attention to Dutch Swap. So keep working on your awesome projects, each new
-   project that gets auctioned increases our credibility!
+-  **Make auctions.** It's our main focus to convince new projects and especially the
+   industry at large that DutchSwap and Dutch auctions are a relevant option - We need auctions to be
+   made with Dutch Swap. We know that the framework has a lot of potential and just needs usage to
+   draw attention to Dutch Swap. So keep working on your awesome projects, and if you
+   find a project looking for a better method of price discovery for their token - send them our way!
 
--  **Get involved in the development.** This can be by contributing
-   code via pull requests, testing the contracts directly on chain or on the
-   git *master* branch, report bugs or suggest enhancements on the issue
+-  **Donate.** Dutch Swap is an open sourced project, but it can still benefit from
+   user donations for many things. 
+   Most importantly, we use donation money to hire core developers so they
+   can work full-time on the protocol. Full-tme development has been very beneficial to the project so far and ensures a quality product on first offering.
+   If you want to donate
+   some tokens to the project, check `our website <https://dutchswap.com/>`_
+   for details.
+   
+-  **Get involved in the development.** Developers of all levels can help improve DutchSwap. 
+   This can be by contributing code via pull requests, testing the contracts directly on chain or on the
+   git *master* branch, reporting bugs or suggesting enhancements on the issue
    tracker, improve the official documentation (both the class reference and
-   tutorials) and its translations.
+   tutorials) and its translations. Our development team would love to have you on board.
    The following sections will cover each of those "direct" ways
    of contributing.
 
--  **Donate.** Dutch Swap is a open sourced project, but it can still benefit from
-   user donations for many things. 
-   Most importantly, we also used donation money to hire core developers so they
-   can work full-time on the protocol. Even with a low
-   monthly wage, we need a steady donation income to continue doing this, which
-   has been very beneficial to the project so far. So if you want to donate
-   some tokens to the project, check `our website <https://dutchswap.com/>`_
-   for details.
 
 Contributing code
 -----------------
