@@ -5,7 +5,9 @@ Quickstart
 ==========
 
 .. note::
+
     Visit the `DutchSwap Venture Studio <https://dutchswap.com>`_ as you read and try it out for yourself! ", 
+
 
 
 This page provides a quick overview of DutchSwap. It assumes a level of familiarity with smart contract development, the Ethereum network and ERC20 tokens and will rely on some simple examples. 

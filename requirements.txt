@@ -1,4 +1,4 @@
-pytest==5.4.1
-py-solc-x==0.8.1
-web3>=5.7.0
-eth-brownie>=1.6.4,<2.0.0
+pytest>=6.0.1
+py-solc-x>=1.0.0
+web3>=5.11.1
+eth-brownie>=1.11.0,<2.0.0

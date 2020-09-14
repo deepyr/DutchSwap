@@ -5,12 +5,12 @@ pragma solidity ^0.6.9;
 //::::::::::: ##::::::::::: @#:::::::::::: #@j:::::::::::::::::::::::::
 //::::::::::: ##::::::::::: @#:::::::::::: #@j:::::::::::::::::::::::::
 //::::: ########: ##:: ##:: DUTCh>: ihD%y: #@Whdqy:::::::::::::::::::::
-//::: ###... ###: ##:: ##:: @B... @@7...t: N@N.. R@K:::::::::::::::::::
+//::: ###... ###: ##:: ##:: @B... @@7.. t: N@N.. R@K:::::::::::::::::::
 //::: ##::::: ##: ##:: ##:: @Q::: @Q.::::: N@j:: z@Q:::::::::::::::::::
 //:::: ##DuTCH##: .@QQ@@#:: hQQQh <R@QN@Q: N@j:: z@Q:::::::::::::::::::
 //::::::.......: =Q@y....:::....:::......::...:::...:::::::::::::::::::
 //:::::::::::::: h@W? sWAP@! 'DW;:::::: KK. ydSWAP@t: NNKNQBdt:::::::::
-//:::::::::::::: 'zqRqj*. L@R h@w: QQ: L@5 Q@... d@@: @@U... @Q::::::::
+//:::::::::::::: 'zqRqj*. L@R h@w. QQ. L@5 Q@... d@@: @@U... @Q::::::::
 //:::::::::::::::::...... Q@^ ^@@N@wt@BQ@ <@Q^::: @@: @@}::: @@:::::::: 
 //:::::::::::::::::: U@@QKt... D@@L.. B@Q.. KDUTCH@Q: @@QQ#QQq:::::::::
 //:::::::::::::::::::.....::::::...:::...::::.......: @@!.....:::::::::
@@ -34,7 +34,42 @@ pragma solidity ^0.6.9;
 // SPDX-License-Identifier: GPL-3.0-or-later
 // ----------------------------------------------------------------------------
 
-import "./Utils/SafeMath.sol";
+
+// ----------------------------------------------------------------------------
+// Safe maths
+// ----------------------------------------------------------------------------
+library SafeMath {
+    function add(uint256 a, uint256 b) internal pure returns (uint256 c) {
+        c = a + b;
+        require(c >= a);
+    }
+    function sub(uint256 a, uint256 b) internal pure returns (uint256 c) {
+        require(b <= a);
+        c = a - b;
+    }
+    function sub(uint256 a, uint256 b, string memory errorMessage) internal pure returns (uint256 c) {
+        require(b <= a, errorMessage);
+        c = a - b;
+    }
+    function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
+        c = a * b;
+        require(a == 0 || c / a == b);
+    }
+    function div(uint256 a, uint256 b) internal pure returns (uint256 c) {
+        require(b > 0);
+        c = a / b;
+    }
+    function max(uint256 a, uint256 b) internal pure returns (uint256 c) {
+        c = a >= b ? a : b;
+    }
+    function min(uint256 a, uint256 b) internal pure returns (uint256 c) {
+        c = a <= b ? a : b;
+    }
+    function mod(uint256 a, uint256 b) internal pure returns (uint256) {
+        require(b != 0);
+        return a % b;
+    }
+}
 
 contract DutchSwapAuction  {
 
