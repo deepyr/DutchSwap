@@ -34,9 +34,10 @@ pragma solidity ^0.6.9;
 // SPDX-License-Identifier: GPL-3.0-or-later
 // ----------------------------------------------------------------------------
 
-import "./Utils/SafeMath.sol";
+import "./OpenZeppelin/SafeMath.sol";
+import "./OpenZeppelin/ReentrancyGuard.sol";
 
-contract DutchSwapAuction  {
+contract DutchSwapAuction is ReentrancyGuard {
 
     using SafeMath for uint256;
     /// @dev The placeholder ETH address.
@@ -49,6 +50,7 @@ contract DutchSwapAuction  {
     uint256 public totalTokens;  // Amount to be sold
     uint256 public priceDrop; // Price reduction from startPrice at endDate
     uint256 public commitmentsTotal;
+    bool private initialised;    // AG: should be private
     bool public finalised;
     address public auctionToken;
     address public paymentCurrency;
@@ -72,10 +74,10 @@ contract DutchSwapAuction  {
     )
         external
     {
-        require(_endDate > _startDate);
-        require(_startPrice > _minimumPrice);
-        require(_minimumPrice > 0);
-
+        require(!initialised);                // Already Initialised
+        require(_endDate > _startDate);       // End date earlier than start date
+        require(_startPrice > _minimumPrice); // Starting price lower than minimum price
+        require(_minimumPrice > 0);           // Minimum price must be greater than 0
         auctionToken = _token;
         paymentCurrency = _paymentCurrency;
         totalTokens = _totalTokens;
@@ -90,9 +92,9 @@ contract DutchSwapAuction  {
         priceDrop = numerator.div(denominator);
 
         // There are many non-compliant ERC20 tokens... this can handle most, adapted from UniSwap V2
-        // I'm trying to make it a habit to put external calls last (reentrancy)
-        // You can put this in an internal function if you like.
         _safeTransferFrom(auctionToken, _funder, _totalTokens);
+        initialised = true;
+
     }
 
     // Dutch Auction Price Function
@@ -154,13 +156,14 @@ contract DutchSwapAuction  {
     //--------------------------------------------------------
 
     /// @notice Buy Tokens by committing ETH to this contract address 
+    /// @dev Needs sufficient gas limit for additional state changes
     receive () external payable {
         commitEth(msg.sender);
     }
 
     /// @notice Commit ETH to buy tokens on sale
     function commitEth (address payable _from) public payable {
-        require(address(paymentCurrency) == ETH_ADDRESS);
+        require(address(paymentCurrency) == ETH_ADDRESS);       // Payment currency is not ETH
         // Get ETH able to be committed
         uint256 ethToTransfer = calculateCommitment( msg.value);
 
@@ -177,7 +180,7 @@ contract DutchSwapAuction  {
 
     /// @notice Commits to an amount during an auction
     function _addCommitment(address _addr,  uint256 _commitment) internal {
-        require(block.timestamp >= startDate && block.timestamp <= endDate);
+        require(block.timestamp >= startDate && block.timestamp <= endDate);  // Outside auction hours
         commitments[_addr] = commitments[_addr].add(_commitment);
         commitmentsTotal = commitmentsTotal.add(_commitment);
         emit AddedCommitment(_addr, _commitment);
@@ -189,8 +192,8 @@ contract DutchSwapAuction  {
     }
 
     /// @dev Users must approve contract prior to committing tokens to auction
-    function commitTokensFrom(address _from, uint256 _amount) public {
-        require(address(paymentCurrency) != ETH_ADDRESS);
+    function commitTokensFrom(address _from, uint256 _amount) public nonReentrant {
+        require(address(paymentCurrency) != ETH_ADDRESS);          // Only token transfers
         uint256 tokensToTransfer = calculateCommitment( _amount);
         if (tokensToTransfer > 0) {
             _safeTransferFrom(paymentCurrency, _from, _amount);
@@ -226,8 +229,8 @@ contract DutchSwapAuction  {
 
     /// @notice Auction finishes successfully above the reserve
     /// @dev Transfer contract funds to initialised wallet. 
-    function finaliseAuction () public {
-        require(!finalised); 
+    function finaliseAuction () public nonReentrant {
+        require(!finalised);                                  // Auction already finalised
         if( auctionSuccessful() ) 
         {
             /// @dev Successful auction
@@ -238,27 +241,28 @@ contract DutchSwapAuction  {
         {
             /// @dev Failed auction
             /// @dev Return auction tokens back to wallet.
-            require(block.timestamp > endDate);
+            require(block.timestamp > endDate);               // Auction not yet finished
             _tokenPayment(auctionToken, wallet, totalTokens);
         }
         finalised = true;
     }
 
     /// @notice Withdraw your tokens once the Auction has ended.
-    function withdrawTokens() public {
+    function withdrawTokens() public nonReentrant {
         if( auctionSuccessful() ) 
         {
-            /// @notice Successful auction! Transfer claimed tokens.
+            /// @dev Successful auction! Transfer claimed tokens.
             /// @dev AG: Could be only > min to allow early withdraw
             uint256 tokensToClaim = tokensClaimable(msg.sender);
+            require(tokensToClaim > 0 );                      // No tokens to claim
             claimed[ msg.sender] = tokensToClaim;
             _tokenPayment(auctionToken, msg.sender, tokensToClaim);
         }
         else 
         {
-            /// @notice Auction did not meet reserve price.
+            /// @dev Auction did not meet reserve price.
             /// @dev Return committed funds back to user.
-            require(block.timestamp > endDate);
+            require(block.timestamp > endDate);               // Auction not yet finished
             uint256 fundsCommitted = commitments[ msg.sender];
             commitments[msg.sender] = 0; // Stop multiple withdrawals and free some gas
             _tokenPayment(paymentCurrency, msg.sender, fundsCommitted);       
@@ -273,22 +277,22 @@ contract DutchSwapAuction  {
     // There are many non-compliant ERC20 tokens... this can handle most, adapted from UniSwap V2
     // I'm trying to make it a habit to put external calls last (reentrancy)
     // You can put this in an internal function if you like.
-    function _safeTransfer(address token, address to, uint256 amount) public {
+    function _safeTransfer(address token, address to, uint256 amount) internal {
         // solium-disable-next-line security/no-low-level-calls
         (bool success, bytes memory data) = token.call(
             // 0xa9059cbb = bytes4(keccak256("transferFrom(address,address,uint256)"))
             abi.encodeWithSelector(0xa9059cbb, to, amount)
         );
-        require(success && (data.length == 0 || abi.decode(data, (bool))), "XS2: Transfer failed at ERC20");
+        require(success && (data.length == 0 || abi.decode(data, (bool)))); // ERC20 Transfer failed 
     }
 
-    function _safeTransferFrom(address token, address from, uint256 amount) public {
+    function _safeTransferFrom(address token, address from, uint256 amount) internal {
         // solium-disable-next-line security/no-low-level-calls
         (bool success, bytes memory data) = token.call(
             // 0x23b872dd = bytes4(keccak256("transferFrom(address,address,uint256)"))
             abi.encodeWithSelector(0x23b872dd, from, address(this), amount)
         );
-        require(success && (data.length == 0 || abi.decode(data, (bool))), "XS2: TransferFrom failed at ERC20");
+        require(success && (data.length == 0 || abi.decode(data, (bool)))); // ERC20 TransferFrom failed 
     }
 
     /// @dev Helper function to handle both ETH and ERC20 payments

@@ -13,7 +13,7 @@ pragma solidity ^0.6.9;
 // Enjoy. (c) BokkyPooBah / Bok Consulting Pty Ltd 2019. The MIT Licence.
 // ----------------------------------------------------------------------------
 
-import "./Utils/SafeMath.sol";
+import "./OpenZeppelin/SafeMath.sol";
 import "./Utils/Owned.sol";
 import "../interfaces/IERC20.sol";
 

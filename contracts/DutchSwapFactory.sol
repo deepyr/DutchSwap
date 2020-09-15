@@ -32,7 +32,7 @@ pragma solidity ^0.6.9;
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 import "./Utils/Owned.sol";
-import "./Utils/SafeMath.sol";
+import "./OpenZeppelin/SafeMath.sol";
 import "./Utils/CloneFactory.sol";
 import "../interfaces/IOwned.sol";
 import "../interfaces/IERC20.sol";

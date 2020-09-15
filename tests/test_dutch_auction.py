@@ -79,13 +79,14 @@ def test_dutch_auction_claim(dutch_auction):
 
     chain.sleep(AUCTION_TIME+100)
     chain.mine()
-    dutch_auction.withdrawTokens({'from': token_buyer})
-    dutch_auction.withdrawTokens({'from': accounts[0]})
     assert dutch_auction.auctionSuccessful({'from': accounts[0]}) == True
- 
-    # AG: check for multiple withdraws
+
     dutch_auction.withdrawTokens({'from': token_buyer})
-    dutch_auction.withdrawTokens({'from': accounts[0]})
+
+    # Check for multiple withdraws
+    with reverts():
+        dutch_auction.withdrawTokens({'from': token_buyer})
+        dutch_auction.withdrawTokens({'from': accounts[0]})
 
     dutch_auction.finaliseAuction({'from': accounts[0]})
     with reverts():
