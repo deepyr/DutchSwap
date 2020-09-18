@@ -156,12 +156,14 @@ contract BokkyPooBahsFixedSupplyTokenFactory is Owned {
     function numberOfChildren() public view returns (uint) {
         return children.length;
     }
-    function deprecateFactory(address _newAddress) public onlyOwner {
+    function deprecateFactory(address _newAddress) public {
+        require(isOwner());
         require(newAddress == address(0));
         emit FactoryDeprecated(_newAddress);
         newAddress = _newAddress;
     }
-    function setMinimumFee(uint _minimumFee) public onlyOwner {
+    function setMinimumFee(uint _minimumFee) public {
+        require(isOwner());
         emit MinimumFeeUpdated(minimumFee, _minimumFee);
         minimumFee = _minimumFee;
     }

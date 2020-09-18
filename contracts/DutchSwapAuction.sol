@@ -20,24 +20,36 @@ pragma solidity ^0.6.9;
 //:::::01100100:01100101:01100101:01110000:01111001:01110010:::::::::::
 //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 //
-// DutchSwap Auction V1.0
+// DutchSwap Auction V1.2
+//   Copyright (c) 2020 DutchSwap.com
 //
-// https://dutchswap.com                      
-// https://github.com/deepyr/DutchSwap
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program.  
+// If not, see <https://github.com/deepyr/DutchSwap/>.
+//
+// The above copyright notice and this permission notice shall be
+// included in all copies or substantial portions of the Software.
 //
 // Authors:
 // * Adrian Guerrera / Deepyr Pty Ltd
-//     May 26 2020                                  
 //
-// Part of the Petyl Protocol
-// ----------------------------------------------------------------------------
-// SPDX-License-Identifier: GPL-3.0-or-later
-// ----------------------------------------------------------------------------
+// ---------------------------------------------------------------------
+// SPDX-License-Identifier: GPL-3.0-or-later                        
+// ---------------------------------------------------------------------
+
 
 import "./OpenZeppelin/SafeMath.sol";
-import "./OpenZeppelin/ReentrancyGuard.sol";
 
-contract DutchSwapAuction is ReentrancyGuard {
+contract DutchSwapAuction  {
 
     using SafeMath for uint256;
     /// @dev The placeholder ETH address.
@@ -52,13 +64,42 @@ contract DutchSwapAuction is ReentrancyGuard {
     uint256 public commitmentsTotal;
     bool private initialised;    // AG: should be private
     bool public finalised;
+    uint256 private constant _NOT_ENTERED = 1;
+    uint256 private constant _ENTERED = 2;
+    uint256 private _status;
+
     address public auctionToken;
     address public paymentCurrency;
     address payable public wallet;  // Where the auction funds will get paid
     mapping(address => uint256) public commitments;
     mapping(address => uint256) public claimed;
 
-    event AddedCommitment(address addr, uint256 commitment);
+    event AddedCommitment(address addr, uint256 commitment, uint256 price);
+
+
+    /// @dev Prevents a contract from calling itself, directly or indirectly.
+    /// @dev https://eips.ethereum.org/EIPS/eip-2200)
+    modifier nonReentrant() {
+        require(_status != _ENTERED);          // ReentrancyGuard: reentrant call
+        _status = _ENTERED;
+        _;
+        _status = _NOT_ENTERED;
+    }
+
+    // Dutch Auction Price Function
+    // ============================
+    //
+    // Start Price -----
+    //                   \
+    //                    \
+    //                     \
+    //                      \ ------------ Clearing Price
+    //                     / \            = AmountRaised/TokenSupply
+    //      Token Price  --   \
+    //                  /      \
+    //                --        ----------- Minimum Price
+    // Amount raised /          End Time
+    //
 
     /// @dev Init function
     function initDutchAuction(
@@ -86,6 +127,7 @@ contract DutchSwapAuction is ReentrancyGuard {
         startPrice = _startPrice;
         minimumPrice = _minimumPrice;
         wallet = _wallet;
+        _status = _NOT_ENTERED;
 
         uint256 numerator = startPrice.sub(minimumPrice);
         uint256 denominator = endDate.sub(startDate);
@@ -97,20 +139,6 @@ contract DutchSwapAuction is ReentrancyGuard {
 
     }
 
-    // Dutch Auction Price Function
-    // ============================
-    //
-    // Start Price -----
-    //                   \
-    //                    \
-    //                     \
-    //                      \ ------------ Clearing Price
-    //                     / \            = AmountRaised/TokenSupply
-    //      Token Price  --   \
-    //                  /      \
-    //                --        ----------- Minimum Price
-    // Amount raised /          End Time
-    //
 
     /// @notice The average price of each token from all commitments. 
     function tokenPrice() public view returns (uint256) {
@@ -150,19 +178,33 @@ contract DutchSwapAuction is ReentrancyGuard {
         return commitmentsTotal.mul(1e18).div(clearingPrice());
     }
 
+    /// @notice Total amount of tokens remaining 
+    function tokensRemaining() public view returns (uint256) {
+        uint256 totalCommitted = totalTokensCommitted();
+        if (totalCommitted >= totalTokens ) {
+            return 0;
+        } else {
+            return totalTokens.sub(totalCommitted);
+        }
+    }
 
     //--------------------------------------------------------
     // Commit to buying tokens! 
     //--------------------------------------------------------
 
     /// @notice Buy Tokens by committing ETH to this contract address 
-    /// @dev Needs sufficient gas limit for additional state changes
+    /// @dev Needs extra gas limit for additional state changes
     receive () external payable {
-        commitEth(msg.sender);
+        commitEthFrom(msg.sender);
+    }
+
+    /// @dev Needs extra gas limit for additional state changes
+    function commitEth() public payable {
+        commitEthFrom(msg.sender);
     }
 
     /// @notice Commit ETH to buy tokens on sale
-    function commitEth (address payable _from) public payable {
+    function commitEthFrom (address payable _from) public payable {
         require(address(paymentCurrency) == ETH_ADDRESS);       // Payment currency is not ETH
         // Get ETH able to be committed
         uint256 ethToTransfer = calculateCommitment( msg.value);
@@ -178,21 +220,13 @@ contract DutchSwapAuction is ReentrancyGuard {
         }
     }
 
-    /// @notice Commits to an amount during an auction
-    function _addCommitment(address _addr,  uint256 _commitment) internal {
-        require(block.timestamp >= startDate && block.timestamp <= endDate);  // Outside auction hours
-        commitments[_addr] = commitments[_addr].add(_commitment);
-        commitmentsTotal = commitmentsTotal.add(_commitment);
-        emit AddedCommitment(_addr, _commitment);
-    }
-
     /// @notice Commit approved ERC20 tokens to buy tokens on sale
     function commitTokens(uint256 _amount) public {
         commitTokensFrom(msg.sender, _amount);
     }
 
     /// @dev Users must approve contract prior to committing tokens to auction
-    function commitTokensFrom(address _from, uint256 _amount) public nonReentrant {
+    function commitTokensFrom(address _from, uint256 _amount) public /*nonReentrant*/ {
         require(address(paymentCurrency) != ETH_ADDRESS);          // Only token transfers
         uint256 tokensToTransfer = calculateCommitment( _amount);
         if (tokensToTransfer > 0) {
@@ -212,6 +246,13 @@ contract DutchSwapAuction is ReentrancyGuard {
         return _commitment;
     }
 
+    /// @notice Commits to an amount during an auction
+    function _addCommitment(address _addr,  uint256 _commitment) internal {
+        require(block.timestamp >= startDate && block.timestamp <= endDate);  // Outside auction hours
+        commitments[_addr] = commitments[_addr].add(_commitment);
+        commitmentsTotal = commitmentsTotal.add(_commitment);
+        emit AddedCommitment(_addr, _commitment, clearingPrice());
+    }
 
     //--------------------------------------------------------
     // Finalise Auction
@@ -229,7 +270,7 @@ contract DutchSwapAuction is ReentrancyGuard {
 
     /// @notice Auction finishes successfully above the reserve
     /// @dev Transfer contract funds to initialised wallet. 
-    function finaliseAuction () public nonReentrant {
+    function finaliseAuction () public /*nonReentrant*/ {
         require(!finalised);                                  // Auction already finalised
         if( auctionSuccessful() ) 
         {
@@ -248,7 +289,7 @@ contract DutchSwapAuction is ReentrancyGuard {
     }
 
     /// @notice Withdraw your tokens once the Auction has ended.
-    function withdrawTokens() public nonReentrant {
+    function withdrawTokens() public /*nonReentrant*/ {
         if( auctionSuccessful() ) 
         {
             /// @dev Successful auction! Transfer claimed tokens.
