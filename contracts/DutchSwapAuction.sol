@@ -62,6 +62,7 @@ contract DutchSwapAuction  {
     uint256 public totalTokens;  // Amount to be sold
     uint256 public priceDrop; // Price reduction from startPrice at endDate
     uint256 public commitmentsTotal;
+    uint256 public tokenWithdrawn;  // the amount of auction tokens already withdrawn
     bool private initialised;    // AG: should be private
     bool public finalised;
     uint256 private constant _NOT_ENTERED = 1;
@@ -260,7 +261,7 @@ contract DutchSwapAuction  {
 
     /// @notice Successful if tokens sold equals totalTokens
     function auctionSuccessful() public view returns (bool){
-        return commitmentsTotal.mul(1e18).div(totalTokens) >= clearingPrice();
+        return tokenPrice() >= clearingPrice();
     }
 
     /// @notice Returns bool if successful or time has ended
@@ -296,7 +297,8 @@ contract DutchSwapAuction  {
             /// @dev AG: Could be only > min to allow early withdraw
             uint256 tokensToClaim = tokensClaimable(msg.sender);
             require(tokensToClaim > 0 );                      // No tokens to claim
-            claimed[ msg.sender] = tokensToClaim;
+            claimed[ msg.sender] = claimed[ msg.sender].add(tokensToClaim);
+            tokenWithdrawn = tokenWithdrawn.add(tokensToClaim);
             _tokenPayment(auctionToken, msg.sender, tokensToClaim);
         }
         else 
@@ -305,7 +307,9 @@ contract DutchSwapAuction  {
             /// @dev Return committed funds back to user.
             require(block.timestamp > endDate);               // Auction not yet finished
             uint256 fundsCommitted = commitments[ msg.sender];
-            commitments[msg.sender] = 0; // Stop multiple withdrawals and free some gas
+            require(fundsCommitted > 0);                      // No funds committed
+
+            commitments[msg.sender] = 0;     // Stop multiple withdrawals and free some gas
             _tokenPayment(paymentCurrency, msg.sender, fundsCommitted);       
         }
     }

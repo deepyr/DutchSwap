@@ -8,6 +8,9 @@ from settings import *
 
 # AG: What if the token is not minable during an auction? Should commit tokens to auction
 
+# AG: Withdraw early, small amounts, multiple times 
+# AD: Withdraw half before minimum, 
+
 # reset the chain after every test case
 @pytest.fixture(autouse=True)
 def isolation(fn_isolation):
