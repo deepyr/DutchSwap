@@ -20,7 +20,7 @@ pragma solidity ^0.6.9;
 //:::::01100100:01100101:01100101:01110000:01111001:01110010:::::::::::
 //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 //
-// DutchSwap Auction V1.2
+// DutchSwap Auction V1.1
 //   Copyright (c) 2020 DutchSwap.com
 //
 // This program is free software: you can redistribute it and/or modify

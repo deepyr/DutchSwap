@@ -13,6 +13,10 @@ from settings import *
 def isolation(fn_isolation):
     pass
 
+def test_calculateCommitment(dutch_auction):
+    assert dutch_auction.calculateCommitment(0) == 0 
+    assert dutch_auction.calculateCommitment(AUCTION_START_PRICE) == AUCTION_START_PRICE
+
 
 def test_dutch_auction_totalTokensCommitted(dutch_auction):
     assert dutch_auction.totalTokensCommitted() == 0

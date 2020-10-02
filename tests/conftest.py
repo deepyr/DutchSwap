@@ -78,6 +78,7 @@ def auction_factory(DutchSwapFactory, dutch_auction_template):
 
 @pytest.fixture(scope='module', autouse=True)
 def dutch_auction(DutchSwapAuction, auction_token):
+    
     startDate = chain.time() +10
     endDate = startDate + AUCTION_TIME
     wallet = accounts[1]
@@ -88,9 +89,41 @@ def dutch_auction(DutchSwapAuction, auction_token):
 
     dutch_auction.initDutchAuction(funder, auction_token, AUCTION_TOKENS, startDate, endDate,ETH_ADDRESS, AUCTION_START_PRICE, AUCTION_RESERVE, wallet, {"from": accounts[0]})
     assert dutch_auction.clearingPrice( {'from': accounts[0]}) == AUCTION_START_PRICE
+
+    # Cannot contribute early
+    # with reverts():
+    #     tx = token_buyer.transfer(dutch_auction, eth_to_transfer)
+
+    # testing pre auction calcs
+    assert dutch_auction.calculateCommitment(0) == 0 
+    assert dutch_auction.calculateCommitment(AUCTION_START_PRICE) == AUCTION_START_PRICE
+    assert dutch_auction.calculateCommitment(AUCTION_START_PRICE*AUCTION_TOKENS / TENPOW18) == AUCTION_START_PRICE*AUCTION_TOKENS / TENPOW18
+    assert dutch_auction.calculateCommitment(10 * AUCTION_START_PRICE*AUCTION_TOKENS ) == AUCTION_START_PRICE*AUCTION_TOKENS / TENPOW18
+
+    # Move the chain to the moment the auction begins
     chain.sleep(10)
     return dutch_auction
 
+
+
+@pytest.fixture(scope='module', autouse=True)
+def erc20_auction(DutchSwapAuction, auction_token, payment_token):
+    startDate = chain.time() +10
+    endDate = startDate + AUCTION_TIME
+    wallet = accounts[1]
+    funder = accounts[0]
+
+    erc20_auction = DutchSwapAuction.deploy({'from': accounts[0]})
+    tx = auction_token.approve(erc20_auction, AUCTION_TOKENS, {'from':funder})
+
+    erc20_auction.initDutchAuction(funder, auction_token, AUCTION_TOKENS, startDate, endDate,payment_token, AUCTION_START_PRICE, AUCTION_RESERVE, wallet, {"from": accounts[0]})
+    assert erc20_auction.clearingPrice( {'from': accounts[0]}) == AUCTION_START_PRICE
+
+    # with reverts():
+    #     tx = token_buyer.transfer(dutch_auction, eth_to_transfer)
+
+    chain.sleep(10)
+    return erc20_auction
 
 
 

@@ -20,7 +20,7 @@ pragma solidity ^0.6.9;
 //:::::01100100:01100101:01100101:01110000:01111001:01110010:::::::::::
 //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 //
-// DutchSwap Auction V1.2
+// DutchSwap Auction V1.3
 //   Copyright (c) 2020 DutchSwap.com
 //
 // This program is free software: you can redistribute it and/or modify
@@ -87,21 +87,6 @@ contract DutchSwapAuction  {
         _status = _NOT_ENTERED;
     }
 
-    // Dutch Auction Price Function
-    // ============================
-    //
-    // Start Price -----
-    //                   \
-    //                    \
-    //                     \
-    //                      \ ------------ Clearing Price
-    //                     / \            = AmountRaised/TokenSupply
-    //      Token Price  --   \
-    //                  /      \
-    //                --        ----------- Minimum Price
-    // Amount raised /          End Time
-    //
-
     /// @dev Init function
     function initDutchAuction(
         address _funder,
@@ -118,10 +103,14 @@ contract DutchSwapAuction  {
     {
         require(!initialised);                // Already Initialised
         require(_endDate > _startDate);       // End date earlier than start date
-        require(_startPrice > _minimumPrice); // Starting price lower than minimum price
+
+        // Try and refactor to remove these requirements
+        // require(_startPrice > _minimumPrice); // Starting price lower than minimum price
         require(_minimumPrice > 0);           // Minimum price must be greater than 0
+        
         auctionToken = _token;
         paymentCurrency = _paymentCurrency;
+
         totalTokens = _totalTokens;
         startDate = _startDate;
         endDate = _endDate;
@@ -139,6 +128,22 @@ contract DutchSwapAuction  {
         initialised = true;
 
     }
+
+    // Dutch Auction Price Function
+    // ============================
+    //
+    // Start Price -----
+    //                   \
+    //                    \
+    //                     \
+    //                      \ ------------ Clearing Price
+    //                     / \            = AmountRaised/TokenSupply
+    //      Token Price  --   \
+    //                  /      \
+    //                --        ----------- Minimum Price
+    // Amount raised /          End Time
+    //
+
 
 
     /// @notice The average price of each token from all commitments. 
@@ -170,6 +175,9 @@ contract DutchSwapAuction  {
 
     /// @notice How many tokens the user is able to claim
     function tokensClaimable(address _user) public view returns (uint256) {
+        // if(!auctionEnded()) {
+        //     return 0;
+        // }
         uint256 tokensAvailable = commitments[_user].mul(1e18).div(clearingPrice());
         return tokensAvailable.sub(claimed[msg.sender]);
     }
@@ -189,6 +197,13 @@ contract DutchSwapAuction  {
         }
     }
 
+    /// @notice Returns price during the auction
+    function _currentPrice() private view returns (uint256) {
+        uint256 totalTime = endDate.sub(startDate);
+        uint256 elapsed = block.timestamp.sub(startDate);
+        return startPrice.sub(priceDrop.mul(elapsed).div(totalTime));
+    }
+
     //--------------------------------------------------------
     // Commit to buying tokens! 
     //--------------------------------------------------------
@@ -204,7 +219,7 @@ contract DutchSwapAuction  {
         commitEthFrom(msg.sender);
     }
 
-    /// @notice Commit ETH to buy tokens on sale
+    /// @notice Commit ETH to buy tokens for any address 
     function commitEthFrom (address payable _from) public payable {
         require(address(paymentCurrency) == ETH_ADDRESS);       // Payment currency is not ETH
         // Get ETH able to be committed
@@ -265,6 +280,7 @@ contract DutchSwapAuction  {
     }
 
     /// @notice Returns bool if successful or time has ended
+    /// @dev able to claim early if auction is successful
     function auctionEnded() public view returns (bool){
         return auctionSuccessful() || block.timestamp > endDate;
     }
