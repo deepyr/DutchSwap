@@ -11,7 +11,7 @@ from settings import *
 
 
 ##############################################
-# Token Factory
+# Tokens
 ##############################################
 
 @pytest.fixture(scope='module', autouse=True)
@@ -19,8 +19,6 @@ def token_factory(BokkyPooBahsFixedSupplyTokenFactory):
 
     token_factory = BokkyPooBahsFixedSupplyTokenFactory.deploy({'from': accounts[0]})
     return token_factory
-
-
 
 @pytest.fixture(scope='module', autouse=True)
 def auction_token(FixedSupplyToken):
@@ -32,16 +30,6 @@ def auction_token(FixedSupplyToken):
     tx = auction_token.init(token_owner, symbol,name, 18,initial_supply, {'from': token_owner})
     return auction_token
 
-# @pytest.fixture(scope='module', autouse=True)
-# def payment_token(token_factory, FixedSupplyToken):
-#     token_owner = accounts[0]
-#     name = 'PAY TOKEN'
-#     symbol = 'PAY'
-#     initial_supply = PAYMENT_TOKENS
-#     tx = token_factory.deployTokenContract(symbol,name, 18,initial_supply, {'from': token_owner, 'value': '0.2 ethers'})
-#     payment_token = FixedSupplyToken.at(tx.return_value)
-#     return payment_token
-
 @pytest.fixture(scope='module', autouse=True)
 def payment_token(FixedSupplyToken):
     token_owner = accounts[0]
@@ -52,16 +40,27 @@ def payment_token(FixedSupplyToken):
     tx = payment_token.init(token_owner, symbol,name, 18,initial_supply, {'from': token_owner})
     return payment_token
 
-# ##############################################
-# # Auction
-# ##############################################
+# Uncomment to test tokens made from FixedTokenFactory
+# @pytest.fixture(scope='module', autouse=True)
+# def payment_token(token_factory, FixedSupplyToken):
+#     token_owner = accounts[0]
+#     name = 'PAY TOKEN'
+#     symbol = 'PAY'
+#     initial_supply = PAYMENT_TOKENS
+#     tx = token_factory.deployTokenContract(symbol,name, 18,initial_supply, {'from': token_owner, 'value': '0.2 ethers'})
+#     payment_token = FixedSupplyToken.at(tx.return_value)
+#     return payment_token
+
+
+##############################################
+# Auction
+##############################################
 
 
 @pytest.fixture(scope='module', autouse=True)
 def dutch_auction_template(DutchSwapAuction):
     dutch_auction_template = DutchSwapAuction.deploy({'from': accounts[0]})
     return dutch_auction_template
-
 
 
 @pytest.fixture(scope='module', autouse=True)
@@ -73,9 +72,7 @@ def auction_factory(DutchSwapFactory, dutch_auction_template):
     return auction_factory
 
 
-
-
-
+# Auction with ETHs as the payment currency
 @pytest.fixture(scope='module', autouse=True)
 def dutch_auction(DutchSwapAuction, auction_token):
     
@@ -105,7 +102,7 @@ def dutch_auction(DutchSwapAuction, auction_token):
     return dutch_auction
 
 
-
+# Auction with an ERC20 token as the payment currency
 @pytest.fixture(scope='module', autouse=True)
 def erc20_auction(DutchSwapAuction, auction_token, payment_token):
     startDate = chain.time() +10
@@ -126,6 +123,9 @@ def erc20_auction(DutchSwapAuction, auction_token, payment_token):
     return erc20_auction
 
 
+##############################################
+# Factory Contracts
+##############################################
 
 # Skipped for code coverage
 # Factory tested seperately for coverage

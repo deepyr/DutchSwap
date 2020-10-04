@@ -246,7 +246,7 @@ contract DutchSwapAuction  {
         require(address(paymentCurrency) != ETH_ADDRESS);          // Only token transfers
         uint256 tokensToTransfer = calculateCommitment( _amount);
         if (tokensToTransfer > 0) {
-            _safeTransferFrom(paymentCurrency, _from, _amount);
+            _safeTransferFrom(paymentCurrency, _from, tokensToTransfer);
             _addCommitment(_from, tokensToTransfer);
         }
     }
@@ -267,6 +267,7 @@ contract DutchSwapAuction  {
         require(block.timestamp >= startDate && block.timestamp <= endDate);  // Outside auction hours
         commitments[_addr] = commitments[_addr].add(_commitment);
         commitmentsTotal = commitmentsTotal.add(_commitment);
+        // Finalise auction if commitmentsTotal reach the clearing price
         emit AddedCommitment(_addr, _commitment, clearingPrice());
     }
 
@@ -330,6 +331,13 @@ contract DutchSwapAuction  {
         }
     }
 
+    // /// @notice Sends any unclaimed tokens or stuck tokens after 30 days
+    // function transferLeftOver(address tokenAddress, uint256 tokens) public returns (bool success) {
+    //     require(block.timestamp > endDate.add(30 * 24 * 60 * 60), "Transfer stuck tokens 30 days after end date");
+    //     require(tokens > 0, "Cannot transfer 0 tokens");
+    //     _tokenPayment(tokenAddress, wallet, tokens );
+    //     return true;
+    // }
 
     //--------------------------------------------------------
     // Helper Functions
