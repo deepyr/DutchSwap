@@ -3,8 +3,6 @@ pragma solidity ^0.6.9;
 import "./OpenZeppelin/SafeMath.sol";
 import "../interfaces/IERC20.sol";
 import "../interfaces/IPetylAuction.sol";
-
-// SPDX-License-Identifier: GPL-3.0-or-later
                                                             
                                                               
 //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::

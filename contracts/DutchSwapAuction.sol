@@ -160,8 +160,7 @@ contract DutchSwapAuction  {
         if (block.timestamp >= endDate) {
             return minimumPrice;
         }
-        uint256 priceDiff = block.timestamp.sub(startDate).mul(priceDrop);
-        return startPrice.sub(priceDiff);
+         return _currentPrice();
     }
 
     /// @notice The current clearing price of the Dutch auction
@@ -175,9 +174,6 @@ contract DutchSwapAuction  {
 
     /// @notice How many tokens the user is able to claim
     function tokensClaimable(address _user) public view returns (uint256) {
-        // if(!auctionEnded()) {
-        //     return 0;
-        // }
         uint256 tokensAvailable = commitments[_user].mul(1e18).div(clearingPrice());
         return tokensAvailable.sub(claimed[msg.sender]);
     }
@@ -199,9 +195,9 @@ contract DutchSwapAuction  {
 
     /// @notice Returns price during the auction
     function _currentPrice() private view returns (uint256) {
-        uint256 totalTime = endDate.sub(startDate);
         uint256 elapsed = block.timestamp.sub(startDate);
-        return startPrice.sub(priceDrop.mul(elapsed).div(totalTime));
+        uint256 priceDiff = elapsed.mul(priceDrop);
+        return startPrice.sub(priceDiff);
     }
 
     //--------------------------------------------------------
@@ -221,6 +217,7 @@ contract DutchSwapAuction  {
 
     /// @notice Commit ETH to buy tokens for any address 
     function commitEthFrom (address payable _from) public payable {
+        require(!finalised);                                  // Auction already finalised
         require(address(paymentCurrency) == ETH_ADDRESS);       // Payment currency is not ETH
         // Get ETH able to be committed
         uint256 ethToTransfer = calculateCommitment( msg.value);
@@ -242,7 +239,8 @@ contract DutchSwapAuction  {
     }
 
     /// @dev Users must approve contract prior to committing tokens to auction
-    function commitTokensFrom(address _from, uint256 _amount) public /*nonReentrant*/ {
+    function commitTokensFrom(address _from, uint256 _amount) public nonReentrant {
+        require(!finalised);                                  // Auction already finalised
         require(address(paymentCurrency) != ETH_ADDRESS);          // Only token transfers
         uint256 tokensToTransfer = calculateCommitment( _amount);
         if (tokensToTransfer > 0) {
@@ -268,7 +266,8 @@ contract DutchSwapAuction  {
         commitments[_addr] = commitments[_addr].add(_commitment);
         commitmentsTotal = commitmentsTotal.add(_commitment);
         // Finalise auction if commitmentsTotal reach the clearing price
-        emit AddedCommitment(_addr, _commitment, clearingPrice());
+        emit AddedCommitment(_addr, _commitment, _currentPrice());
+
     }
 
     //--------------------------------------------------------
@@ -288,7 +287,7 @@ contract DutchSwapAuction  {
 
     /// @notice Auction finishes successfully above the reserve
     /// @dev Transfer contract funds to initialised wallet. 
-    function finaliseAuction () public /*nonReentrant*/ {
+    function finaliseAuction () public nonReentrant {
         require(!finalised);                                  // Auction already finalised
         if( auctionSuccessful() ) 
         {
@@ -296,18 +295,25 @@ contract DutchSwapAuction  {
             /// @dev Transfer contributed tokens to wallet.
             _tokenPayment(paymentCurrency, wallet, commitmentsTotal);
         }
+        else if ( commitmentsTotal == 0 )
+        {
+            /// @dev Cancelled Auction
+            /// @dev You can cancel the auction before it starts
+            require(block.timestamp <= startDate );            // Auction already started
+            _tokenPayment(auctionToken, wallet, totalTokens);
+        }
         else
         {
             /// @dev Failed auction
             /// @dev Return auction tokens back to wallet.
-            require(block.timestamp > endDate);               // Auction not yet finished
+            require(block.timestamp > endDate );               // Auction not yet finished
             _tokenPayment(auctionToken, wallet, totalTokens);
         }
         finalised = true;
     }
 
     /// @notice Withdraw your tokens once the Auction has ended.
-    function withdrawTokens() public /*nonReentrant*/ {
+    function withdrawTokens() public nonReentrant {
         if( auctionSuccessful() ) 
         {
             /// @dev Successful auction! Transfer claimed tokens.

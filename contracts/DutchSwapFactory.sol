@@ -57,7 +57,8 @@ contract DutchSwapFactory is  Owned, CloneFactory {
     event AuctionRemoved(address dutchAuction, uint256 index );
     event FactoryDeprecated(address newAddress);
     event MinimumFeeUpdated(uint oldFee, uint newFee);
-    
+    event AuctionTemplateUpdated(address oldDutchAuction, address newDutchAuction );
+
     function initDutchSwapFactory( address _dutchAuctionTemplate, uint256 _minimumFee) public  {
         _initOwned(msg.sender);
         dutchAuctionTemplate = _dutchAuctionTemplate;
@@ -92,6 +93,12 @@ contract DutchSwapFactory is  Owned, CloneFactory {
         require(isOwner());
         emit MinimumFeeUpdated(minimumFee, _minimumFee);
         minimumFee = _minimumFee;
+    }
+
+    function setDutchAuctionTemplate( address _dutchAuctionTemplate) public  {
+        require(isOwner());
+        emit AuctionTemplateUpdated(dutchAuctionTemplate, _dutchAuctionTemplate);
+        dutchAuctionTemplate = _dutchAuctionTemplate;
     }
 
     function deployDutchAuction(

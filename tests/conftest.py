@@ -123,6 +123,24 @@ def erc20_auction(DutchSwapAuction, auction_token, payment_token):
     return erc20_auction
 
 
+# Auction with ETHs as the payment currency
+@pytest.fixture(scope='module', autouse=True)
+def pre_auction(DutchSwapAuction, auction_token):
+    
+    startDate = chain.time() +100
+    endDate = startDate + AUCTION_TIME
+    wallet = accounts[1]
+    funder = accounts[0]
+
+    pre_auction = DutchSwapAuction.deploy({'from': accounts[0]})
+    tx = auction_token.approve(pre_auction, AUCTION_TOKENS, {'from':funder})
+
+    pre_auction.initDutchAuction(funder, auction_token, AUCTION_TOKENS, startDate, endDate,ETH_ADDRESS, AUCTION_START_PRICE, AUCTION_RESERVE, wallet, {"from": accounts[0]})
+    assert pre_auction.clearingPrice( {'from': accounts[0]}) == AUCTION_START_PRICE
+
+    return pre_auction
+
+
 ##############################################
 # Factory Contracts
 ##############################################

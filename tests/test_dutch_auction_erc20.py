@@ -33,6 +33,15 @@ def test_erc20_auction_commitTokensFrom(erc20_auction, payment_token):
     tx = payment_token.approve(erc20_auction, tokens_to_transfer * 100, {'from':token_buyer})
     tx = erc20_auction.commitTokensFrom(token_buyer,tokens_to_transfer, {'from': transfer_agent})
     assert 'AddedCommitment' in tx.events
+
+def test_erc20_auction_commitNoTokens(erc20_auction, payment_token):
+    token_buyer =  accounts[2]
+    tokens_to_transfer = 20 * TENPOW18
+    tx = payment_token.transfer(token_buyer, tokens_to_transfer, {'from':accounts[0]})
+    tx = payment_token.approve(erc20_auction, tokens_to_transfer * 100, {'from':token_buyer})
+    tokens_to_actually_transfer = 0
+    # Check no token balances or commitments have changed
+    tx = erc20_auction.commitTokens(tokens_to_actually_transfer, {'from': token_buyer})
     
 
 def test_erc20_auction_tokensClaimable(erc20_auction, payment_token):
@@ -143,3 +152,10 @@ def test_erc20_auction_clearingPrice(erc20_auction):
     chain.mine()
     assert erc20_auction.clearingPrice() == AUCTION_RESERVE
 
+def test_erc20_auction_commitEthToToken(erc20_auction):
+    token_buyer =  accounts[2]
+    eth_to_transfer = 20 * TENPOW18
+    # should not be able to send ETH to a token auction 
+    with reverts():
+        tx = erc20_auction.commitEth({'from': token_buyer, 'value': eth_to_transfer})
+    
