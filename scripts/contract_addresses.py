@@ -6,7 +6,8 @@ CONTRACTS = {
 
     }, 
     "mainnet": {
-        "token_factory": "0xA550114ee3688601006b8b9f25e64732eF774934"
+        "token_factory": "0xA550114ee3688601006b8b9f25e64732eF774934",
+        "auction_factory":"0x3CB6Fb749a1FD088e1C524cBA27f25B5FDd105c8"
     },
     "rinkeby": {
         "token_factory": "0x1C3e1D406E64004416Fd592C55f9eDeD1A76Bae8",

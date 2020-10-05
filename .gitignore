@@ -14,3 +14,4 @@ build
 reports
 .tox
 scripts/deploy_*Mainnet.py
+keystore

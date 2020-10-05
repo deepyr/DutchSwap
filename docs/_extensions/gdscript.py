@@ -5,7 +5,7 @@
 
     Lexer for GDScript.
 
-    :copyright: Copyright 2xxx by The Dutch Swap Community
+    :copyright: Copyright 2020
     :license: MIT.
 
     modified by Daniel J. Ramirez <djrmuv@gmail.com> based on the original python.py pygment
