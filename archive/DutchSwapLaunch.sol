@@ -61,7 +61,7 @@ import "../interfaces/IUniswapV2Router02.sol"; // interface factorys
 
 
 import "./IFeeApprover.sol";
-import "./ICoreVault.sol";
+import "./IDSTVault.sol";
 import "@nomiclabs/buidler/console.sol";
 
 // import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
@@ -118,8 +118,8 @@ contract NBUNIERC20 is Context, Ownable {
     }
 
     function initialSetup(address router, address factory) internal {
-        _name = "cVault.finance";
-        _symbol = "CORE";
+        _name = "DutchSwap";
+        _symbol = "DST";
         _decimals = 18;
         _mint(address(this), initialSupply);
         contractStartTimestamp = block.timestamp;
@@ -201,7 +201,7 @@ contract NBUNIERC20 is Context, Ownable {
     /// After the liquidity generation event happened. In case something goes wrong, to send ETH back
 
 
-    string public liquidityGenerationParticipationAgreement = "I'm not a resident of the United States \n I understand that this contract is provided with no warranty of any kind. \n I agree to not hold the contract creators, CORE team members or anyone associated with this event liable for any damage monetary and otherwise I might onccur. \n I understand that any smart contract interaction carries an inherent risk.";
+    string public liquidityGenerationParticipationAgreement = "I'm not a resident of the United States \n I understand that this contract is provided with no warranty of any kind. \n I agree to not hold the contract creators, DutchSwap team members or anyone associated with this event liable for any damage monetary and otherwise I might onccur. \n I understand that any smart contract interaction carries an inherent risk.";
 
     function getSecondsLeftInLiquidityGenerationEvent() public view returns (uint256) {
         require(liquidityGenerationOngoing(), "Event over");
@@ -239,7 +239,7 @@ contract NBUNIERC20 is Context, Ownable {
     // 3) Failure to create LP tokens, addressed with checks
     // 4) Unacceptable division errors . Addressed with multiplications by 1e18
     // 5) Pair not set - impossible since its set in constructor
-    function addLiquidityToUniswapCORExWETHPair() public {
+    function addLiquidityToUniswapDSTxWETHPair() public {
         require(liquidityGenerationOngoing() == false, "Liquidity generation onging");
         require(LPGenerationCompleted == false, "Liquidity generation already finished");
         totalETHContributed = address(this).balance;
@@ -492,7 +492,7 @@ contract NBUNIERC20 is Context, Ownable {
             _balances[feeDistributor] = _balances[feeDistributor].add(transferToFeeDistributorAmount);
             emit Transfer(sender, feeDistributor, transferToFeeDistributorAmount);
             if(feeDistributor != address(0)){
-                ICoreVault(feeDistributor).addPendingRewards(transferToFeeDistributorAmount);
+                IDSTVault(feeDistributor).addPendingRewards(transferToFeeDistributorAmount);
             }
         }
     }

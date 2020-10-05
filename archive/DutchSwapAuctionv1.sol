@@ -298,14 +298,13 @@ contract DutchSwapAuction is Owned {
         }
     }
 
-    /// @notice Transfer unbidded auction token to a new address after auction ends
-    /// @dev This function can only be carreid out by the owner of this contract.
-    function transferLeftOver(uint256 _amount, address payable _addr) external onlyOwner returns (bool) {
-        require(block.timestamp > endDate.add(withdrawDelay).add(7 * 24 * 60 * 60), "Cannot transfer auction tokens within 7 days after withdraw day");
-        require(_amount > 0, "Cannot transfer 0 tokens");
-        _tokenPayment(auctionToken, _addr, _amount);
-        return true;
-    }
+    // /// @notice Sends any unclaimed tokens or stuck tokens after 30 days
+    // function transferLeftOver(address tokenAddress, uint256 tokens) public returns (bool success) {
+    //     require(block.timestamp > endDate.add(30 * 24 * 60 * 60), "Transfer stuck tokens 30 days after end date");
+    //     require(tokens > 0, "Cannot transfer 0 tokens");
+    //     _tokenPayment(tokenAddress, wallet, tokens );
+    //     return true;
+    // }
 
     /// @dev Helper function to handle ERC20 payments
     function _tokenPayment(IERC20 _token, address payable _to, uint256 _amount) internal {

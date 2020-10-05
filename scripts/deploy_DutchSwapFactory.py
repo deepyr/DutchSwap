@@ -60,7 +60,7 @@ def deploy_dutch_auction(auction_factory, auction_token):
 
 def main():
     use_exisiting_token_factory = True
-    use_exisiting_auction_factory = True
+    use_exisiting_auction_factory = False
     # add accounts if active network is ropsten
     if network.show_active() in ['ropsten', 'rinkeby', 'kovan', 'goerli']:
         # accounts[0] = 0x2A40019ABd4A61d71aBB73968BaB068ab389a636
@@ -96,87 +96,64 @@ def main():
     dutch_auction = deploy_dutch_auction(auction_factory, auction_token)
 
 
+# Run `brownie run deploy_DutchSwapFactory.py --network rinkeby`
+# Brownie v1.11.0 - Python development framework for Ethereum
 
-# Goerli Testnet txns
+# Compiling contracts...
+#   Solc version: 0.6.12
+#   Optimizer: Enabled  Runs: 200
+#   EVM Version: Istanbul
+# Generating build data...
+#  - ApproveAndCallFallback...
+#  - BokkyPooBahsFixedSupplyTokenFactory...
+#  - FixedSupplyToken...
+#  - TokenInterface...
+#  - DutchSwapFactory...
+#  - WETH9...
+#  - DutchSwapVault...
+#  - SafeMath...
+#  - CloneFactory...
+#  - ReentrancyGuard...
+#  - Owned...
+#  - DutchSwapAuction...
+
+# /Users/adrian/Library/Python/3.8/lib/python/site-packages/brownie/_config.py:192: DeprecationWarning: The `network` field in `brownie-config.yaml` has been deprecated. Network settings are now handled via `brownie networks` in the CLI. Remove `network` from /Users/adrian/Documents/GitHub/DutchSwapDeepyr/brownie-config to silence this warning.
+#   warnings.warn(
+# DutchswapdeepyrProject is the active project.
+
 # Running 'scripts/deploy_DutchSwapFactory.py::main'...
-# Transaction sent: 0x8ea861f75969836e41dad80df92e3f1136dff6f2ae1101fc8f86d468373b11c9
-#   Gas price: 1.23 gwei   Gas limit: 1642374
+# BokkyPooBahsFixedSupplyTokenFactory: 0x1C3e1D406E64004416Fd592C55f9eDeD1A76Bae8
+# Transaction sent: 0xa3d8c8edf48a7ff2ad36d3619e6bcdc9ef032e6b6a6289b843c24e943c1ef856
+#   Gas price: 1.0 gwei   Gas limit: 1032142
 # Waiting for confirmation...
-#   BokkyPooBahsFixedSupplyTokenFactory.constructor confirmed - Block: 3514016   Gas used: 1642374 (100.00%)
-#   BokkyPooBahsFixedSupplyTokenFactory deployed at: 0x2c2a4b9843eC5377f4BC25797E8B3639Da1d09dD
+#   DutchSwapAuction.constructor confirmed - Block: 7313460   Gas used: 1032142 (100.00%)
+#   DutchSwapAuction deployed at: 0x6C61c6d448810dD022318A03538Db1ACcdeC3B65
 
-# Transaction sent: 0xfd64947faf6d6f3ea80ac39d8691f74b9b2cfbce7f7c732bcfa05314169dd06e
-#   Gas price: 1.23 gwei   Gas limit: 1013366
+# Transaction sent: 0xa45672e06320fd447e4c3827c4b8f67a325102d7521a216bca105f4ed2330fd1
+#   Gas price: 1.0 gwei   Gas limit: 868928
 # Waiting for confirmation...
-#   DutchSwapAuction.constructor confirmed - Block: 3514017   Gas used: 1013366 (100.00%)
-#   DutchSwapAuction deployed at: 0x43Aa31AC6FB37337520c909EB9aB7529444Bfd18
+#   DutchSwapFactory.constructor confirmed - Block: 7313461   Gas used: 868928 (100.00%)
+#   DutchSwapFactory deployed at: 0x30E5620794dDe007f9F071344Ecdd44C959Bb4B6
 
-# Transaction sent: 0xb80ec6809b814644c3e8d73d42dac38250fb36649287110258925bbbade4897b
-#   Gas price: 1.23 gwei   Gas limit: 828983
+# Transaction sent: 0xc98e71abb645160273cdbdc626197243f7975cfb07b824e612c4fe02737cb149
+#   Gas price: 1.0 gwei   Gas limit: 68360
 # Waiting for confirmation...
-#   DutchSwapFactory.constructor confirmed - Block: 3514019   Gas used: 828983 (100.00%)
-#   DutchSwapFactory deployed at: 0x4FEeD5528f6a350269cb474bE3f726542c73C08B
+#   DutchSwapFactory.initDutchSwapFactory confirmed - Block: 7313462   Gas used: 66868 (97.82%)
 
-# Transaction sent: 0x08f7c731f88c07bbdfb9b891987aea8e4ae6a0aae8be59725cc695223dc3750c
-#   Gas price: 1.23 gwei   Gas limit: 68338
+# Transaction sent: 0x7e984cfa84bc51bf933c985621e5b40522607cfe969c79357654aa85c460bb91
+#   Gas price: 1.0 gwei   Gas limit: 1046946
 # Waiting for confirmation...
-#   DutchSwapFactory.initDutchSwapFactory confirmed - Block: 3514020   Gas used: 66846 (97.82%)
+#   BokkyPooBahsFixedSupplyTokenFactory.deployTokenContract confirmed - Block: 7313463   Gas used: 1044769 (99.79%)
 
-# Transaction sent: 0x37757dfd99922af326cc24aa96b9aac015087af8a31acb587eb0d638970d1e6f
-#   Gas price: 1.23 gwei   Gas limit: 1108791
+# FixedSupplyToken deployed at: 0xf40A98954b66638A700dd20de5809227a5F64410
+# Transaction sent: 0xcb9e7cfcadfaac75a82e96834182a7e0656d9b16f73aedb1d7b5b4fbf5c0a565
+#   Gas price: 1.0 gwei   Gas limit: 43990
 # Waiting for confirmation...
-#   BokkyPooBahsFixedSupplyTokenFactory.deployTokenContract confirmed - Block: 3514021   Gas used: 1106614 (99.80%)
+#   FixedSupplyToken.approve confirmed - Block: 7313464   Gas used: 43990 (100.00%)
 
-# FixedSupplyToken deployed at: 0x28BB7A15A3497bfDdDb0CF5E920d08B74581D7BE
-# Transaction sent: 0x90942074aa1c55b01af86db374ad4b4b5f42f9dfba0fa3b967e2945200f468dc
-#   Gas price: 1.23 gwei   Gas limit: 43989
+# Transaction sent: 0x7a53d1efbd528aa535a6ca28fbd527f23e2a8dfa84395151bed1fb615f88680a
+#   Gas price: 1.0 gwei   Gas limit: 477398
 # Waiting for confirmation...
-#   FixedSupplyToken.approve confirmed - Block: 3514022   Gas used: 43989 (100.00%)
+#   DutchSwapFactory.deployDutchAuction confirmed - Block: 7313465   Gas used: 418858 (87.74%)
 
-# Transaction sent: 0x9ca9fa23c1c78274ddfc42303e6be2a9af4c32a3c5899307e7f8c35a7fbade24
-#   Gas price: 1.23 gwei   Gas limit: 477809
-# Waiting for confirmation...
-#   DutchSwapFactory.deployDutchAuction confirmed - Block: 3514024   Gas used: 419263 (87.75%)
-
-# DutchSwap Auction deployed at: 0x1e7D12fb23376c67929fEb96816374F49C3FEC49
-
-
-
-# Kovan deployment
-# # 
-# Running 'scripts/deploy_DutchSwapFactory.py::main'...
-# Transaction sent: 0x5ec1479e16c6227d9dd2cbc4b4cb4212f03f5f5faf0a818661bdc55d66484143
-#   Gas price: 9.0 gwei   Gas limit: 1642374
-#   BokkyPooBahsFixedSupplyTokenFactory.constructor confirmed - Block: 21329940   Gas used: 1642374 (100.00%)
-#   BokkyPooBahsFixedSupplyTokenFactory deployed at: 0x3FE8D9113De0bF1A0Ad5c48D036197cBD264aeb2
-
-# Transaction sent: 0x8baba531e562244b2765c0004fbb5cc87fb5518e80bcdb630721b9e36855c2b7
-#   Gas price: 9.0 gwei   Gas limit: 1013366
-# Waiting for confirmation...
-#   DutchSwapAuction.constructor confirmed - Block: 21329941   Gas used: 1013366 (100.00%)
-#   DutchSwapAuction deployed at: 0xEb3e0a258294682782e40ca0D7da8AB3506F45Fa
-
-# Transaction sent: 0xbf43b5a21486c7a9163f1cbadbbfe24ff33645ab10d52bfa7d130df26d290cd1
-#   Gas price: 9.0 gwei   Gas limit: 828983
-#   DutchSwapFactory.constructor confirmed - Block: 21329942   Gas used: 828983 (100.00%)
-#   DutchSwapFactory deployed at: 0x9a25CB87332E6Bc680E44fF04F14cBd9DAaF5D84
-
-# Transaction sent: 0xcaa98d06ad8dbccf6eed8c5722b23edac1200477f9ae6072db6bc78f48639765
-#   Gas price: 9.0 gwei   Gas limit: 68338
-#   DutchSwapFactory.initDutchSwapFactory confirmed - Block: 21329943   Gas used: 66846 (97.82%)
-
-# Transaction sent: 0xef5871a4dd82dd3aef73a9b676d8bcca5d522cd86a4bd85248608d6548e2185b
-#   Gas price: 9.0 gwei   Gas limit: 1108791
-# Waiting for confirmation...
-#   BokkyPooBahsFixedSupplyTokenFactory.deployTokenContract confirmed - Block: 21329944   Gas used: 1106614 (99.80%)
-
-# FixedSupplyToken deployed at: 0x5eBB983847d4ffA663f2ED5F33668D43EC9dBF02
-# Transaction sent: 0x1cfad9f4cf51fe50e8b6364fcc82c5d9cfe2eaf0d53b69539a46eb51b873a528
-#   Gas price: 9.0 gwei   Gas limit: 43989
-#   FixedSupplyToken.approve confirmed - Block: 21329945   Gas used: 43989 (100.00%)
-
-# Transaction sent: 0x740b7cb54181fd4b2b6f23eb335e0ef0698f712f7d9da75a9503777687014cfc
-#   Gas price: 9.0 gwei   Gas limit: 477809
-#   DutchSwapFactory.deployDutchAuction confirmed - Block: 21329946   Gas used: 419263 (87.75%)
-
-# DutchSwap Auction deployed at: 0xC0dcff5440631A1f6d62A0562e480152De88eBeB 
+# DutchSwap Auction deployed at: 0xd2b59001B352d35b7583F469822e3469eD390c3a

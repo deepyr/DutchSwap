@@ -380,7 +380,7 @@ contract DutchSwapAuction  {
 
     /// @notice Commit ETH to buy tokens for any address 
     function commitEthFrom (address payable _from) public payable {
-        require(!finalised);                                  // Auction already finalised
+        require(!finalised);                                    // Auction was cancelled
         require(address(paymentCurrency) == ETH_ADDRESS);       // Payment currency is not ETH
         // Get ETH able to be committed
         uint256 ethToTransfer = calculateCommitment( msg.value);
@@ -403,7 +403,7 @@ contract DutchSwapAuction  {
 
     /// @dev Users must approve contract prior to committing tokens to auction
     function commitTokensFrom(address _from, uint256 _amount) public nonReentrant {
-        require(!finalised);                                  // Auction already finalised
+        require(!finalised);                                     // Auction was cancelled
         require(address(paymentCurrency) != ETH_ADDRESS);          // Only token transfers
         uint256 tokensToTransfer = calculateCommitment( _amount);
         if (tokensToTransfer > 0) {
@@ -428,7 +428,6 @@ contract DutchSwapAuction  {
         require(block.timestamp >= startDate && block.timestamp <= endDate);  // Outside auction hours
         commitments[_addr] = commitments[_addr].add(_commitment);
         commitmentsTotal = commitmentsTotal.add(_commitment);
-        // Finalise auction if commitmentsTotal reach the clearing price
         emit AddedCommitment(_addr, _commitment, _currentPrice());
 
     }
@@ -500,13 +499,6 @@ contract DutchSwapAuction  {
         }
     }
 
-    // /// @notice Sends any unclaimed tokens or stuck tokens after 30 days
-    // function transferLeftOver(address tokenAddress, uint256 tokens) public returns (bool success) {
-    //     require(block.timestamp > endDate.add(30 * 24 * 60 * 60), "Transfer stuck tokens 30 days after end date");
-    //     require(tokens > 0, "Cannot transfer 0 tokens");
-    //     _tokenPayment(tokenAddress, wallet, tokens );
-    //     return true;
-    // }
 
     //--------------------------------------------------------
     // Helper Functions

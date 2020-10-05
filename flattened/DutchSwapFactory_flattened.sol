@@ -426,13 +426,6 @@ contract DutchSwapFactory is  Owned, CloneFactory {
         dutchAuctionTemplate = _dutchAuctionTemplate;
     }
 
-
-    function initDutchSwapFactory( address _dutchAuctionTemplate, uint256 _minimumFee) public  {
-        _initOwned(msg.sender);
-        dutchAuctionTemplate = _dutchAuctionTemplate;
-        minimumFee = _minimumFee;
-    }
-
     function deployDutchAuction(
         address _token, 
         uint256 _tokenSupply, 
