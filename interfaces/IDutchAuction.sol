@@ -21,8 +21,11 @@ interface IDutchAuction {
     function auctionEnded() external view returns (bool);
     function tokensClaimed(address user) external view returns (uint256);
     function tokenSupply() external view returns(uint256);
-    function auctionToken() external view returns(address);
     function wallet() external view returns(address);
+    function minimumPrice() external view returns(uint256);
+    function clearingPrice() external view returns (uint256);
+    function auctionToken() external view returns(address);
+    function endDate() external view returns(uint256);
 
     function paymentCurrency() external view returns(address);
 

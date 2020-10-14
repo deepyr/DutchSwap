@@ -135,6 +135,26 @@ def erc20_auction(DutchSwapAuction, auction_token, payment_token):
 
 # Auction with ETHs as the payment currency
 @pytest.fixture(scope='module', autouse=True)
+def hyperbolic_auction(DutchSwapHyperbolic, auction_token):
+    
+    startDate = chain.time() +10
+    endDate = startDate + AUCTION_TIME
+    wallet = accounts[1]
+    funder = accounts[0]
+
+    hyperbolic_auction = DutchSwapHyperbolic.deploy({'from': accounts[0]})
+    tx = auction_token.approve(hyperbolic_auction, AUCTION_TOKENS, {'from':funder})
+
+    hyperbolic_auction.initDutchAuction(funder, auction_token, AUCTION_TOKENS, startDate, endDate,ETH_ADDRESS, AUCTION_RESERVE, wallet, {"from": accounts[0]})
+    # assert hyperbolic_auction.clearingPrice( {'from': accounts[0]}) == AUCTION_START_PRICE
+
+    # Move the chain to the moment the auction begins
+    chain.sleep(10)
+    return hyperbolic_auction
+
+
+# Auction with ETHs as the payment currency
+@pytest.fixture(scope='module', autouse=True)
 def pre_auction(DutchSwapAuction, auction_token):
     
     startDate = chain.time() +100
