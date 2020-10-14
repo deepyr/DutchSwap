@@ -36,7 +36,7 @@ import "./OpenZeppelin/SafeMath.sol";
 import "./Utils/CloneFactory.sol";
 import "../interfaces/IOwned.sol";
 import "../interfaces/IERC20.sol";
-import "../interfaces/IPetylAuction.sol";
+import "../interfaces/IDutchAuction.sol";
 
 contract DutchSwapFactory is  Owned, CloneFactory {
     using SafeMath for uint256;
@@ -54,6 +54,8 @@ contract DutchSwapFactory is  Owned, CloneFactory {
     address[] public auctions;
 
     event DutchAuctionDeployed(address indexed owner, address indexed addr, address dutchAuction, uint256 fee);
+    event CustomAuctionDeployed(address indexed owner, address indexed addr);
+
     event AuctionRemoved(address dutchAuction, uint256 index );
     event FactoryDeprecated(address newAddress);
     event MinimumFeeUpdated(uint oldFee, uint newFee);
@@ -68,6 +70,17 @@ contract DutchSwapFactory is  Owned, CloneFactory {
     function numberOfAuctions() public view returns (uint) {
         return auctions.length;
     }
+
+    function addCustomAuction(address _auction) public  {
+        require(isOwner());
+        require(!isChildAuction[_auction].exists);
+        bool finalised = IDutchAuction(_auction).auctionEnded();
+        require(!finalised);
+        isChildAuction[address(_auction)] = Auction(true, auctions.length - 1);
+        auctions.push(address(_auction));
+        emit CustomAuctionDeployed(msg.sender, address(_auction));
+    }
+    
     function removeFinalisedAuction(address _auction) public  {
         require(isChildAuction[_auction].exists);
         bool finalised = IDutchAuction(_auction).auctionEnded();

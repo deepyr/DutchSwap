@@ -63,7 +63,7 @@ contract DutchSwapAuction  {
     uint256 public priceDrop; // Price reduction from startPrice at endDate
     uint256 public commitmentsTotal;
     uint256 public tokenWithdrawn;  // the amount of auction tokens already withdrawn
-    bool private initialised;    // AG: should be private
+    bool private initialised;    
     bool public finalised;
     uint256 private constant _NOT_ENTERED = 1;
     uint256 private constant _ENTERED = 2;
@@ -103,9 +103,6 @@ contract DutchSwapAuction  {
     {
         require(!initialised);                // Already Initialised
         require(_endDate > _startDate);       // End date earlier than start date
-
-        // Try and refactor to remove these requirements
-        // require(_startPrice > _minimumPrice); // Starting price lower than minimum price
         require(_minimumPrice > 0);           // Minimum price must be greater than 0
         
         auctionToken = _token;
@@ -178,7 +175,7 @@ contract DutchSwapAuction  {
         return tokensAvailable.sub(claimed[msg.sender]);
     }
 
-    /// @notice Total amount of tokens committed at current auction price
+    /// @notice Total amount of tokens committed at current auction price–
     function totalTokensCommitted() public view returns(uint256) {
         return commitmentsTotal.mul(1e18).div(clearingPrice());
     }
@@ -316,7 +313,6 @@ contract DutchSwapAuction  {
         if( auctionSuccessful() ) 
         {
             /// @dev Successful auction! Transfer claimed tokens.
-            /// @dev AG: Could be only > min to allow early withdraw
             uint256 tokensToClaim = tokensClaimable(msg.sender);
             require(tokensToClaim > 0 );                      // No tokens to claim
             claimed[ msg.sender] = claimed[ msg.sender].add(tokensToClaim);
@@ -335,14 +331,6 @@ contract DutchSwapAuction  {
             _tokenPayment(paymentCurrency, msg.sender, fundsCommitted);       
         }
     }
-
-    // /// @notice Sends any unclaimed tokens or stuck tokens after 30 days
-    // function transferLeftOver(address tokenAddress, uint256 tokens) public returns (bool success) {
-    //     require(block.timestamp > endDate.add(30 * 24 * 60 * 60), "Transfer stuck tokens 30 days after end date");
-    //     require(tokens > 0, "Cannot transfer 0 tokens");
-    //     _tokenPayment(tokenAddress, wallet, tokens );
-    //     return true;
-    // }
 
     //--------------------------------------------------------
     // Helper Functions
