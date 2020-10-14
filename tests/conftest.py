@@ -52,6 +52,16 @@ def payment_token(FixedSupplyToken):
 #     return payment_token
 
 
+@pytest.fixture(scope='module', autouse=True)
+def vault_token(FixedSupplyToken):
+    token_owner = accounts[0]
+    name = 'VAULT TOKEN'
+    symbol = 'VAULT'
+    initial_supply = 10*PAYMENT_TOKENS
+    vault_token = FixedSupplyToken.deploy({'from': token_owner})
+    tx = vault_token.init(token_owner, symbol,name, 18,initial_supply, {'from': token_owner})
+    return vault_token
+
 ##############################################
 # Auction
 ##############################################
@@ -140,6 +150,11 @@ def pre_auction(DutchSwapAuction, auction_token):
 
     return pre_auction
 
+
+# Auction with ETHs as the payment currency
+# @pytest.fixture(scope='module', autouse=True)
+# def vault(DutchSwapVault, vault_token):
+    
 
 ##############################################
 # Factory Contracts
