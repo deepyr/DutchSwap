@@ -60,6 +60,7 @@ The main documentation for the site is organized into the following sections:
     :name: sec-devel
 
     protocol/smart_contracts/index
+    protocol/deployment/index
 
 .. toctree::
     :caption: Community
