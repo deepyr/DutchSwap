@@ -24,7 +24,7 @@ ZERO_ADDRESS = '0x0000000000000000000000000000000000000000'
 ETH_ADDRESS = '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE'
 
 # Do you want to use the token factory? Set false to redeploy your own
-USE_EXISTING_FACTORY = True
+USE_EXISTING_FACTORY = False
 
 
 def deploy_auction_token(token_factory):
