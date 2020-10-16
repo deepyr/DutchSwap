@@ -114,7 +114,8 @@ contract DutchSwapHyperbolic  {
         wallet = _wallet;
         _status = _NOT_ENTERED;
 
-        theta = (2**3) * minimumPrice;
+        uint256 factor = 2;               // time * 1/factor = reflection point relative to minimum price
+        theta = (factor**2) * minimumPrice;
         alpha = theta.mul(minimumPrice).div(1e18);
         require (alpha > 0);
         // There are many non-compliant ERC20 tokens... this can handle most, adapted from UniSwap V2
@@ -125,7 +126,7 @@ contract DutchSwapHyperbolic  {
 
     // Hyperbolic Dutch Auction Function
     // ============================
-    // Reflexion point at x = t/2
+    // Reflexion point at x = t/factor
     // Hyperbolic curve y=A/x
     //
     // Start Time  -----   
@@ -188,13 +189,6 @@ contract DutchSwapHyperbolic  {
             return totalTokens.sub(totalCommitted);
         }
     }
-
-    // /// @notice Returns price during the auction
-    // function _currentPrice() private view returns (uint256) {
-    //     uint256 elapsed = block.timestamp.sub(startDate);
-    //     uint256 priceDiff = elapsed.mul(priceDrop);
-    //     return startPrice.sub(priceDiff);
-    // }
 
     /// @notice Returns price during the auction
     function _currentPrice() private view returns (uint256) {
