@@ -7,8 +7,11 @@ Deployment
     :maxdepth: 1
     :name: toc-deployment
 
-    deployment_scripts
+    
     deployed_contracts
+    deployment_factory
+    deployment_auction
+    
 
 
 
