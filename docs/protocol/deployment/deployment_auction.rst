@@ -106,7 +106,7 @@ All you need to do is run the command:
 
 Please check the code and supply the parameters as per your requirements
 
-`brownie run deploy_DutcSwapAuction.py`
+`brownie run deploy_DutchSwapAuction.py`
 
 For local setup in your ganacheCLI you need to modify it a little:
 
