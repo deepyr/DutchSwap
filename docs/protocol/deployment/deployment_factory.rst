@@ -1,7 +1,7 @@
 .. meta::
     :keywords: deployment scripts
 
-.. _deployment_factory_scripts:
+.. _deployment_factory:
 
 Dutchswap Factory Deployment
 ================================
@@ -48,4 +48,4 @@ Deploy Dutch Auction Factory:
 Okay, so we have created a token factory to supply to our Auction and a Auction Factory to create an auction.
 Please follow this link for further deployment:
 
-:ref:`deployment_auction`_
+:ref:`deployment_auction`

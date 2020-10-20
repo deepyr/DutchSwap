@@ -104,6 +104,8 @@ Okay so all the script mentioned above are put into a deployment script in the f
 
 All you need to do is run the command:
 
+Please check the code and supply the parameters as per your requirements
+
 `brownie run deploy_DutcSwapAuction.py`
 
 For local setup in your ganacheCLI you need to modify it a little:
