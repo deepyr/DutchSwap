@@ -53,9 +53,9 @@ The parameters are:
 
 5. @value: The value in ether of the total supplied tokens.
 
-   We need the token to be able to use it. How do we get it? Simple just pass the address of the token we get from above transaction ::
+*  We need the token to be able to use it. How do we get it? Simple just pass the address of the token we get from above transaction::
 
-   auction_token = FixedSupplyToken.at(web3.toChecksumAddress(tx.events['TokenDeployed']['token']))
+         auction_token = FixedSupplyToken.at(web3.toChecksumAddress(tx.events['TokenDeployed']['token']))
 
 * Okay so we have created a token for which we want to auction. Lets create a auction!
 
