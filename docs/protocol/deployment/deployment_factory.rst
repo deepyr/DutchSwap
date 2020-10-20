@@ -48,4 +48,4 @@ Deploy Dutch Auction Factory:
 Okay, so we have created a token factory to supply to our Auction and a Auction Factory to create an auction.
 Please follow this link for further deployment:
 
-:doc:`deployment_auction`
+:ref:`deployment_auction`

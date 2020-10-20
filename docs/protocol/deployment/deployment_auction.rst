@@ -1,7 +1,7 @@
 .. meta::
     :keywords: deployment scripts
 
-.._deployment_scripts:
+.. _deployment_auction:
 
 DutchSwap Deployment
 =============================================
