@@ -100,7 +100,7 @@ The parameters to pass are as follows:
 
     dutch_auction = DutchSwapAuction.at(web3.toChecksumAddress(tx.events['DutchAuctionDeployed']['addr']))
 
-F.py
+deploy_DutchSwapAuction.py
 ------------------------------
 Okay so all the script mentioned above are put into a deployment script in the file deploy_DutchSwapAuction.py
 
