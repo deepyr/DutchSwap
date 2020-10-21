@@ -70,11 +70,11 @@ Get Tokens available
 
 The number of tokens the user is able to claim. It is given by the total commitment of the user divided by the price of token(clearing price)
 
-*`function tokensRemaining()`
+* `function tokensRemaining()`
 
 Total amount of tokens left for auction
 
-*`function totalTokensCommitted()`
+* `function totalTokensCommitted()`
 
 Total amount of tokens committed at current auction price
 
