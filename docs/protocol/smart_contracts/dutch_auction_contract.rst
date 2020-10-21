@@ -100,24 +100,24 @@ Returns the amount able to be committed during an auction. If the commitment is 
 Getters
 ----------------------
 
-*`function auctionSuccessful() public view returns (bool)`
+* `function auctionSuccessful() public view returns (bool)`
 
 Returns successful if the tokens sold equals total Tokens. Also, if the token price is greater than or equal to the clearing price.
 
-*`function auctionEnded() public view returns (bool)`
+* `function auctionEnded() public view returns (bool)`
 
 Returns bool if successful or time has ended
 
 Finalizing the auction
 ------------------------
 
-*`function finaliseAuction () public`
+* `function finaliseAuction () public`
 
 If the auction has successfuly finished above the reserve, then transfer the total commitments to the initialized wallet
 
 If the function has cancelled or failed, transfer total tokens back, ie to initialized wallet
 
-*`function withdrawTokens()`
+* `function withdrawTokens()`
 
 If the auction has successfuly finished, transfer the claimed tokens to the bidders.
 
