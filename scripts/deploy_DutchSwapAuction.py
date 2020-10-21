@@ -26,7 +26,10 @@ ETH_ADDRESS = '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE'
 # Do you want to use the token factory? Set false to redeploy your own
 USE_EXISTING_FACTORY = False
 
-
+def deploy_token_factory():
+    token_factory = BokkyPooBahsFixedSupplyTokenFactory.deploy({'from': accounts[0]})
+    return token_factory
+    
 def deploy_auction_token(token_factory):
     tx = token_factory.deployTokenContract(SYMBOL,NAME,18,AUCTION_TOKENS,{'from': accounts[0], "value": "0.11 ethers"})
     auction_token = FixedSupplyToken.at(web3.toChecksumAddress(tx.events['TokenDeployed']['token']))

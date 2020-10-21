@@ -82,13 +82,13 @@ The parameters to pass are as follows:
 
 1.auction_token: This is the address of ERC20 Token we just created
 
-2.AUCTION_TOKENS:The supply of total number of tokens for the auction(uint256)
+2.AUCTION_TOKENS:The supply of total number of tokens for the auction(uint256). This must be in wei(ie totalSupply * 10**18)
 
 3.AUCTION_START: The start date for the auction(uint)
 
 4.AUCTION_END: The end date for the auction(uint)]
 
-5.PAYMENT_CURRENCY: Address of the currency you want to pay with. Can be ethereum address(0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE) or a token address
+5.PAYMENT_CURRENCY: Address of the currency you want to be paid with. Can be ethereum address(0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE) or a token address
 
 6.AUCTION_START_PRICE: Start Price for the token to start auction(in  wei). This should be the maximum price you want your token to be valued at
 
@@ -100,7 +100,7 @@ The parameters to pass are as follows:
 
     dutch_auction = DutchSwapAuction.at(web3.toChecksumAddress(tx.events['DutchAuctionDeployed']['addr']))
 
-deploy_DutchSwapAuction.py
+F.py
 ------------------------------
 Okay so all the script mentioned above are put into a deployment script in the file deploy_DutchSwapAuction.py
 
@@ -118,7 +118,7 @@ The link for the **deploy_DutchSwapAuction.py**:
 
 For local setup in your ganacheCLI you need to modify it a little:
 
-In line 62 of deploy_DutchSwapAuction.py change `use_exisiting_token_factory` to False
+In line 27 of deploy_DutchSwapAuction.py change `USE_EXISTING_FACTORY` to False
 
 
 
