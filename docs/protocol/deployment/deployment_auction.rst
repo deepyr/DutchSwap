@@ -64,6 +64,8 @@ Create Dutch auction
 
 * First we need a Auction Factory which actually creates an Auction for the specified ERC20 Token. We have already deployed DutchSwapFactory at respective addresses found in:
 
+   :ref:`deployed_contracts`
+
 * Copy the Auction Factory address of the required network and create a Auction Factory using::
     
    auction_factory = DutchSwapFactory.at(auction_factory_address)
@@ -98,18 +100,25 @@ The parameters to pass are as follows:
 
     dutch_auction = DutchSwapAuction.at(web3.toChecksumAddress(tx.events['DutchAuctionDeployed']['addr']))
 
-deploy_DutcSwapAuction.py
+deploy_DutchSwapAuction.py
 ------------------------------
-Okay so all the script mentioned above are put into a deployment script in the file deploy_DutcSwapAuction.py
+Okay so all the script mentioned above are put into a deployment script in the file deploy_DutchSwapAuction.py
 
-All you need to do is run the command:
+
 
 Please check the code and supply the parameters as per your requirements
 
+All you need to do is run the command:
+
 `brownie run deploy_DutchSwapAuction.py`
+
+The link for the **deploy_DutchSwapAuction.py**:
+
+`deploy_DutchSwapAuction  <https://github.com/deepyr/DutchSwap/blob/master/scripts/deploy_DutchSwapAuction.py>`_
 
 For local setup in your ganacheCLI you need to modify it a little:
 
-In line 62 of deploy_DutcSwapAuction.py change `use_exisiting_token_factory` to False
+In line 62 of deploy_DutchSwapAuction.py change `use_exisiting_token_factory` to False
+
 
 
