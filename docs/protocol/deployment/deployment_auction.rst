@@ -64,6 +64,8 @@ Create Dutch auction
 
 * First we need a Auction Factory which actually creates an Auction for the specified ERC20 Token. We have already deployed DutchSwapFactory at respective addresses found in:
 
+   :ref:`deployed_contracts`
+
 * Copy the Auction Factory address of the required network and create a Auction Factory using::
     
    auction_factory = DutchSwapFactory.at(auction_factory_address)
@@ -80,13 +82,13 @@ The parameters to pass are as follows:
 
 1.auction_token: This is the address of ERC20 Token we just created
 
-2.AUCTION_TOKENS:The supply of total number of tokens for the auction(uint256)
+2.AUCTION_TOKENS:The supply of total number of tokens for the auction(uint256). This must be in wei(ie totalSupply * 10**18)
 
 3.AUCTION_START: The start date for the auction(uint)
 
 4.AUCTION_END: The end date for the auction(uint)]
 
-5.PAYMENT_CURRENCY: Address of the currency you want to pay with. Can be ethereum address(0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE) or a token address
+5.PAYMENT_CURRENCY: Address of the currency you want to be paid with. Can be ethereum address(0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE) or a token address
 
 6.AUCTION_START_PRICE: Start Price for the token to start auction(in  wei). This should be the maximum price you want your token to be valued at
 
@@ -98,18 +100,25 @@ The parameters to pass are as follows:
 
     dutch_auction = DutchSwapAuction.at(web3.toChecksumAddress(tx.events['DutchAuctionDeployed']['addr']))
 
-deploy_DutcSwapAuction.py
+deploy_DutchSwapAuction.py
 ------------------------------
-Okay so all the script mentioned above are put into a deployment script in the file deploy_DutcSwapAuction.py
+Okay so all the script mentioned above are put into a deployment script in the file deploy_DutchSwapAuction.py
 
-All you need to do is run the command:
+
 
 Please check the code and supply the parameters as per your requirements
 
+All you need to do is run the command:
+
 `brownie run deploy_DutchSwapAuction.py`
+
+The link for the **deploy_DutchSwapAuction.py**:
+
+`deploy_DutchSwapAuction  <https://github.com/deepyr/DutchSwap/blob/master/scripts/deploy_DutchSwapAuction.py>`_
 
 For local setup in your ganacheCLI you need to modify it a little:
 
-In line 62 of deploy_DutcSwapAuction.py change `use_exisiting_token_factory` to False
+In line 27 of deploy_DutchSwapAuction.py change `USE_EXISTING_FACTORY` to False
+
 
 
