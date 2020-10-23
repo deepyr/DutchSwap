@@ -4,14 +4,14 @@
 .. _auction_factory_contract:
 
 DutchSwap Factory Contract
-======================
+=============================
 
 Functions
 -----------
 
 * `function initDutchSwapFactory( address _dutchAuctionTemplate, uint256 _minimumFee)`
 
-Call this function by first passing it the deployed  DutchSwapAuction contract in _dutchAuctionTemplate.
+This function initializes the factory method with the Dutch Auction contract that has been deployed. You can deploy the DutchAuctionContract or use the already deployed address and pass it to _dutchAuctionTemplate
 
 * `function addCustomAuction(address _auction)`
 
@@ -19,7 +19,7 @@ You can add a Dutch Swap Auction you have created without using the `function de
 
 * `function removeFinalisedAuction(address _auction)`
 
-Remove the function that has ended or removeFinalisedAuction
+Remove the function that has ended or  finalised
 
 * function deployDutchAuction(
         address _token, 
@@ -30,6 +30,8 @@ Remove the function that has ended or removeFinalisedAuction
         uint256 _startPrice, 
         uint256 _minimumPrice, 
         address payable _wallet)
+
+This function creates dutch auction and approves the created dutch auction to use the supplied auction_token for the auction.
 
 The parameters to pass are as follows:
 
