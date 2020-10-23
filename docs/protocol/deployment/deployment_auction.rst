@@ -19,9 +19,9 @@ Script
 ------
 We have already deployed Dutchswap Factory Contract for the respective testnet and also in mainnet
 
-If you want to deploy it locally please deploy Auction factory first
+If you want to deploy the factories please deploy Auction factory using ref:`deployment_factory`
 
-The links to addresses are Deployed Smart Contract page
+The links to addresses are :ref:`deployed_contracts`
 
 Create ERC20 Token:
 ----------------------------
@@ -40,6 +40,8 @@ Create ERC20 Token:
 
         tx = token_factory.deployTokenContract(SYMBOL,NAME,DECIMALS,NUMBER_OF_AUCTION_TOKENS,{'from': accounts[0], "value": "@value ethers"})
 
+Deploy a new token contract. The account executing this function will be assigned as the owner of the new token contract. The entire totalSupply is minted for the token contract owner.
+
 This transaction will create a ERC20 Fixed Supply ERC20 Token with the properties you pass for the values of the parameters
 The parameters are:
 
@@ -49,9 +51,9 @@ The parameters are:
 
 3. DECIMALS:In ERC20 tokens, that scaling factor is denoted by the value of decimals , which indicates how many 0's there are to the right of the decimal point the fixed-point representation of a token
 
-4. NUMBER_OF_AUCTION_TOKENS: The supply of total number of tokens for the auction
+4. NUMBER_OF_AUCTION_TOKENS: The number of tokens that will be minted to the token contract owner's account
 
-5. @value: The value in ether of the total supplied tokens.
+5. @value: The value in ether of the total supplied tokens. This must be atleast the minimumFee(0.1 ethers).
 
 *  We need the token to be able to use it. How do we get it? Simple just pass the address of the token we get from above transaction::
 
@@ -77,6 +79,8 @@ Create Dutch auction
 * Now lets create a dutch auction by deploying it using the factory::
 
    tx = auction_factory.deployDutchAuction(auction_token, AUCTION_TOKENS, AUCTION_START,AUCTION_END,PAYMENT_CURRENCY, AUCTION_START_PRICE, AUCTION_RESERVE, wallet, {"from": accounts[0]})
+
+This function creates dutch auction and approves the created dutch auction to use the supplied auction_token for the auction.
 
 The parameters to pass are as follows:
 
