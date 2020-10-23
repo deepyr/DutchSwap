@@ -48,7 +48,7 @@ Here,
 
 8._minimumPrice: Minimum price you want the token to be valued at.
 
-9._wallet: wallet: The address that you want your payment to be received at if the auction is successfuly. It is also the address that you will receive your tokens at if the auction is not successful.
+9._wallet: The address that you want your payment to be received at if the auction is successfuly. It is also the address that you will receive your tokens at if the auction is not successful.
 
 Get Token Price:
 ------------------
