@@ -48,7 +48,7 @@ Here,
 
 8._minimumPrice: Minimum price you want the token to be valued at.
 
-9._wallet: wallet: The address that you want your payment to be received at if the auction is successfuly. It is also the address that you will receive your tokens at if the auction is not successful.
+9._wallet: The address that you want your payment to be received at if the auction is successfuly. It is also the address that you will receive your tokens at if the auction is not successful.
 
 Get Token Price:
 ------------------
@@ -83,7 +83,7 @@ How to Buy a token
 
 * `function commitEth() public payable`
 
-Commit ETH to buy tokens for any address. It calculates the commitment based on the amount of ether we give to the smart contract. If we have Ethereum that is greater than the maximum commitment available this function will refund
+Commit ETH to buy tokens for any address. It calculates the commitment based on the amount of ether we give to the smart contract. If we commit ethers that is greater than the maximum commitment available this function will refund
 
 Finally it will add how much a user has commited to commitments mapping
 
@@ -102,11 +102,11 @@ Getters
 
 * `function auctionSuccessful() public view returns (bool)`
 
-Returns successful if the tokens sold equals total Tokens. Also, if the token price is greater than or equal to the clearing price.
+Returns successful if the tokens sold equals total Tokens. That is to say the token price is greater than or equal to the clearing price.
 
 * `function auctionEnded() public view returns (bool)`
 
-Returns bool if successful or time has ended
+Returns bool if auction is successful or time has ended
 
 Finalizing the auction
 ------------------------
