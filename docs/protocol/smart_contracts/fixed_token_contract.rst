@@ -17,10 +17,12 @@ totalSupply(), balanceOf(...), transfer(...), transferFrom(...), approve(...) an
 Additionally, the approveAndCall(...) functionality is included so that the two operations of executing tokenContract.approve(targetContract, tokens) and targetContract.doSomething(...) (which will execute tokenContract.transferFrom(user, targetContact, tokens)) can be combined into a single approveAndCall(...) transaction. Please only use this functionality with trusted smart contracts, and with checks!
 
 
-* `function deployTokenContract(string memory symbol, string memory name, uint8 decimals, uint totalSupply) public payable returns (address token)`
+
 
 Factory deployTokenContract Function
 ----------------------------------------
+
+* `function deployTokenContract(string memory symbol, string memory name, uint8 decimals, uint totalSupply) public payable returns (address token)`
 
 Deploy a new token contract. The account executing this function will be assigned as the owner of the new token contract. The entire totalSupply is minted for the token contract owner.
 
