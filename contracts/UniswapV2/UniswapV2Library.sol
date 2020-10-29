@@ -1,5 +1,5 @@
 
-pragma solidity >=0.5.0;
+pragma solidity ^0.6.9;
 
 import "../OpenZeppelin/SafeMath.sol";
 import "../../interfaces/IUniswapV2Pair.sol";
