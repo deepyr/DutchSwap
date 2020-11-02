@@ -171,10 +171,45 @@ def pre_auction(DutchSwapAuction, auction_token):
     return pre_auction
 
 
+
+##############################################
+# Vault Contracts
+##############################################
+
+
 # Auction with ETHs as the payment currency
-# @pytest.fixture(scope='module', autouse=True)
-# def vault(DutchSwapVault, vault_token):
+@pytest.fixture(scope='module', autouse=True)
+def pre_auction_vault(DutchSwapVault):
+    pre_auction_vault = DutchSwapVault.deploy({'from': accounts[0]})
+    return pre_auction_vault
+
+# Auction with ETHs as the payment currency
+@pytest.fixture(scope='module', autouse=True)
+def vault_auction(DutchSwapAuction, vault_token, pre_auction_vault):
     
+    startDate = chain.time() +100
+    endDate = startDate + AUCTION_TIME
+    wallet = pre_auction_vault
+    funder = accounts[0]
+
+    vault_auction = DutchSwapAuction.deploy({'from': accounts[0]})
+    tx = vault_token.approve(vault_auction, AUCTION_TOKENS, {'from':funder})
+
+    vault_auction.initDutchAuction(funder, vault_token, AUCTION_TOKENS, startDate, endDate,ETH_ADDRESS, AUCTION_START_PRICE, AUCTION_RESERVE, wallet, {"from": accounts[0]})
+    assert vault_auction.clearingPrice( {'from': accounts[0]}) == AUCTION_START_PRICE
+
+    return vault_auction
+
+# Auction with ETHs as the payment currency
+@pytest.fixture(scope='module', autouse=True)
+def auction_vault(vault_auction, pre_auction_vault):
+    refundPct = 1000   
+    refundTime = vault_auction.endDate( {'from': accounts[0]}) + VAULT_LOCKUP
+    # print("startDate: " + str(startDate))
+    # print("refundTime: " + str(refundTime))
+    auction_vault = pre_auction_vault
+    auction_vault.initAuctionVault(vault_auction, refundPct,  refundTime, VAULT_WINDOW, {"from": accounts[0]})
+    return auction_vault
 
 ##############################################
 # Factory Contracts

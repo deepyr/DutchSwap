@@ -71,7 +71,7 @@ contract DutchSwapVault {
     address public paymentCurrency; 
 
     // timestamp when token refund is enabled
-    bool private initialised;
+    bool public initialised;  // AG can be private
     uint256 public refundTime;
     uint256 public refundPct;  // 90 = 90% refunded to user
     uint256 public refundDuration;
@@ -84,10 +84,10 @@ contract DutchSwapVault {
     function initAuctionVault ( address _auction, uint256 _refundPct, uint256 _refundTime, uint256 _refundDuration) public {
         // solhint-disable-next-line not-rely-on-time
         require(!initialised);
-        require(_refundPct < 100 && _refundPct > 0);
+        require(_refundPct <= 10000 && _refundPct > 0);   // 33.33%  = 3333 
 
         auction = IDutchAuction(_auction);
-        require(refundTime > auction.endDate(), "Timelock: refund time is before endDate");
+        require(_refundTime > auction.endDate(), "Timelock: refund time is before endDate");
         require(auction.wallet() == address(this));
 
         refundTime = _refundTime;
@@ -115,7 +115,7 @@ contract DutchSwapVault {
 
     function refundPriceOwner() public view returns (uint256) {
         
-        uint256 refundOwner = auction.clearingPrice().mul(100 - refundPct).div(100);
+        uint256 refundOwner = auction.clearingPrice().mul(10000 - refundPct).div(10000);
         uint256 refundMin = auction.minimumPrice();
         return refundOwner.max(refundMin);
     }
