@@ -32,14 +32,14 @@ pragma solidity ^0.6.9;
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 import "./Utils/Owned.sol";
-import "./OpenZeppelin/SafeMath.sol";
+import "./Utils/SafeMathPlus.sol";
 import "./Utils/CloneFactory.sol";
 import "../interfaces/IOwned.sol";
 import "../interfaces/IERC20.sol";
 import "../interfaces/IDutchAuction.sol";
 
 contract DutchSwapFactory is  Owned, CloneFactory {
-    using SafeMath for uint256;
+    using SafeMathPlus for uint256;
 
     address public dutchAuctionTemplate;
 

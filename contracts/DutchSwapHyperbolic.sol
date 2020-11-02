@@ -47,11 +47,11 @@ pragma solidity ^0.6.9;
 // ---------------------------------------------------------------------
 
 
-import "./OpenZeppelin/SafeMath.sol";
+import "./Utils/SafeMathPlus.sol";
 
 contract DutchSwapHyperbolic  {
 
-    using SafeMath for uint256;
+    using SafeMathPlus for uint256;
     /// @dev The placeholder ETH address.
     address private constant ETH_ADDRESS = 0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE;
 
