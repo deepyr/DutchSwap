@@ -3,10 +3,10 @@ pragma solidity ^0.6.9;
 import "../Utils/CloneFactory.sol";
 import "../../interfaces/INFT.sol";
 import "./NFT.sol";
-import "OpenZeppelin/openzeppelin-contracts@3.2.0/contracts/access/Ownable.sol";
+import "../Utils/Owned.sol";
 import "OpenZeppelin/openzeppelin-contracts@3.2.0/contracts/math/SafeMath.sol";
 
-contract NFTFactory is Ownable, CloneFactory {
+contract NFTFactory is Owned, CloneFactory {
     using SafeMath for uint256;
 
     address public nftTemplate;
@@ -22,11 +22,12 @@ contract NFTFactory is Ownable, CloneFactory {
 
     function initNFTFactory(address _nftTemplate, uint256 _minimumFee, address payable _fundWallet)
         public
-        onlyOwner
     {
         nftTemplate = _nftTemplate;
         minimumFee = _minimumFee;
         fundWallet = _fundWallet;
+        _initOwned(msg.sender);
+
     }
 
     function deployNFT(string memory _name, string memory _symbol)
@@ -61,7 +62,7 @@ contract NFTFactory is Ownable, CloneFactory {
         return nfts.length;
     }
 
-    function withdrawFund() public onlyOwner {
+    function withdrawFunds() public onlyOwner {
         fundWallet.transfer(address(this).balance);
     }
 

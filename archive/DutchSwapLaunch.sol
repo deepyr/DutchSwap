@@ -48,7 +48,7 @@ pragma solidity ^0.6.9;
 
 import "./Utils/Owned.sol";
 
-import "./OpenZeppelin/SafeMath.sol";
+import "./Utils/SafeMathPlus.sol";
 import "./OpenZeppelin/Address.sol";
 import "./OpenZeppelin/Context.sol";
 

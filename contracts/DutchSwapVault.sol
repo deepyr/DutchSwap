@@ -1,6 +1,6 @@
 pragma solidity ^0.6.9;
 
-import "./OpenZeppelin/SafeMath.sol";
+import "./Utils/SafeMathPlus.sol";
 import "../interfaces/IERC20.sol";
 import "../interfaces/IDutchAuction.sol";
                                                             
@@ -60,7 +60,7 @@ import "../interfaces/IDutchAuction.sol";
 
 contract DutchSwapVault {
 
-    using SafeMath for uint256;
+    using SafeMathPlus for uint256;
     uint256 private constant TENPOW18 = 10 ** 18;
     /// @dev The placeholder ETH address.
     address private constant ETH_ADDRESS = 0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE;

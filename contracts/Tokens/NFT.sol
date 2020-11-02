@@ -1,9 +1,9 @@
 pragma solidity ^0.6.9;
 
-import "OpenZeppelin/openzeppelin-contracts@3.2.0/contracts/access/Ownable.sol";
+import "../Utils/Owned.sol";
 import "./ERC721Base.sol";
 
-contract NFT is Ownable, ERC721Base {
+contract NFT is Owned, ERC721Base {
     using SafeMath for uint256;
 
     struct Token {
@@ -25,6 +25,7 @@ contract NFT is Ownable, ERC721Base {
     function initNFT(string memory _name, string memory _symbol) public {
         require(!initialised);
         initERC721(_name, _symbol);
+        _initOwned(msg.sender);
         tokenId = 0;
         initialised = true;
     }

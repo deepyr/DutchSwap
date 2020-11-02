@@ -6,7 +6,7 @@ pragma solidity ^0.6.9;
  *
  * See: https://github.com/OpenZeppelin/openzeppelin-contracts
  */
-library SafeMath {
+library SafeMathPlus {
     function add(uint256 a, uint256 b) internal pure returns (uint256) {
         uint256 c = a + b;
         require(c >= a, "SafeMath: addition overflow");

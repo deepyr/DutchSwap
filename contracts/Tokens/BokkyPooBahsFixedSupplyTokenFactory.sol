@@ -13,9 +13,9 @@ pragma solidity ^0.6.9;
 // Enjoy. (c) BokkyPooBah / Bok Consulting Pty Ltd 2019. The MIT Licence.
 // ----------------------------------------------------------------------------
 
-import "./OpenZeppelin/SafeMath.sol";
-import "./Utils/Owned.sol";
-import "../interfaces/IERC20.sol";
+import "../Utils/SafeMathPlus.sol";
+import "../Utils/Owned.sol";
+import "../../interfaces/IERC20.sol";
 
 
 // ----------------------------------------------------------------------------
@@ -40,7 +40,7 @@ interface TokenInterface is IERC20 {
 // FixedSupplyToken 👊 = ERC20 + symbol + name + decimals + approveAndCall
 // ----------------------------------------------------------------------------
 contract FixedSupplyToken is TokenInterface, Owned {
-    using SafeMath for uint;
+    using SafeMathPlus for uint;
 
     string _symbol;
     string  _name;
@@ -139,7 +139,7 @@ contract FixedSupplyToken is TokenInterface, Owned {
 //   totalSupply    the fixed token total supply
 // ----------------------------------------------------------------------------
 contract BokkyPooBahsFixedSupplyTokenFactory is Owned {
-    using SafeMath for uint;
+    using SafeMathPlus for uint;
 
     address public newAddress;
     uint public minimumFee = 0.1 ether;
