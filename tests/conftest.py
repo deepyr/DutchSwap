@@ -84,3 +84,39 @@ def dutch_auction(DutchSwapAuction, auction_factory, auction_token):
 #     assert dutch_auction.auctionPrice() == AUCTION_START_PRICE
 #     chain.sleep(10)
 #     return dutch_auction
+
+
+##############################################
+# NFT
+##############################################
+
+
+@pytest.fixture(scope='module', autouse=True)
+def nft(NFT):
+    nft = NFT.deploy({'from': accounts[0]})
+
+    name = 'Non Fungible Token'
+    symbol = 'NFT'
+
+    nft.initNFT(
+               name
+               , symbol
+               , {"from": accounts[0]})
+    assert nft.name() == name
+    assert nft.symbol() == symbol
+    assert nft.owner() == accounts[0]
+
+    return nft
+
+@pytest.fixture(scope='module', autouse=True)
+def nft_factory(NFTFactory, nft):
+    nft_factory = NFTFactory.deploy({'from': accounts[0]})
+    minimum_fee = 0.1 * TENPOW18
+    fund_wallet = accounts[1]
+    nft_factory.initNFTFactory(nft, minimum_fee, fund_wallet, {'from': accounts[0]})
+    
+    assert nft_factory.minimumFee() == minimum_fee
+    assert nft_factory.nftTemplate() == nft
+    assert nft_factory.fundWallet() == fund_wallet
+
+    return nft_factory
