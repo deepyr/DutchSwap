@@ -20,7 +20,7 @@ pragma solidity ^0.6.9;
 //:::::01100100:01100101:01100101:01110000:01111001:01110010:::::::::::
 //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 //
-// DutchSwap Auction V1.3
+// DutchSwap Auction V1.3.1
 //   Copyright (c) 2020 DutchSwap.com
 //
 // This program is free software: you can redistribute it and/or modify
@@ -291,18 +291,17 @@ contract DutchSwapAuction  {
             /// @dev Transfer contributed tokens to wallet.
             _tokenPayment(paymentCurrency, wallet, commitmentsTotal);
         }
-        else if ( commitmentsTotal == 0 )
+        else if ( commitmentsTotal == 0 && block.timestamp < startDate )
         {
             /// @dev Cancelled Auction
             /// @dev You can cancel the auction before it starts
-            require(block.timestamp <= startDate );            // Auction already started
             _tokenPayment(auctionToken, wallet, totalTokens);
         }
         else
         {
             /// @dev Failed auction
             /// @dev Return auction tokens back to wallet.
-            require(block.timestamp > endDate );               // Auction not yet finished
+            require(block.timestamp > endDate, "Auction not finished yet" );    
             _tokenPayment(auctionToken, wallet, totalTokens);
         }
         finalised = true;
@@ -314,7 +313,7 @@ contract DutchSwapAuction  {
         {
             /// @dev Successful auction! Transfer claimed tokens.
             uint256 tokensToClaim = tokensClaimable(msg.sender);
-            require(tokensToClaim > 0 );                      // No tokens to claim
+            require(tokensToClaim > 0, "No tokens to claim");      
             claimed[ msg.sender] = claimed[ msg.sender].add(tokensToClaim);
             tokenWithdrawn = tokenWithdrawn.add(tokensToClaim);
             _tokenPayment(auctionToken, msg.sender, tokensToClaim);

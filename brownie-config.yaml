@@ -20,6 +20,8 @@ compiler:
         version: null
         optimize: true
         runs: 200
+        remappings:
+          - "@openzeppelin=OpenZeppelin/openzeppelin-contracts@3.2.0"
 dependencies:
     - OpenZeppelin/openzeppelin-contracts@3.2.0
 colors:

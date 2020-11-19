@@ -54,6 +54,7 @@ contract DutchSwapFactory is  Owned, CloneFactory {
     address[] public auctions;
 
     event DutchAuctionDeployed(address indexed owner, address indexed addr, address dutchAuction, uint256 fee);
+    
     event CustomAuctionDeployed(address indexed owner, address indexed addr);
 
     event AuctionRemoved(address dutchAuction, uint256 index );

@@ -1,6 +1,6 @@
 pragma solidity ^0.6.9;
 
-import "./OpenZeppelin/SafeMath.sol";
+import "../contracts/Utils/SafeMathPlus.sol";
 import "../interfaces/IERC20.sol";
 import "../interfaces/IDutchAuction.sol";
                                                             

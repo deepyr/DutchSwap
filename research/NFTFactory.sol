@@ -4,7 +4,7 @@ import "../Utils/CloneFactory.sol";
 import "../../interfaces/INFT.sol";
 import "./NFT.sol";
 import "../Utils/Owned.sol";
-import "OpenZeppelin/openzeppelin-contracts@3.2.0/contracts/math/SafeMath.sol";
+import "../Utils/SafeMathPlus.sol";
 
 contract NFTFactory is Owned, CloneFactory {
     using SafeMath for uint256;
