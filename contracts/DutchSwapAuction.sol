@@ -11,7 +11,7 @@ pragma solidity ^0.6.9;
 //::::::.......: =Q@y....:::....:::......::...:::...:::::::::::::::::::
 //:::::::::::::: h@W? sWAP@! 'DW;:::::: KK. ydSWAP@t: NNKNQBdt:::::::::
 //:::::::::::::: 'zqRqj*. L@R h@w: QQ: L@5 Q@... d@@: @@U... @Q::::::::
-//:::::::::::::::::...... Q@^ ^@@N@wt@BQ@ <@Q^::: @@: @@}::: @@:::::::: 
+//:::::::::::::::::...... Q@^ ^@@N@wt@BQ@ <@Q^::: @@: @@}::: @@::::::::
 //:::::::::::::::::: U@@QKt... D@@L.. B@Q.. KDUTCH@Q: @@QQ#QQq:::::::::
 //:::::::::::::::::::.....::::::...:::...::::.......: @@!.....:::::::::
 //::::::::::::::::::::::::::::::::::::::::::::::::::: @@!::::::::::::::
@@ -33,7 +33,7 @@ pragma solidity ^0.6.9;
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with this program.  
+// along with this program.
 // If not, see <https://github.com/deepyr/DutchSwap/>.
 //
 // The above copyright notice and this permission notice shall be
@@ -43,11 +43,12 @@ pragma solidity ^0.6.9;
 // * Adrian Guerrera / Deepyr Pty Ltd
 //
 // ---------------------------------------------------------------------
-// SPDX-License-Identifier: GPL-3.0-or-later                        
+// SPDX-License-Identifier: GPL-3.0-or-later
 // ---------------------------------------------------------------------
 
 
 import "./Utils/SafeMathPlus.sol";
+import "./Interfaces/IPermit.sol";
 
 contract DutchSwapAuction  {
 
@@ -63,7 +64,7 @@ contract DutchSwapAuction  {
     uint256 public priceDrop; // Price reduction from startPrice at endDate
     uint256 public commitmentsTotal;
     uint256 public tokenWithdrawn;  // the amount of auction tokens already withdrawn
-    bool private initialised;    
+    bool private initialised;
     bool public finalised;
     uint256 private constant _NOT_ENTERED = 1;
     uint256 private constant _ENTERED = 2;
@@ -104,7 +105,7 @@ contract DutchSwapAuction  {
         require(!initialised);                // Already Initialised
         require(_endDate > _startDate);       // End date earlier than start date
         require(_minimumPrice > 0);           // Minimum price must be greater than 0
-        
+
         auctionToken = _token;
         paymentCurrency = _paymentCurrency;
 
@@ -143,12 +144,12 @@ contract DutchSwapAuction  {
 
 
 
-    /// @notice The average price of each token from all commitments. 
+    /// @notice The average price of each token from all commitments.
     function tokenPrice() public view returns (uint256) {
         return commitmentsTotal.mul(1e18).div(totalTokens);
     }
 
-      /// @notice Returns price during the auction 
+      /// @notice Returns price during the auction
     function priceFunction() public view returns (uint256) {
         /// @dev Return Auction Price
         if (block.timestamp <= startDate) {
@@ -180,7 +181,7 @@ contract DutchSwapAuction  {
         return commitmentsTotal.mul(1e18).div(clearingPrice());
     }
 
-    /// @notice Total amount of tokens remaining 
+    /// @notice Total amount of tokens remaining
     function tokensRemaining() public view returns (uint256) {
         uint256 totalCommitted = totalTokensCommitted();
         if (totalCommitted >= totalTokens ) {
@@ -198,10 +199,10 @@ contract DutchSwapAuction  {
     }
 
     //--------------------------------------------------------
-    // Commit to buying tokens! 
+    // Commit to buying tokens!
     //--------------------------------------------------------
 
-    /// @notice Buy Tokens by committing ETH to this contract address 
+    /// @notice Buy Tokens by committing ETH to this contract address
     /// @dev Needs extra gas limit for additional state changes
     receive () external payable {
         commitEthFrom(msg.sender);
@@ -212,7 +213,7 @@ contract DutchSwapAuction  {
         commitEthFrom(msg.sender);
     }
 
-    /// @notice Commit ETH to buy tokens for any address 
+    /// @notice Commit ETH to buy tokens for any address
     function commitEthFrom (address payable _from) public payable {
         require(!finalised);                                  // Auction was cancelled
         require(address(paymentCurrency) == ETH_ADDRESS);       // Payment currency is not ETH
@@ -228,6 +229,13 @@ contract DutchSwapAuction  {
         if (ethToRefund > 0) {
             _from.transfer(ethToRefund);
         }
+    }
+
+    /// @notice Permit and Commit ERC20 tokens to buy tokens on sale
+    function commitTokensFromWithPermit(address owner, uint value, uint deadline, uint8 v, bytes32 r, bytes32 s) public {
+        IPermit tokenWithPermit = IPermit(paymentCurrency);
+        tokenWithPermit.permit(owner, address(this), deadline, v, r, s);
+        commitTokensFrom(owner, _amount);
     }
 
     /// @notice Commit approved ERC20 tokens to buy tokens on sale
@@ -247,8 +255,8 @@ contract DutchSwapAuction  {
     }
 
     /// @notice Returns the amout able to be committed during an auction
-    function calculateCommitment( uint256 _commitment) 
-        public view returns (uint256 committed) 
+    function calculateCommitment( uint256 _commitment)
+        public view returns (uint256 committed)
     {
         uint256 maxCommitment = totalTokens.mul(clearingPrice()).div(1e18);
         if (commitmentsTotal.add(_commitment) > maxCommitment) {
@@ -282,10 +290,10 @@ contract DutchSwapAuction  {
     }
 
     /// @notice Auction finishes successfully above the reserve
-    /// @dev Transfer contract funds to initialised wallet. 
+    /// @dev Transfer contract funds to initialised wallet.
     function finaliseAuction () public nonReentrant {
         require(!finalised);                                  // Auction already finalised
-        if( auctionSuccessful() ) 
+        if( auctionSuccessful() )
         {
             /// @dev Successful auction
             /// @dev Transfer contributed tokens to wallet.
@@ -301,7 +309,7 @@ contract DutchSwapAuction  {
         {
             /// @dev Failed auction
             /// @dev Return auction tokens back to wallet.
-            require(block.timestamp > endDate, "Auction not finished yet" );    
+            require(block.timestamp > endDate, "Auction not finished yet" );
             _tokenPayment(auctionToken, wallet, totalTokens);
         }
         finalised = true;
@@ -309,16 +317,16 @@ contract DutchSwapAuction  {
 
     /// @notice Withdraw your tokens once the Auction has ended.
     function withdrawTokens() public nonReentrant {
-        if( auctionSuccessful() ) 
+        if( auctionSuccessful() )
         {
             /// @dev Successful auction! Transfer claimed tokens.
             uint256 tokensToClaim = tokensClaimable(msg.sender);
-            require(tokensToClaim > 0, "No tokens to claim");      
+            require(tokensToClaim > 0, "No tokens to claim");
             claimed[ msg.sender] = claimed[ msg.sender].add(tokensToClaim);
             tokenWithdrawn = tokenWithdrawn.add(tokensToClaim);
             _tokenPayment(auctionToken, msg.sender, tokensToClaim);
         }
-        else 
+        else
         {
             /// @dev Auction did not meet reserve price.
             /// @dev Return committed funds back to user.
@@ -327,7 +335,7 @@ contract DutchSwapAuction  {
             require(fundsCommitted > 0);                      // No funds committed
 
             commitments[msg.sender] = 0;     // Stop multiple withdrawals and free some gas
-            _tokenPayment(paymentCurrency, msg.sender, fundsCommitted);       
+            _tokenPayment(paymentCurrency, msg.sender, fundsCommitted);
         }
     }
 
@@ -344,7 +352,7 @@ contract DutchSwapAuction  {
             // 0xa9059cbb = bytes4(keccak256("transferFrom(address,address,uint256)"))
             abi.encodeWithSelector(0xa9059cbb, to, amount)
         );
-        require(success && (data.length == 0 || abi.decode(data, (bool)))); // ERC20 Transfer failed 
+        require(success && (data.length == 0 || abi.decode(data, (bool)))); // ERC20 Transfer failed
     }
 
     function _safeTransferFrom(address token, address from, uint256 amount) internal {
@@ -353,7 +361,7 @@ contract DutchSwapAuction  {
             // 0x23b872dd = bytes4(keccak256("transferFrom(address,address,uint256)"))
             abi.encodeWithSelector(0x23b872dd, from, address(this), amount)
         );
-        require(success && (data.length == 0 || abi.decode(data, (bool)))); // ERC20 TransferFrom failed 
+        require(success && (data.length == 0 || abi.decode(data, (bool)))); // ERC20 TransferFrom failed
     }
 
     /// @dev Helper function to handle both ETH and ERC20 payments
