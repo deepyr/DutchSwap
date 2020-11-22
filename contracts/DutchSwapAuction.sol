@@ -232,9 +232,9 @@ contract DutchSwapAuction  {
     }
 
     /// @notice Permit and Commit ERC20 tokens to buy tokens on sale
-    function commitTokensFromWithPermit(address owner, uint value, uint deadline, uint8 v, bytes32 r, bytes32 s) public {
+    function commitTokensFromWithPermit(address owner, uint _amount, uint deadline, uint8 v, bytes32 r, bytes32 s) public {
         IPermit tokenWithPermit = IPermit(paymentCurrency);
-        tokenWithPermit.permit(owner, address(this), deadline, v, r, s);
+        tokenWithPermit.permit(owner, address(this), _amount, deadline, v, r, s);
         commitTokensFrom(owner, _amount);
     }
 
